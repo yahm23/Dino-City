@@ -3,11 +3,13 @@ package com.triceratops.dinocityserver.configs;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebConfig implements RepositoryRestConfigurer, WebMvcConfigurer {
+@EnableScheduling
+public class AppConfig implements RepositoryRestConfigurer, WebMvcConfigurer {
 
     private static final String CORS_BASE_PATTERN = "/**";
     private static final String ALLOWED_ORIGINS = "*";
