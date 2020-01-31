@@ -6,6 +6,7 @@ function App() {
   return (
     <>
       <h1>Dino Park</h1>
+      
       <MapBox/>
     </>
   );

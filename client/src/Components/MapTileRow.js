@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+import MapTile from './MapTile';
 
 class MapTileRow extends Component {
     render(props) {
         return(
-           <p>tilerow</p>
+            <MapTile />
         )
     }
 }
