@@ -1,5 +1,6 @@
 package com.triceratops.dinocityserver.models.enums;
 
+
 public enum DinoType {
     TYRANNOSAURUS("Tyrannosaurus",20, DietType.CARNIVORE, 3000.0, ThreatLevel.HIGH),
     ALBERTOSAURUS("Albertosaurus", 15, DietType.CARNIVORE,, 2500.0, ThreatLevel.HIGH),
@@ -16,9 +17,33 @@ public enum DinoType {
     EDMONTOSAURUS("Edmontosaurus", 15, DietType.HERBIVORE, 2000.0, ThreatLevel.MEDIUM),
     STEGOSAURUS("Stegosaurus", 15, DietType.HERBIVORE, 1800.0, ThreatLevel.MEDIUM),
     STEGOCERAS("Stegoceras", 10, DietType.HERBIVORE, 1500.0, ThreatLevel.LOW),
-    HOMALOCEPHALE("Homalocephale", 4, DietType.HERBIVORE, 1000.0, ThreatLevel.LOW);
+    HOMALOCEPHALE("Homalocephale", 4, DietType.HERBIVORE, 1000.0, ThreatLevel.LOW );
 
 
-    DinoType(String tyrannosaurus, int i, DietType carnivore, double v, ThreatLevel high) {
+    public String name;
+    public int size;
+    private ThreatLevel threatLevel = null;
+    private double price;
+
+    DinoType(String name, int size, DietType diet, double price, ThreatLevel threatLevel) {
+        this.name = name;
+        this.size =size;
+        this.threatLevel = threatLevel;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public ThreatLevel getThreatLevel() {
+        return threatLevel;
+    }
+
+    public double getPrice() {
+        return price;
     }
 }
