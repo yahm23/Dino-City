@@ -1,5 +1,7 @@
-package com.triceratops.dinocityserver.models;
+package com.triceratops.dinocityserver.models.buildings;
 
+
+import com.triceratops.dinocityserver.models.Dinosaur;
 
 import javax.persistence.*;
 
@@ -16,6 +18,8 @@ public class Enclosure {
 
     @Column(name="dinosaurs")
     private ArrayList<Dinosaur> dinosaurs;
+
+    @Column(name="")
 
 
 
