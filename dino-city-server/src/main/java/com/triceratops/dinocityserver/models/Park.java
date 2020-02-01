@@ -53,7 +53,11 @@ public class Park {
     }
 
     public int calculatePopulation() {
+        int counter = 0;
+        for(Enclosure enclosure: enclosures){
+            counter += enclosure.getDinosaurs().size();
+        }
 
-        return 0;
+        return counter;
     }
 }
