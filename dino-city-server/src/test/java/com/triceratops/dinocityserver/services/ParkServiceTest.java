@@ -39,12 +39,21 @@ public class ParkServiceTest {
         assertEquals(expectedStats.getIncome(), actualStats.getIncome(), 0.1);
         assertEquals(expectedStats.getPopulation(), actualStats.getPopulation());
     }
-        @Test
-        public void shouldBeAbleToBuyAnEnclosure() {
+
+    @Test
+    public void shouldBeAbleToBuyAnEnclosure() {
         park.setMoney(10000.00);
         parkService.buyAttraction("LARGE","LOW","AnyNAME");
+        assertEquals(7000.00,park.getMoney(),0.001);
+        assertEquals(2,park.getEnclosures().size());
+    }
 
-       assertEquals(7000.00,park.getMoney(),0.001);
+    @Test
+    public void shouldNotBeAbleToBuyAnEnclosure() {
+        park.setMoney(1000.00);
+        parkService.buyAttraction("LARGE","LOW","AnyNAME");
+        assertEquals(1000.00,park.getMoney(),0.001);
+        assertEquals(1,park.getEnclosures().size());
     }
 
     private Park buildPark() {
