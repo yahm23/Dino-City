@@ -1,5 +1,6 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col';
+import Image from "react-bootstrap/Image";
 
 function MapTile({img, children}) {
 
@@ -10,7 +11,7 @@ const mapImg = (selectedImg) => {
     return(
         <Col>
         <div className="map-tile-wrapper">
-            <img className="map-tile" src={mapImg(img)}></img>
+            <Image className="map-tile" src={mapImg(img)} fluid></Image>
             {children}
         </div>
         </Col>
