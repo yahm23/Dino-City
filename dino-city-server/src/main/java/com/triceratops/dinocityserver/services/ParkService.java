@@ -9,6 +9,8 @@ import com.triceratops.dinocityserver.repositories.ParkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class ParkService {
 
@@ -17,6 +19,14 @@ public class ParkService {
     @Autowired
     public ParkService(ParkRepository parkRepository) {
         this.parkRepository = parkRepository;
+    }
+
+    public Park addPark(String name){
+        Park park = new Park();
+        park.setMoney(10000);
+        park.setEnclosures(new ArrayList<>());
+        park.setName(name);
+        return parkRepository.save(park);
     }
 
     public Park getParkByName(String name) {

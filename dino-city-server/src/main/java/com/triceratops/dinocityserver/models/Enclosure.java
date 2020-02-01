@@ -1,10 +1,12 @@
 package com.triceratops.dinocityserver.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.triceratops.dinocityserver.behaviours.IPurchasable;
 import com.triceratops.dinocityserver.models.Dinosaur;
 import com.triceratops.dinocityserver.models.enums.SecurityLevel;
 import com.triceratops.dinocityserver.models.enums.SizeType;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -20,7 +22,9 @@ public class Enclosure   {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="dinosaurs")
+    @JsonIgnoreProperties("enclosure")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    @OneToMany(mappedBy = "enclosure",fetch = FetchType.LAZY)
     private List<Dinosaur> dinosaurs;
 
     @Column(name="size")
@@ -28,6 +32,11 @@ public class Enclosure   {
 
     @Column(name = "securityLevel")
     private SecurityLevel securitylevel;
+
+    @JsonIgnoreProperties("enclosures")
+    @ManyToOne
+    @JoinColumn(name="park_id",nullable = false)
+    private Park park;
 
     public Enclosure(){}
 

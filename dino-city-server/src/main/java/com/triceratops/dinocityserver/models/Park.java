@@ -20,11 +20,15 @@ public class Park {
     @Column(name="money")
     private double money;
 
-    @JsonIgnoreProperties("dinosaurs")
+    @JsonIgnoreProperties("park")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     @OneToMany(mappedBy = "park",fetch = FetchType.LAZY)
     private List<Enclosure> enclosures;
 
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Park(double money, String name, List<Enclosure> enclosures) {
         this.money = money;

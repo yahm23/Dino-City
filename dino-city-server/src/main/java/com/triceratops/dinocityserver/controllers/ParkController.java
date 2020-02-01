@@ -29,4 +29,9 @@ public class ParkController {
     public ParkStats getParkStats(@PathVariable String name) {
         return parkService.getParkStats(name);
     }
+
+    @RequestMapping(value="/new/{name}",method = RequestMethod.GET)
+    public Park addPark(@PathVariable String name){
+        return parkService.addPark(name);
+    }
 }

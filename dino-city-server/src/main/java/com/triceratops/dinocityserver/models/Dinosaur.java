@@ -1,5 +1,6 @@
 package com.triceratops.dinocityserver.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.triceratops.dinocityserver.models.enums.DinoType;
 
 import javax.persistence.*;
@@ -14,6 +15,11 @@ public class Dinosaur {
 
     @Column(name = "species")
     private DinoType species;
+
+    @JsonIgnoreProperties("dinosaurs")
+    @ManyToOne
+    @JoinColumn(name="enclosure_id",nullable = false)
+    private Enclosure enclosure;
 
     public Dinosaur(){}
 
