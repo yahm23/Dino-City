@@ -1,6 +1,7 @@
 package com.triceratops.dinocityserver.models;
 
 
+import com.triceratops.dinocityserver.behaviours.IPurchasable;
 import com.triceratops.dinocityserver.models.Dinosaur;
 import com.triceratops.dinocityserver.models.enums.SecurityLevel;
 import com.triceratops.dinocityserver.models.enums.SizeType;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "enclosure")
-public class Enclosure {
+public class Enclosure   {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

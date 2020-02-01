@@ -10,8 +10,6 @@ import java.util.List;
 @Table(name =  "parks")
 public class Park {
 
-    private double initialMoney = 10000.00;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,8 +26,8 @@ public class Park {
     private List<Enclosure> enclosures;
 
 
-    public Park(String name, List<Enclosure> enclosures) {
-        this.money = initialMoney;
+    public Park(double money, String name, List<Enclosure> enclosures) {
+        this.money = money;
         this.enclosures = enclosures;
         this.name = name;
     }
@@ -45,6 +43,10 @@ public class Park {
         return money;
     }
 
+    public List<Enclosure> getEnclosures() {
+        return enclosures;
+    }
+
     public void setMoney(double money) {
         this.money = money;
     }
@@ -53,17 +55,8 @@ public class Park {
         this.enclosures = enclosures;
     }
 
-    public double calculateIncome() {
-        double income = this.getMoney() - initialMoney;
-        return income;
+    public void addEnclosure(Enclosure enclosure){
+        this.enclosures.add(enclosure);
     }
 
-    public int calculatePopulation() {
-        int counter = 0;
-        for(Enclosure enclosure: enclosures){
-            counter += enclosure.getDinosaurs().size();
-        }
-
-        return counter;
-    }
 }
