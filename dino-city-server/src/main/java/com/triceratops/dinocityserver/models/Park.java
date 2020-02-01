@@ -1,11 +1,16 @@
 package com.triceratops.dinocityserver.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name =  "parks")
 public class Park {
+
+    private double initialMoney = 10000.00;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,12 +22,13 @@ public class Park {
     @Column(name="money")
     private double money;
 
-    @Column(name="enclosures")
+    @JsonIgnoreProperties("dinosaurs")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    @OneToMany(mappedBy = "park",fetch = FetchType.LAZY)
     private List<Enclosure> enclosures;
 
-    private double initialMoney = 10000.00;
 
-    public Park( String name, List<Enclosure> enclosures) {
+    public Park(String name, List<Enclosure> enclosures) {
         this.money = initialMoney;
         this.enclosures = enclosures;
         this.name = name;
