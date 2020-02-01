@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
 import MapTile from './MapTile';
+import Row from 'react-bootstrap/Row';
 
-class MapTileRow extends Component {
-    render(props) {
+
+function MapTileRow ({children}) {
         return(
-            <MapTile />
+            <Row>
+                {children}
+            </Row>
         )
     }
-}
+
 export default MapTileRow;

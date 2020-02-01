@@ -1,8 +1,13 @@
 import React from 'react';
 import MapTileRow from './MapTileRow';
 import MapTile from './MapTile';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
-function MapBox() {
+
+
+function MapBox({children}) {
 
         const path = [
             '/tiles/grass_01.jpg',
@@ -13,29 +18,14 @@ function MapBox() {
             '/tiles/grass_06.jpg'
         ]
 
-        const path2 = [
-            '/enclousers/enclouser_01.jpg',
-            '/enclousers/enclouser_02.jpg',
-            '/enclousers/enclouser_03.jpg',
-            '/enclousers/enclouser_04.jpg',
-            '/enclousers/enclouser_05.jpg',
-            '/enclousers/enclouser_06.jpg'
-        ]
+        const enclouser = '/enclousers/enclouser.png';
 
+        
 
         return(
-            <>
-                <div>
-                    <MapTile img={path[0]}/>
-                    <MapTile img={path2[1]}/>
-                    <MapTile img={path[2]}/>
-                </div>
-                <div>
-                    <MapTile img={path[3]}/>
-                    <MapTile img={path[4]}/>
-                    <MapTile img={path2[5]}/>
-                </div>
-            </>
+            <Container>
+                {children}
+            </Container>
         )
 }
 export default MapBox;

@@ -11,3 +11,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+button {
+  position: absolute;
+  bottom: 50%;
+  left: 46%;
+  z-index: 2;
+}
+
+.map {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.map-row {
+  display: flex;
+  max-height: 45vh ;
+}
+
+.map-tile-wrapper {
+  width: 100%;
+}
+
+img.map-tile {
+  width: 100%;
+  max-height: auto;
+}
+div.col{
+  padding: 0px;
+}
