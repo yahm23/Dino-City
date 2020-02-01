@@ -8,6 +8,7 @@ import DinoPopup from "./Components/DinoPopup";
 
 function App() {
     const [showPopup, setShowPopup] = useState(false);
+    const [park, setPark] = useState({money: 3000});
 
     const handleOnOpenPopup = () => {
         setShowPopup(true);
