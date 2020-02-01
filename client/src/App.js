@@ -3,11 +3,14 @@ import Button from 'react-bootstrap/Button';
 import MapBox from './Components/MapBox';
 import MapTileRow from './Components/MapTileRow';
 import MapTile from './Components/MapTile';
+import Enclosure from './Components/Enclosure';
 
 function App() {
   return (
     <>
       <h1>Dino Park</h1>
+      <Enclosure />
+
       <MapBox>
         <MapTileRow>
             <MapTile img={"grass_01"}></MapTile>
@@ -23,5 +26,8 @@ function App() {
     </>
   );
 }
+
+
+
 
 export default App;
