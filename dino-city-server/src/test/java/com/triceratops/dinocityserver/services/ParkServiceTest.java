@@ -4,6 +4,7 @@ import com.triceratops.dinocityserver.models.Dinosaur;
 import com.triceratops.dinocityserver.models.Enclosure;
 import com.triceratops.dinocityserver.models.Park;
 import com.triceratops.dinocityserver.models.ParkStats;
+import com.triceratops.dinocityserver.models.enums.SizeType;
 import com.triceratops.dinocityserver.repositories.ParkRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class ParkServiceTest {
 
     @Test
     public void shouldBuildTheCorrectPopulation() {
-        ParkStats expectedStats = new ParkStats(1000.0, 100, 2);
+        ParkStats expectedStats = new ParkStats(1000.0, 10000, 2);
         ParkStats actualStats = parkService.getParkStats("anyName");
         assertEquals(expectedStats.getMoney(), actualStats.getMoney(), 0.1);
         assertEquals(expectedStats.getIncome(), actualStats.getIncome(), 0.1);
@@ -52,5 +53,10 @@ public class ParkServiceTest {
         enclosures.add(enclosure);
         park.setEnclosures(enclosures);
         return park;
+    }
+
+    @Test
+    public void buyAttraction() {
+
     }
 }
