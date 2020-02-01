@@ -1,4 +1,8 @@
 package com.triceratops.dinocityserver.repositories;
 
-public interface DinosaurRepository {
+import com.triceratops.dinocityserver.models.Dinosaur;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DinosaurRepository extends JpaRepository<Dinosaur,Long> {
+
 }

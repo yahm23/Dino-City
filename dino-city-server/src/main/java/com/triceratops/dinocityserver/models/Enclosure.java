@@ -1,4 +1,4 @@
-package com.triceratops.dinocityserver.models.buildings;
+package com.triceratops.dinocityserver.models;
 
 
 import com.triceratops.dinocityserver.models.Dinosaur;
@@ -9,30 +9,31 @@ import javax.persistence.*;
 
 import javax.persistence.Entity;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "enclosure")
-public class Enclosure extends Building{
+public class Enclosure {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="dinosaurs")
-    private ArrayList<Dinosaur> dinosaurs;
+    private List<Dinosaur> dinosaurs;
 
     @Column(name="size")
     private SizeType size;
 
     @Column(name = "securityLevel")
-    private SecurityLevel securityLevel;
+    private SecurityLevel securitylevel;
 
     public Enclosure(){}
 
-    public Enclosure(ArrayList<Dinosaur> dinosaurs, SizeType size, SecurityLevel securityLevel) {
-        this.dinosaurs = dinosaurs;
+    public Enclosure (SizeType size, SecurityLevel securityLevel) {
+        this.dinosaurs = new ArrayList<>();
         this.size = size;
-        this.securityLevel = securityLevel;
+        this.securitylevel = securityLevel;
     }
 
     public Long getId() {
@@ -40,11 +41,15 @@ public class Enclosure extends Building{
     }
 
 
-    public ArrayList<Dinosaur> getDinosaurs() {
+    public List<Dinosaur> getDinosaurs() {
         return dinosaurs;
     }
 
-    public void setDinosaurs(ArrayList<Dinosaur> dinosaurs) {
+    public void addDinosaur(Dinosaur dinosaur){
+        dinosaurs.add(dinosaur);
+    };
+
+    public void setDinosaurs(List<Dinosaur> dinosaurs) {
         this.dinosaurs = dinosaurs;
     }
 
@@ -57,10 +62,10 @@ public class Enclosure extends Building{
     }
 
     public SecurityLevel getSecurityLevel() {
-        return securityLevel;
+        return securitylevel;
     }
 
     public void setSecurityLevel(SecurityLevel securityLevel) {
-        this.securityLevel = securityLevel;
+        this.securitylevel = securityLevel;
     }
 }
