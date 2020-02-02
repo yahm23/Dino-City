@@ -30,6 +30,9 @@ public class Enclosure   {
     @Column(name="size")
     private SizeType size;
 
+    @Column(name="positionId")
+    private int positionId;
+
     @Column(name = "securityLevel")
     private SecurityLevel securitylevel;
 
@@ -40,10 +43,11 @@ public class Enclosure   {
 
     public Enclosure(){}
 
-    public Enclosure (SizeType size, SecurityLevel securityLevel) {
+    public Enclosure (SizeType size, SecurityLevel securityLevel, int positionId) {
         this.dinosaurs = new ArrayList<>();
         this.size = size;
         this.securitylevel = securityLevel;
+        this.positionId = positionId;
     }
 
     public Long getId() {

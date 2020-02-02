@@ -1,5 +1,6 @@
 package com.triceratops.dinocityserver.controllers;
 
+import com.triceratops.dinocityserver.models.Enclosure;
 import com.triceratops.dinocityserver.models.Park;
 import com.triceratops.dinocityserver.models.ParkStats;
 import com.triceratops.dinocityserver.services.ParkService;
@@ -33,5 +34,11 @@ public class ParkController {
     @RequestMapping(value="/new/{name}",method = RequestMethod.GET)
     public Park addPark(@PathVariable String name){
         return parkService.addPark(name);
+    }
+
+    @RequestMapping(value="/new/enclosure/{name}/{size}/{security}/{positionId}", method = RequestMethod.POST )
+    public void addEnclosureToPark(@PathVariable String name, @PathVariable String size, @PathVariable String security, @PathVariable int positionId){
+        parkService.buyEnclosure(name,size,security,positionId);
+
     }
 }

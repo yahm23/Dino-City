@@ -41,7 +41,7 @@ public class ParkService {
         return new ParkStats(money, income, population);
     }
 
-    public void buyAttraction(String size, String security,String name){
+    public void buyEnclosure(String name, String size, String security, int positionId){
         Park park = parkRepository.findParkByName(name);
         SizeType enumSize =  SizeType.valueOf(size);
         SecurityLevel enumSecurity =  SecurityLevel.valueOf(security);
@@ -51,7 +51,7 @@ public class ParkService {
         if(moneyAvailable>= costOfEnclosure){
             double newMoney = moneyAvailable - costOfEnclosure;
             park.setMoney(newMoney);
-            Enclosure enclosure = new Enclosure(enumSize,enumSecurity);
+            Enclosure enclosure = new Enclosure(enumSize,enumSecurity,positionId);
             park.addEnclosure(enclosure);
         }
     }
