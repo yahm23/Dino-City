@@ -24,4 +24,9 @@ public class EnclosureService {
     public EnclosureTypeResponse getEnclosuresTypes() {
         return new EnclosureTypeResponse(SizeType.values(), SecurityLevel.values());
     }
+
+    public void addEnclosure(SizeType sizeType, SecurityLevel securityLevel, int positionId ){
+        Enclosure enclosure = new Enclosure(sizeType,securityLevel,positionId);
+        enclosureRepository.save(enclosure);
+    }
 }

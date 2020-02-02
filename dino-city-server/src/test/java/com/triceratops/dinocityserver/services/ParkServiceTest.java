@@ -5,6 +5,7 @@ import com.triceratops.dinocityserver.models.Enclosure;
 import com.triceratops.dinocityserver.models.Park;
 import com.triceratops.dinocityserver.models.ParkStats;
 import com.triceratops.dinocityserver.models.enums.SizeType;
+import com.triceratops.dinocityserver.repositories.EnclosureRepository;
 import com.triceratops.dinocityserver.repositories.ParkRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +21,9 @@ import static org.mockito.Mockito.when;
 public class ParkServiceTest {
 
     private ParkService parkService;
+    private EnclosureService enclosureService;
     private Park park;
+    private EnclosureRepository enclosureRepository;
     private ParkRepository parkRepository;
 
     @Before
@@ -28,7 +31,9 @@ public class ParkServiceTest {
         park = buildPark();
         parkRepository = mock(ParkRepository.class);
         when(parkRepository.findParkByName(anyString())).thenReturn(park);
-        parkService = new ParkService(parkRepository);
+        enclosureRepository = mock(EnclosureRepository.class);
+
+        parkService = new ParkService(parkRepository,enclosureRepository);
     }
 
     @Test
