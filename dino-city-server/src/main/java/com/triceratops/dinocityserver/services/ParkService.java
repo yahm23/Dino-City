@@ -21,12 +21,17 @@ public class ParkService {
         this.parkRepository = parkRepository;
     }
 
-    public Park addPark(String name){
-        Park park = new Park();
+    public boolean addPark(String name){
+        Park park = parkRepository.findParkByName(name);
+        if (park != null) {
+            return false;
+        }
+        park = new Park();
         park.setMoney(10000);
         park.setEnclosures(new ArrayList<>());
         park.setName(name);
-        return parkRepository.save(park);
+        parkRepository.save(park);
+        return true;
     }
 
     public Park getParkByName(String name) {

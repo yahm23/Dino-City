@@ -31,7 +31,7 @@ public class ParkController {
     }
 
     @RequestMapping(value="/new/{name}",method = RequestMethod.GET)
-    public Park addPark(@PathVariable String name){
+    public boolean addPark(@PathVariable String name){
         return parkService.addPark(name);
     }
 }
