@@ -18,12 +18,18 @@ function App() {
         setShowPopup(false);
     }
 
+    const buyEnclosure = (size, security) => {
+      console.log(size);
+      console.log(security);     
+      setShowPopup(false);
+    }
+
   return (
     <>
       <h1>Dino Park</h1>
 
         <DinoPopup show={showPopup} handleClose={handleOnClosePopup}>
-            <Enclosure money={park.money}/>
+            <Enclosure money={park.money} buyEnclosure={buyEnclosure}/>
         </DinoPopup>
       <MapBox>
         <MapTileRow>

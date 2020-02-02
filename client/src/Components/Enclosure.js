@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
-function Enclosure({money}) {
+function Enclosure({money, buyEnclosure}) {
 
 
     const [size, setSize] = useState({size: "SMALL", price:2000});
@@ -24,7 +24,7 @@ function Enclosure({money}) {
     }
 
     function handleBuy() {
-        
+        buyEnclosure(size, security);
     }
 
    
