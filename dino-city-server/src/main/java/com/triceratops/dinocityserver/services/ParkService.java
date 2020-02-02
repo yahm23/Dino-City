@@ -53,6 +53,7 @@ public class ParkService {
             park.setMoney(newMoney);
             Enclosure enclosure = new Enclosure(enumSize,enumSecurity,positionId);
             park.addEnclosure(enclosure);
+            parkRepository.save(park);
         }
     }
 
