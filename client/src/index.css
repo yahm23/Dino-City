@@ -13,7 +13,7 @@ code {
 }
 
 
-button {
+.building-btn {
   position: absolute;
   bottom: 50%;
   left: 46%;
@@ -32,12 +32,18 @@ button {
 
 .map-tile-wrapper {
   width: 100%;
+  height: 100%;
+  display: flex;
 }
 
 img.map-tile {
   width: 100%;
-  max-height: auto;
 }
 div.col{
   padding: 0px;
+}
+
+
+.disabled-button {
+  pointer-events: none;
 }
