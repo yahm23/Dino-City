@@ -36,6 +36,14 @@ public class Enclosure   {
     @Column(name = "securityLevel")
     private SecurityLevel securitylevel;
 
+    public Park getPark() {
+        return park;
+    }
+
+    public void setPark(Park park) {
+        this.park = park;
+    }
+
     @JsonIgnoreProperties("enclosures")
     @ManyToOne
     @JoinColumn(name="park_id",nullable = false)

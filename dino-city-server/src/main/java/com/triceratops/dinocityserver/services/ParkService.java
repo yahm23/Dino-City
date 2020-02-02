@@ -5,6 +5,7 @@ import com.triceratops.dinocityserver.models.Park;
 import com.triceratops.dinocityserver.models.ParkStats;
 import com.triceratops.dinocityserver.models.enums.SecurityLevel;
 import com.triceratops.dinocityserver.models.enums.SizeType;
+import com.triceratops.dinocityserver.repositories.EnclosureRepository;
 import com.triceratops.dinocityserver.repositories.ParkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +16,12 @@ import java.util.ArrayList;
 public class ParkService {
 
     private ParkRepository parkRepository;
+    private EnclosureRepository enclosureRepository;
 
     @Autowired
-    public ParkService(ParkRepository parkRepository) {
+    public ParkService(ParkRepository parkRepository, EnclosureRepository enclosureRepository) {
         this.parkRepository = parkRepository;
+        this.enclosureRepository = enclosureRepository;
     }
 
     public boolean addPark(String name){
@@ -57,6 +60,8 @@ public class ParkService {
             double newMoney = moneyAvailable - costOfEnclosure;
             park.setMoney(newMoney);
             Enclosure enclosure = new Enclosure(enumSize,enumSecurity,positionId);
+            enclosure.setPark(park);
+            enclosureRepository.save(enclosure);
             park.addEnclosure(enclosure);
             parkRepository.save(park);
         }
