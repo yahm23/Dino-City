@@ -5,8 +5,9 @@ import MapTileRow from '../Components/MapTileRow';
 import MapTile from '../Components/MapTile';
 import Enclosure from '../Components/Enclosure';
 import DinoPopup from "../Components/DinoPopup";
+import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 
-function GamePage() {
+function GamePage({parkName}) {
     const [showPopup, setShowPopup] = useState(false);
     const [park, setPark] = useState({money: 12000});
 
@@ -24,8 +25,14 @@ function GamePage() {
       setShowPopup(false);
     }
 
+    function renderRedirect() {
+        return <Redirect to="/" />
+     }
+ 
+
   return (
     <>
+        {!parkName && renderRedirect()}
       <h1>Dino Park</h1>
 
         <DinoPopup show={showPopup} handleClose={handleOnClosePopup}>

@@ -12,6 +12,7 @@ export default function IntroPage({parkName, handleChooseName}) {
     }
 
     function handleStartGame() {
+        fetch(`http://localhost:8080/park/new/${parkName}`)
         setRedirect(true);
     }
 
@@ -27,7 +28,7 @@ export default function IntroPage({parkName, handleChooseName}) {
             <h1>Welcome to dino business</h1>
             <Form.Label>Choose name of your park: </Form.Label>
             <Form.Control onChange={handleNameChange} placeholder="Type your name"/>
-            <Button onClick={handleStartGame} >Start game</Button>
+            <Button onClick={handleStartGame} disabled={!parkName} >Start game</Button>
        </>
     )
 }
