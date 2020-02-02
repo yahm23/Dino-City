@@ -27,7 +27,7 @@ class DinoCityServerApplicationTests {
 	public void dinoListStartsEmpty(){
 
         dino = new Dinosaur(DinoType.TRICERATOPS);
-		enclosure1 = new Enclosure(SizeType.MEDIUM, SecurityLevel.MEDIUM);
+		enclosure1 = new Enclosure(SizeType.MEDIUM, SecurityLevel.MEDIUM,3);
 
 		assertEquals(0,enclosure1.getDinosaurs().size());
 
@@ -38,7 +38,7 @@ class DinoCityServerApplicationTests {
 	public void dinoStartsEmpty(){
 
         dino = new Dinosaur(DinoType.TRICERATOPS);
-		enclosure1 = new Enclosure(SizeType.MEDIUM, SecurityLevel.MEDIUM);
+		enclosure1 = new Enclosure(SizeType.MEDIUM, SecurityLevel.MEDIUM,3);
 
 		assertEquals(0,enclosure1.getDinosaurs().size());
 

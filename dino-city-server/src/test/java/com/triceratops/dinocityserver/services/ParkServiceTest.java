@@ -43,7 +43,7 @@ public class ParkServiceTest {
     @Test
     public void shouldBeAbleToBuyAnEnclosure() {
         park.setMoney(10000.00);
-        parkService.buyAttraction("LARGE","LOW","AnyNAME");
+        parkService.buyEnclosure("ANYNAME","LARGE","LOW",5);
         assertEquals(7000.00,park.getMoney(),0.001);
         assertEquals(2,park.getEnclosures().size());
     }
@@ -51,7 +51,7 @@ public class ParkServiceTest {
     @Test
     public void shouldNotBeAbleToBuyAnEnclosure() {
         park.setMoney(1000.00);
-        parkService.buyAttraction("LARGE","LOW","AnyNAME");
+        parkService.buyEnclosure("anyName","LARGE","LOW",3);
         assertEquals(1000.00,park.getMoney(),0.001);
         assertEquals(1,park.getEnclosures().size());
     }
