@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Button from 'react-bootstrap/Button';
 import MapBox from '../Components/MapBox';
 import MapTileRow from '../Components/MapTileRow';
@@ -6,10 +6,28 @@ import MapTile from '../Components/MapTile';
 import Enclosure from '../Components/Enclosure';
 import DinoPopup from "../Components/DinoPopup";
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import GameStats from '../Components/GameStats';
 
 function GamePage({parkName}) {
     const [showPopup, setShowPopup] = useState(false);
     const [park, setPark] = useState({money: 12000});
+    const [stats, setStats] = useState({money: 0, income:0, population: 0 });
+
+
+    useEffect(() => {
+       fetchStats()
+        setInterval(() => {
+            fetchStats()
+        }, 5000)
+    },[])
+
+    function fetchStats() {
+        if(parkName){
+            fetch(`http://localhost:8080/park/stats/name/${parkName}`)
+            .then(res => res.json())
+            .then(data => setStats(data))
+        }
+    }
 
     const handleOnOpenPopup = () => {
         setShowPopup(true);
@@ -34,6 +52,7 @@ function GamePage({parkName}) {
     <>
         {!parkName && renderRedirect()}
       <h1>Dino Park</h1>
+        <GameStats stats={stats}/>
 
         <DinoPopup show={showPopup} handleClose={handleOnClosePopup}>
             <Enclosure money={park.money} buyEnclosure={buyEnclosure}/>
