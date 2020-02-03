@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import DinosaursListItem from "./DinosaursListItem";
 
-export default function DinosaursList({dinosaurs, onBuyClick}) {
+export default function DinosaursList({dinosaurs, buyDinosaur}) {
 
     const [herbivors, setHerbivors] = useState([]);
     const [carnivors, setCarnivors] = useState([]);
@@ -19,7 +19,7 @@ export default function DinosaursList({dinosaurs, onBuyClick}) {
 
     const dinosaursList = (dinoList) => {
         return dinoList.map(dinosaur => {
-            return <DinosaursListItem dinosaur={dinosaur} onBuyClick={onBuyClick}/>
+            return <DinosaursListItem dinosaur={dinosaur} onBuyClick={buyDinosaur}/>
         })
     };
 

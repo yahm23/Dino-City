@@ -14,7 +14,7 @@ export default function DinosaursListItem({dinosaur, onBuyClick}) {
             <p>SIZE: {dinosaur.size}</p>
             <p>THREAT: {dinosaur.threatLevel.name}</p>
             <p>PRICE: £{dinosaur.price}</p>
-            <Button>Buy</Button>
+            <Button onClick={handleOnClick}>Buy</Button>
         </div>
     )
 }
