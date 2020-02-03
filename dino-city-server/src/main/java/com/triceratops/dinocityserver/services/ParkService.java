@@ -87,7 +87,6 @@ public class ParkService {
                return enclosure;
            };
         }
-        Enclosure enclosure = new Enclosure();
-        return enclosure;//or null
+        return null;//or null
     }
 }

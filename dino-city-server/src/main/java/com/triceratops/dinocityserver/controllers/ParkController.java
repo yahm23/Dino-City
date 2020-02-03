@@ -41,8 +41,8 @@ public class ParkController {
         parkService.buyEnclosure(name,size,security,positionId);
     }
 
-    @RequestMapping(value="/{name}/{positionId}",method = RequestMethod.GET)
-    public void findSpecificEnclosureInPark(@PathVariable String name, @PathVariable int positionId){
-        parkService.getSpecificEnclosureInParkByPositionId(name,positionId);
+    @RequestMapping(value="/positionId/{name}/{positionId}",method = RequestMethod.GET)
+    public Enclosure findSpecificEnclosureInPark(@PathVariable String name, @PathVariable int positionId){
+        return parkService.getSpecificEnclosureInParkByPositionId(name,positionId);
     }
 }
