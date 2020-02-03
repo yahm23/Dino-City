@@ -62,3 +62,18 @@ div.col{
   width: 30%;
   text-decoration: underline;
 }
+
+.dinosaur-list {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.dinosaur-item {
+  width: 30%;
+  margin: 8px;
+}
+
+.dinosaur-item p {
+  margin: 0px;
+}
