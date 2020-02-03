@@ -18,6 +18,7 @@ function GamePage({parkName}) {
     const [stats, setStats] = useState({money: 0, income:0, population: 0 });
     const [position, setPosition] = useState(null);
     const [enclosures, setEnclosures] = useState({});
+    const [dinosaurs, setDinosaurs] = useState([]);
 
 
     useEffect(() => {
@@ -27,7 +28,8 @@ function GamePage({parkName}) {
         }, 5000)
         fetchPark();
         fetchEnclosures();
-    },[])
+        fetchDinosaurs();
+    },[]);
 
     const fetchPark = () => {
         if(parkName){
@@ -52,6 +54,13 @@ function GamePage({parkName}) {
                 .then(data => setEnclosures(data))
         }
     }
+    function fetchDinosaurs() {
+        if(parkName) {
+            fetch(`http://localhost:8080/dinosaur/species`)
+                .then(res => res.json())
+                .then(data => setDinosaurs(data.species))
+        }
+    }
 
     const handleOnOpenPopup = (positionN) => {
         setShowPopup(true);
@@ -74,7 +83,7 @@ function GamePage({parkName}) {
 
     function renderRedirect() {
         return <Redirect to="/" />
-     };
+     }
  
 
   return (
