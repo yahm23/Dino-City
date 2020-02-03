@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum SizeType {
-    LARGE("LARGE",25,3000.00),
+    LARGE("LARGE",25,10000.00),
     MEDIUM("MEDIUM",15,6000.00),
-    SMALL("SMALL",10,10000.00);
+    SMALL("SMALL",10,3000.00);
 
     private int size;
     private double price;
