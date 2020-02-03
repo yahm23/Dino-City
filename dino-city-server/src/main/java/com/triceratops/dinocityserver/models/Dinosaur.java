@@ -23,15 +23,17 @@ public class Dinosaur {
 
     public Dinosaur(){}
 
+    public Dinosaur(DinoType species) {
+        this.species = species;
+    }
+
+
+
     public DinoType getSpecies() {
         return species;
     }
 
     public void setSpecies(DinoType species) {
-        this.species = species;
-    }
-
-    public Dinosaur(DinoType species) {
         this.species = species;
     }
 

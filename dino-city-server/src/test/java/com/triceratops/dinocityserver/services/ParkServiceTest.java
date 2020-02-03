@@ -73,6 +73,9 @@ public class ParkServiceTest {
         assertEquals(SizeType.LARGE,enclosure.getSize());
     }
 
+//    @Test
+//    public void
+
     private Park buildPark() {
         Park park = new Park();
         park.setMoney(1000.0);

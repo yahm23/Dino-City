@@ -1,9 +1,9 @@
 package com.triceratops.dinocityserver.models.enums;
 
 public enum SizeType {
-    LARGE(10,3000.00),
+    LARGE(25,3000.00),
     MEDIUM(15,6000.00),
-    SMALL(25,10000.00);
+    SMALL(10,10000.00);
 
     private int size;
     private double price;

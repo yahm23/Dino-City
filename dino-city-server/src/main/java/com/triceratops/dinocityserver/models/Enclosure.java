@@ -68,8 +68,12 @@ public class Enclosure   {
         return dinosaurs;
     }
 
-    public void addDinosaur(Dinosaur dinosaur){
-        dinosaurs.add(dinosaur);
+    public boolean addDinosaur(Dinosaur dinosaur){
+        if(dinosaur.getSpecies().getSize() <= this.getSize().getSize() && dinosaur.getSpecies().getThreatLevel().getThreatlevel() <= this.getSecurityLevel().getThreatLevel().getThreatlevel()){
+            dinosaurs.add(dinosaur);
+            return true;
+        }
+        else{return false;}
     };
 
     public void setDinosaurs(List<Dinosaur> dinosaurs) {
