@@ -45,7 +45,7 @@ public class ParkServiceTest {
 
     @Test
     public void shouldBuildTheCorrectPopulation() {
-        ParkStats expectedStats = new ParkStats(1000.0, 10000, 2);
+        ParkStats expectedStats = new ParkStats(1000.0, 10000, 1);
         ParkStats actualStats = parkService.getParkStats("anyName");
         assertEquals(expectedStats.getMoney(), actualStats.getMoney(), 0.1);
         assertEquals(expectedStats.getIncome(), actualStats.getIncome(), 0.1);
@@ -72,7 +72,7 @@ public class ParkServiceTest {
     public void findCorrectEnclosureWithPosId(){
         park.setMoney(10000.00);
         Enclosure enclosure = parkService.getSpecificEnclosureInParkByPositionId("ANYNAME",5);
-        assertEquals(2,enclosure.getDinosaurs().size());
+        assertEquals(1,enclosure.getDinosaurs().size());
         assertEquals(5,enclosure.getPositionId());
         assertEquals(SecurityLevel.HIGH,enclosure.getSecurityLevel());
         assertEquals(SizeType.LARGE,enclosure.getSize());
@@ -84,7 +84,7 @@ public class ParkServiceTest {
         Enclosure enclosure = parkService.getSpecificEnclosureInParkByPositionId("ANYNAME",5);
         boolean result = parkService.addDinosaurToSpecificEnclosure("ANYNAME",5,"TYRANNOSAURUS");
         assertEquals(true, result);
-        assertEquals(3, enclosure.getDinosaurs().size());
+        assertEquals(2, enclosure.getDinosaurs().size());
         assertEquals(7000.0,park.getMoney(),0.01);
     }
 
@@ -95,7 +95,7 @@ public class ParkServiceTest {
         enclosure.setSize(SizeType.SMALL);
         boolean result = parkService.addDinosaurToSpecificEnclosure("ANYNAME",5,"TYRANNOSAURUS");
         assertEquals(false, result);
-        assertEquals(2, enclosure.getDinosaurs().size());
+        assertEquals(1, enclosure.getDinosaurs().size());
         assertEquals(10000.0,park.getMoney(),0.01);
 
     }
@@ -106,8 +106,20 @@ public class ParkServiceTest {
         enclosure.setSecurityLevel(SecurityLevel.MEDIUM);
         boolean result = parkService.addDinosaurToSpecificEnclosure("ANYNAME",5,"TYRANNOSAURUS");
         assertEquals(false, result);
-        assertEquals(2, enclosure.getDinosaurs().size());
+        assertEquals(1, enclosure.getDinosaurs().size());
         assertEquals(10000.0,park.getMoney(),0.01);
+
+    }
+
+    @Test
+    public void cantAddDinosaurWhenInCorrectDiet() {
+        park.setMoney(100000.0);
+        Enclosure enclosure = parkService.getSpecificEnclosureInParkByPositionId("ANYNAME",5);
+        enclosure.setSecurityLevel(SecurityLevel.HIGH);
+        parkService.addDinosaurToSpecificEnclosure("ANYNAME",5,"TYRANNOSAURUS");
+        boolean result1 = parkService.addDinosaurToSpecificEnclosure("ANYNAME",5,"HOMALOCEPHALE");
+        assertFalse(result1);
+        assertEquals(2, enclosure.getDinosaurs().size());
 
     }
 
@@ -120,9 +132,8 @@ public class ParkServiceTest {
         enclosure.setPositionId(5);
         enclosure.setSecurityLevel(SecurityLevel.HIGH);
         enclosure.setSize(SizeType.LARGE);
-        Dinosaur dino = new Dinosaur();
+        Dinosaur dino = new Dinosaur(DinoType.VELOCIRAPTOR);
         List<Dinosaur> dinos = new ArrayList<>();
-        dinos.add(dino);
         dinos.add(dino);
         enclosure.setDinosaurs(dinos);
         List<Enclosure> enclosures = new ArrayList<>();
