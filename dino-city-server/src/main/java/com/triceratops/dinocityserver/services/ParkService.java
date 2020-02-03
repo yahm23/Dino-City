@@ -79,4 +79,14 @@ public class ParkService {
         }
         return counter;
     }
+
+    public Enclosure getSpecificEnclosureInParkByPositionId(String name, int positionId){
+        Park park =parkRepository.findParkByName(name);
+        for(Enclosure enclosure: park.getEnclosures()){
+           if(enclosure.getPositionId() == positionId){
+               return enclosure;
+           };
+        }
+        return null;//or null
+    }
 }
