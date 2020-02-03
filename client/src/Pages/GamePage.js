@@ -9,6 +9,7 @@ import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom
 import GameStats from '../Components/GameStats';
 import BuildingTile from '../Components/BuildingTile';
 import EnclosureDetail from '../Components/EnclosureDetail';
+import EmptyTile from "../Components/EmptyTile";
 
 function GamePage({parkName}) {
     const [showPopup, setShowPopup] = useState(false);
@@ -109,9 +110,9 @@ function GamePage({parkName}) {
 const PrepareBuildingTile = ({park, position, onEmptyBuildingClick, onEnclosureClick}) => {
     const foundEnclosure = park.enclosures.find(enclosure => enclosure.positionId === position)
     if (foundEnclosure){
-        return <BuildingTile enclosure={foundEnclosure} onEnclosureClick={onEnclosureClick}/>
+        return <BuildingTile enclosure={foundEnclosure} onClick={onEnclosureClick} position={position}/>
     }
-    return <Button onClick={() => onEmptyBuildingClick(position)} bsPrefix="building-btn">Buy Enclosure</Button>
+    return <EmptyTile onClick={onEmptyBuildingClick} position={position}/>
 }
 
 export default GamePage;
