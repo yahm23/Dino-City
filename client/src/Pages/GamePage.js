@@ -1,14 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import Button from 'react-bootstrap/Button';
 import MapBox from '../Components/MapBox';
 import MapTileRow from '../Components/MapTileRow';
 import MapTile from '../Components/MapTile';
 import BuildEnclosure from '../Components/BuildEnclosure';
 import DinoPopup from "../Components/DinoPopup";
-import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import GameStats from '../Components/GameStats';
 import BuildingTile from '../Components/BuildingTile';
 import EnclosureDetail from '../Components/EnclosureDetail';
+import EmptyTile from "../Components/EmptyTile";
+import GameHeader from "../Components/GameHeader";
+import GameTitle from "../Components/GameTitle";
 
 function GamePage({parkName}) {
     const [showPopup, setShowPopup] = useState(false);
@@ -59,27 +61,29 @@ function GamePage({parkName}) {
     const handleOnClosePopup = () => {
         setShowPopup(false);
         setPosition(null);
-    }
+    };
 
     const buyEnclosure = (size, security) => {
       console.log(size);
       console.log(security);     
       setShowPopup(false);
       fetch(`http://localhost:8080/park/enclosure/${parkName}/${size.size}/${security.security}/${position}`)
-      .then(() => fetchPark())
-    }
+          .then(() => fetchPark())
+          .then(() => fetchStats())
+    };
 
     function renderRedirect() {
         return <Redirect to="/" />
-     }
+     };
  
 
   return (
     <>
         {!parkName && renderRedirect()}
-      <h1>Dino Park</h1>
-        <GameStats stats={stats}/>
-
+        <GameHeader>
+            <GameTitle parkName={parkName}/>
+            <GameStats stats={stats}/>
+        </GameHeader>
         <DinoPopup show={showPopup} handleClose={handleOnClosePopup}>
             <BuildEnclosure money={park.money} buyEnclosure={buyEnclosure} enclosures={enclosures}/>
         </DinoPopup>
@@ -119,9 +123,9 @@ function GamePage({parkName}) {
 const PrepareBuildingTile = ({park, position, onEmptyBuildingClick, onEnclosureClick}) => {
     const foundEnclosure = park.enclosures.find(enclosure => enclosure.positionId === position)
     if (foundEnclosure){
-        return <BuildingTile enclosure={foundEnclosure} onEnclosureClick={onEnclosureClick}/>
+        return <BuildingTile enclosure={foundEnclosure} onClick={onEnclosureClick} position={position}/>
     }
-    return <Button onClick={() => onEmptyBuildingClick(position)} bsPrefix="building-btn">Buy Enclosure</Button>
-}
+    return <EmptyTile onClick={onEmptyBuildingClick} position={position}/>
+};
 
 export default GamePage;
