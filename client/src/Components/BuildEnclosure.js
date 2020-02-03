@@ -5,11 +5,11 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
-function BuildEnclosure({money, buyEnclosure}) {
+function BuildEnclosure({money, buyEnclosure, enclosures}) {
 
 
-    const [size, setSize] = useState({size: "SMALL", price:2000});
-    const [security, setSecurity] = useState({security: "LOW", price: 1.2});
+    const [sizeSelected, setSize] = useState({size: "SMALL", price:2000});
+    const [securitySelected, setSecurity] = useState({security: "LOW", price: 1.2});
 
     const handleSizeChange = (e) => {
         setSize({size: e.target.id, price: parseInt(e.target.value)});
@@ -20,12 +20,28 @@ function BuildEnclosure({money, buyEnclosure}) {
     }
 
     function totalCost() {
-        return (security.price * size.price);
+        return (securitySelected.price * sizeSelected.price);
     }
 
     function handleBuy() {
-        buyEnclosure(size, security);
+        buyEnclosure(sizeSelected, securitySelected);
     }
+
+    const enclosureSizeTypes = enclosures.types.map(size => {
+        return <Form.Check type="radio" name="size" id={size.name} value={size.price} 
+                    checked={sizeSelected.price === size.price } 
+                    onChange={handleSizeChange} 
+                    label={size.name}
+                 />
+    })
+
+    const enclosureSecurityTypes = enclosures.securityLevels.map(security => {
+        return <Form.Check type="radio" name="security" id={security.name} value={security.priceMultiplier} 
+                    checked={securitySelected.price === security.priceMultiplier } 
+                    onChange={handleSecurityChange} 
+                    label={security.name}
+                />
+    })
 
    
         return(
@@ -36,40 +52,12 @@ function BuildEnclosure({money, buyEnclosure}) {
                 <Row>
                     <Col>
                         <div className="size-panel">
-                            <Form.Check type="radio" name="size" id="SMALL" value={2000} 
-                                checked={size.price === 2000 } 
-                                onChange={handleSizeChange} 
-                                label="Small"
-                            />
-                            <Form.Check type="radio" name="size" id="MEDIUM" value={5000} 
-                                checked={size.price === 5000 } 
-                                onChange={handleSizeChange} 
-                                label="Medium"
-                            />
-                            <Form.Check type="radio" name="size" id="LARGE" value={12000} 
-                                checked={size.price === 12000 } 
-                                onChange={handleSizeChange} 
-                                label="Large"
-                            />
+                            {enclosureSizeTypes}
                         </div>
                     </Col>
                     <Col>
                         <div className="security-panel">
-                            <Form.Check type="radio" name="security" id="LOW" value={1.2} 
-                                checked={security.price === 1.2 } 
-                                onChange={handleSecurityChange} 
-                                label="Low"
-                            />
-                            <Form.Check type="radio" name="security" id="MEDIUM" value={1.4} 
-                                checked={security.price === 1.4 } 
-                                onChange={handleSecurityChange} 
-                                label="Medium"
-                            />
-                            <Form.Check type="radio" name="security" id="HIGH" value={1.6} 
-                                checked={security.price === 1.6 } 
-                                onChange={handleSecurityChange} 
-                                label="High"
-                            />
+                            {enclosureSecurityTypes}
                         </div>
                     </Col>
                 </Row>

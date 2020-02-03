@@ -14,7 +14,8 @@ function GamePage({parkName}) {
     const [showPopup, setShowPopup] = useState(false);
     const [park, setPark] = useState({money: 12000, enclosures:[]});
     const [stats, setStats] = useState({money: 0, income:0, population: 0 });
-    const [position, setPosition] = useState(null)
+    const [position, setPosition] = useState(null);
+    const [enclosures, setEnclosures] = useState({});
 
 
     useEffect(() => {
@@ -23,6 +24,7 @@ function GamePage({parkName}) {
             fetchStats()
         }, 5000)
         fetchPark();
+        fetchEnclosures();
     },[])
 
     const fetchPark = () => {
@@ -38,6 +40,14 @@ function GamePage({parkName}) {
             fetch(`http://localhost:8080/park/stats/name/${parkName}`)
             .then(res => res.json())
             .then(data => setStats(data))
+        }
+    }
+
+    function fetchEnclosures() {
+        if(parkName) {
+            fetch(`http://localhost:8080/enclosures/types`)
+                .then(res => res.json())
+                .then(data => setEnclosures(data))
         }
     }
 
@@ -71,7 +81,7 @@ function GamePage({parkName}) {
         <GameStats stats={stats}/>
 
         <DinoPopup show={showPopup} handleClose={handleOnClosePopup}>
-            <BuildEnclosure money={park.money} buyEnclosure={buyEnclosure}/>
+            <BuildEnclosure money={park.money} buyEnclosure={buyEnclosure} enclosures={enclosures}/>
         </DinoPopup>
         <DinoPopup show={false} handleClose={handleOnClosePopup}>
             <EnclosureDetail money={park.money} buyEnclosure={buyEnclosure}/>
