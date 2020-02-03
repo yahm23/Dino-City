@@ -8,8 +8,8 @@ import Button from "react-bootstrap/Button";
 function BuildEnclosure({money, buyEnclosure, enclosures}) {
 
 
-    const [sizeSelected, setSize] = useState({size: "SMALL", price:2000});
-    const [securitySelected, setSecurity] = useState({security: "LOW", price: 1.2});
+    const [sizeSelected, setSize] = useState({size: "SMALL", price:3000});
+    const [securitySelected, setSecurity] = useState({security: "LOW", price: 1.0});
 
     const handleSizeChange = (e) => {
         setSize({size: e.target.id, price: parseInt(e.target.value)});

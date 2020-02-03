@@ -14,6 +14,7 @@ import GameTitle from "../Components/GameTitle";
 
 function GamePage({parkName}) {
     const [showPopup, setShowPopup] = useState(false);
+    const [showEnclosure, setShowEnclosure] = useState(false);
     const [park, setPark] = useState({money: 12000, enclosures:[]});
     const [stats, setStats] = useState({money: 0, income:0, population: 0 });
     const [position, setPosition] = useState(null);
@@ -69,8 +70,13 @@ function GamePage({parkName}) {
 
     const handleOnClosePopup = () => {
         setShowPopup(false);
+        setShowEnclosure(false);
         setPosition(null);
     };
+
+    function handleOnOpenPopEnclosure() {
+        setShowEnclosure(true);
+    }
 
     const buyEnclosure = (size, security) => {
       console.log(size);
@@ -83,7 +89,11 @@ function GamePage({parkName}) {
 
     function renderRedirect() {
         return <Redirect to="/" />
-     }
+    }
+
+    function getEnclosure(position, enclosures) {
+        return 
+    }
  
 
   return (
@@ -96,8 +106,8 @@ function GamePage({parkName}) {
         <DinoPopup show={showPopup} handleClose={handleOnClosePopup}>
             <BuildEnclosure money={park.money} buyEnclosure={buyEnclosure} enclosures={enclosures}/>
         </DinoPopup>
-        <DinoPopup show={false} handleClose={handleOnClosePopup}>
-            <EnclosureDetail money={park.money} buyEnclosure={buyEnclosure}/>
+        <DinoPopup show={showEnclosure} handleClose={handleOnClosePopup}>
+            <EnclosureDetail money={park.money} dinosaurs={dinosaurs} position={position}/>
         </DinoPopup>
       <MapBox>
         <MapTileRow>
@@ -107,7 +117,7 @@ function GamePage({parkName}) {
                     park={park} 
                     position={1} 
                     onEmptyBuildingClick={handleOnOpenPopup}
-                    onEnclosureClick={() => console.log("hiii")}
+                    onEnclosureClick={handleOnOpenPopEnclosure}
                     />
                 </MapTile>
             <MapTile img={"grass_03"}></MapTile>
@@ -119,7 +129,7 @@ function GamePage({parkName}) {
                         park={park} 
                         position={2} 
                         onEmptyBuildingClick={handleOnOpenPopup}
-                        onEnclosureClick={() => console.log("hiii")}
+                        onEnclosureClick={handleOnOpenPopEnclosure}
                         />
             </MapTile>
             <MapTile img={"grass_06"}></MapTile>
