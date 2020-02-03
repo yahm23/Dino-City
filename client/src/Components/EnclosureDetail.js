@@ -1,7 +1,9 @@
 import React from 'react';
+import DinosaursList from "./DinosaursList";
 
-export default function EnclosureDetail({}) {
+export default function EnclosureDetail({dinosaurs}) {
+
     return (
-           <p>fuck</p>
+           <DinosaursList dinosaurs={dinosaurs} />
         )
 }
