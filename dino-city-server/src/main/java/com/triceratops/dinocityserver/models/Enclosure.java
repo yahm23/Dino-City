@@ -68,15 +68,20 @@ public class Enclosure   {
         return dinosaurs;
     }
 
-    public boolean addDinosaur(Dinosaur dinosaur){
-        if(dinosaur.getSpecies().getSize() <= this.getSize().getSize() && dinosaur.getSpecies().getThreatLevel().getThreatlevel() <= this.getSecurityLevel().getThreatLevel().getThreatlevel()){
+    public void setPositionId(int positionId) {
+        this.positionId = positionId;
+    }
 
-            dinosaur.setEnclosure(this);
+    public SecurityLevel getSecuritylevel() {
+        return securitylevel;
+    }
+
+    public void setSecuritylevel(SecurityLevel securitylevel) {
+        this.securitylevel = securitylevel;
+    }
+
+    public void addDinosaur(Dinosaur dinosaur){
             dinosaurs.add(dinosaur);
-            return true;
-        }
-
-        return false;
     };
 
     public void setDinosaurs(List<Dinosaur> dinosaurs) {

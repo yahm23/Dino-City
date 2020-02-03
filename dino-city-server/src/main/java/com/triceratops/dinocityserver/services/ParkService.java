@@ -1,8 +1,10 @@
 package com.triceratops.dinocityserver.services;
 
+import com.triceratops.dinocityserver.models.Dinosaur;
 import com.triceratops.dinocityserver.models.Enclosure;
 import com.triceratops.dinocityserver.models.Park;
 import com.triceratops.dinocityserver.models.ParkStats;
+import com.triceratops.dinocityserver.models.enums.DinoType;
 import com.triceratops.dinocityserver.models.enums.SecurityLevel;
 import com.triceratops.dinocityserver.models.enums.SizeType;
 import com.triceratops.dinocityserver.repositories.DinosaurRepository;
@@ -71,6 +73,51 @@ public class ParkService {
         }
     }
 
+    public Enclosure getSpecificEnclosureInParkByPositionId(String name, int positionId){
+        Park park = parkRepository.findParkByName(name);
+        for(Enclosure enclosure: park.getEnclosures()){
+           if(enclosure.getPositionId() == positionId){
+               return enclosure;
+           };
+        }
+        return null;//or null
+    }
+
+   public boolean addDinosaurToSpecificEnclosure(String name, int positionId, String dinosaur ){
+       Park park =parkRepository.findParkByName(name);
+       Enclosure enclosure = getSpecificEnclosureInParkByPositionId(park.getName(),positionId);
+       DinoType species = DinoType.valueOf(dinosaur);
+       Dinosaur newDino = new Dinosaur(species);
+       boolean spaceCheck = isEnoughSpace(enclosure,newDino);
+       boolean securityCheck = isEnoughSecurity(enclosure,newDino);
+       boolean moneyCheck = isEnoughMoney(park,newDino);
+
+       if(spaceCheck && securityCheck && moneyCheck){
+           newDino.setEnclosure(enclosure);
+           dinosaurRepository.save(newDino);
+           enclosure.addDinosaur(newDino);
+           enclosureRepository.save(enclosure);
+           park.reduceMoney(newDino.getSpecies().getPrice());
+           parkRepository.save(park);
+           return true;
+       }
+       return false;
+   }
+
+   private boolean isEnoughSpace(Enclosure enclosure, Dinosaur dinosaur){
+       return dinosaur.getSpecies().getSize() <= enclosure.getSize().getSize();
+
+   }
+
+   private boolean isEnoughSecurity(Enclosure enclosure, Dinosaur dinosaur){
+       return dinosaur.getSpecies().getThreatLevel().getThreatlevel() <= enclosure.getSecurityLevel().getThreatLevel().getThreatlevel();
+   }
+
+   private boolean isEnoughMoney(Park park, Dinosaur dinosaur){
+        return dinosaur.getSpecies().getPrice() <= park.getMoney();
+
+   }
+
     private double calculateIncome(Park park) {
         double income = 10 * 1000 * 1;
         return income;
@@ -83,16 +130,4 @@ public class ParkService {
         }
         return counter;
     }
-
-    public Enclosure getSpecificEnclosureInParkByPositionId(String name, int positionId){
-        Park park =parkRepository.findParkByName(name);
-        for(Enclosure enclosure: park.getEnclosures()){
-           if(enclosure.getPositionId() == positionId){
-               return enclosure;
-           };
-        }
-        return null;//or null
-    }
-
-//    public boolean addDinosaurToSpecificEnclosure(String name, int position ){}
 }

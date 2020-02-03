@@ -4,6 +4,7 @@ import com.triceratops.dinocityserver.models.Dinosaur;
 import com.triceratops.dinocityserver.models.Enclosure;
 import com.triceratops.dinocityserver.models.Park;
 import com.triceratops.dinocityserver.models.ParkStats;
+import com.triceratops.dinocityserver.models.enums.DinoType;
 import com.triceratops.dinocityserver.models.enums.SecurityLevel;
 import com.triceratops.dinocityserver.models.enums.SizeType;
 import com.triceratops.dinocityserver.repositories.DinosaurRepository;
@@ -55,7 +56,7 @@ public class ParkServiceTest {
     public void shouldBeAbleToBuyAnEnclosure() {
         park.setMoney(10000.00);
         parkService.buyEnclosure("ANYNAME","LARGE","LOW",5);
-        assertEquals(7000.00,park.getMoney(),0.001);
+        assertEquals(0.00,park.getMoney(),0.001);
         assertEquals(2,park.getEnclosures().size());
     }
 
@@ -70,21 +71,55 @@ public class ParkServiceTest {
     @Test
     public void findCorrectEnclosureWithPosId(){
         park.setMoney(10000.00);
-        parkService.buyEnclosure("ANYNAME","LARGE","LOW",5);
         Enclosure enclosure = parkService.getSpecificEnclosureInParkByPositionId("ANYNAME",5);
-        assertEquals(0,enclosure.getDinosaurs().size());
+        assertEquals(2,enclosure.getDinosaurs().size());
         assertEquals(5,enclosure.getPositionId());
-        assertEquals(SecurityLevel.LOW,enclosure.getSecurityLevel());
+        assertEquals(SecurityLevel.HIGH,enclosure.getSecurityLevel());
         assertEquals(SizeType.LARGE,enclosure.getSize());
     }
 
-//    @Test
-//    public void
+    @Test
+    public void canAddDinosaurWhenCorrectSecurityAndSize() {
+        park.setMoney(10000.0);
+        Enclosure enclosure = parkService.getSpecificEnclosureInParkByPositionId("ANYNAME",5);
+        boolean result = parkService.addDinosaurToSpecificEnclosure("ANYNAME",5,"TYRANNOSAURUS");
+        assertEquals(true, result);
+        assertEquals(3, enclosure.getDinosaurs().size());
+        assertEquals(7000.0,park.getMoney(),0.01);
+    }
+
+    @Test
+    public void cantAddDinosaurWhenInCorrectSize() {
+        park.setMoney(10000.0);
+        Enclosure enclosure = parkService.getSpecificEnclosureInParkByPositionId("ANYNAME",5);
+        enclosure.setSize(SizeType.SMALL);
+        boolean result = parkService.addDinosaurToSpecificEnclosure("ANYNAME",5,"TYRANNOSAURUS");
+        assertEquals(false, result);
+        assertEquals(2, enclosure.getDinosaurs().size());
+        assertEquals(10000.0,park.getMoney(),0.01);
+
+    }
+    @Test
+    public void cantAddDinosaurWhenInCorrectSecurity() {
+        park.setMoney(10000.0);
+        Enclosure enclosure = parkService.getSpecificEnclosureInParkByPositionId("ANYNAME",5);
+        enclosure.setSecurityLevel(SecurityLevel.MEDIUM);
+        boolean result = parkService.addDinosaurToSpecificEnclosure("ANYNAME",5,"TYRANNOSAURUS");
+        assertEquals(false, result);
+        assertEquals(2, enclosure.getDinosaurs().size());
+        assertEquals(10000.0,park.getMoney(),0.01);
+
+    }
+
+
 
     private Park buildPark() {
         Park park = new Park();
         park.setMoney(1000.0);
         Enclosure enclosure = new Enclosure();
+        enclosure.setPositionId(5);
+        enclosure.setSecurityLevel(SecurityLevel.HIGH);
+        enclosure.setSize(SizeType.LARGE);
         Dinosaur dino = new Dinosaur();
         List<Dinosaur> dinos = new ArrayList<>();
         dinos.add(dino);
@@ -93,8 +128,9 @@ public class ParkServiceTest {
         List<Enclosure> enclosures = new ArrayList<>();
         enclosures.add(enclosure);
         park.setEnclosures(enclosures);
+        park.setName("ANYNAME");
         return park;
-    }
 
+    }
 
 }
