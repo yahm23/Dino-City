@@ -55,6 +55,10 @@ public class Park {
         this.money = money;
     }
 
+    public void reduceMoney(double amount){
+        this.money-=amount;
+    }
+
     public void setEnclosures(List<Enclosure> enclosures) {
         this.enclosures = enclosures;
     }

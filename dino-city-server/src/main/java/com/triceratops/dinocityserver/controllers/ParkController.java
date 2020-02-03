@@ -45,4 +45,9 @@ public class ParkController {
     public Enclosure findSpecificEnclosureInPark(@PathVariable String name, @PathVariable int positionId){
         return parkService.getSpecificEnclosureInParkByPositionId(name,positionId);
     }
+
+    @RequestMapping(value="/addDinosaurToSpecificEnclosure/{name}/{positionId}/{dinosaur}",method = RequestMethod.GET)
+    public boolean findSpecificEnclosureInPark(@PathVariable String name, @PathVariable int positionId, @PathVariable String dinosaur){
+        return parkService.addDinosaurToSpecificEnclosure(name,positionId,dinosaur);
+    }
 }

@@ -36,6 +36,11 @@ public class Enclosure   {
     @Column(name = "securityLevel")
     private SecurityLevel securitylevel;
 
+    @JsonIgnoreProperties("enclosures")
+    @ManyToOne
+    @JoinColumn(name="park_id",nullable = false)
+    private Park park;
+
     public Park getPark() {
         return park;
     }
@@ -43,11 +48,6 @@ public class Enclosure   {
     public void setPark(Park park) {
         this.park = park;
     }
-
-    @JsonIgnoreProperties("enclosures")
-    @ManyToOne
-    @JoinColumn(name="park_id",nullable = false)
-    private Park park;
 
     public Enclosure(){}
 
@@ -68,15 +68,12 @@ public class Enclosure   {
         return dinosaurs;
     }
 
-    public boolean addDinosaur(Dinosaur dinosaur){
-        if(dinosaur.getSpecies().getSize() <= this.getSize().getSize() && dinosaur.getSpecies().getThreatLevel().getThreatlevel() <= this.getSecurityLevel().getThreatLevel().getThreatlevel()){
+    public void setPositionId(int positionId) {
+        this.positionId = positionId;
+    }
 
-            dinosaur.setEnclosure(this);
+    public void addDinosaur(Dinosaur dinosaur){
             dinosaurs.add(dinosaur);
-            return true;
-        }
-
-        return false;
     };
 
     public void setDinosaurs(List<Dinosaur> dinosaurs) {
