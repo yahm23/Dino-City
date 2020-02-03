@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
-function Enclosure({money, buyEnclosure}) {
+function BuildEnclosure({money, buyEnclosure}) {
 
 
     const [size, setSize] = useState({size: "SMALL", price:2000});
@@ -89,4 +89,4 @@ function Enclosure({money, buyEnclosure}) {
     
 }
 
-export default Enclosure;
+export default BuildEnclosure;
