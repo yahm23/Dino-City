@@ -28,18 +28,18 @@ function BuildEnclosure({money, buyEnclosure, enclosures}) {
     }
 
     const enclosureSizeTypes = enclosures.types.map(size => {
-        return <Form.Check type="radio" name="size" id={size.name} value={size.price} 
+        return <Form.Check type="radio" name="size" key={size.name} id={size.name} value={size.price} 
                     checked={sizeSelected.price === size.price } 
                     onChange={handleSizeChange} 
-                    label={size.name}
+                    label={size.name + ` - £${size.price}`}
                  />
     })
 
     const enclosureSecurityTypes = enclosures.securityLevels.map(security => {
-        return <Form.Check type="radio" name="security" id={security.name} value={security.priceMultiplier} 
+        return <Form.Check type="radio" name="security" key={security.name} id={security.name} value={security.priceMultiplier} 
                     checked={securitySelected.price === security.priceMultiplier } 
                     onChange={handleSecurityChange} 
-                    label={security.name}
+                    label={security.name + ` +${parseInt((security.priceMultiplier - 1.0) * 100)}%`}
                 />
     })
 
