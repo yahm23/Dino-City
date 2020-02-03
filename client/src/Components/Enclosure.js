@@ -74,7 +74,7 @@ function Enclosure({money, buyEnclosure}) {
                     </Col>
                 </Row>
                 <Row>
-                    <p>Total: €{totalCost()}</p>
+                    <p>Total: £{totalCost()}</p>
                 </Row>
                 <Row>
                     <Button 
