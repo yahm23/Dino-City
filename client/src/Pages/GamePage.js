@@ -89,12 +89,14 @@ function GamePage({parkName}) {
 
     function renderRedirect() {
         return <Redirect to="/" />
+    }   
+    
+    function getEnclosure() {
+        enclosures.filter(enclosure => {
+            return enclosure.positionId === position;
+        }) 
     }
-
-    function getEnclosure(position, enclosures) {
-        return 
-    }
- 
+    
 
   return (
     <>
@@ -107,7 +109,7 @@ function GamePage({parkName}) {
             <BuildEnclosure money={park.money} buyEnclosure={buyEnclosure} enclosures={enclosures}/>
         </DinoPopup>
         <DinoPopup show={showEnclosure} handleClose={handleOnClosePopup}>
-            <EnclosureDetail money={park.money} dinosaurs={dinosaurs} position={position}/>
+            <EnclosureDetail money={park.money} dinosaurs={dinosaurs} getEnclosure={getEnclosure}/>
         </DinoPopup>
       <MapBox>
         <MapTileRow>

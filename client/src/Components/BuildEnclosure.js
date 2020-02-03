@@ -7,7 +7,6 @@ import Button from "react-bootstrap/Button";
 
 function BuildEnclosure({money, buyEnclosure, enclosures}) {
 
-
     const [sizeSelected, setSize] = useState({size: "SMALL", price:3000});
     const [securitySelected, setSecurity] = useState({security: "LOW", price: 1.0});
 
