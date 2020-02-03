@@ -31,6 +31,7 @@ public enum DinoType {
         this.name = name;
         this.size =size;
         this.threatLevel = threatLevel;
+        this.price=price;
     }
 
     public String getName() {

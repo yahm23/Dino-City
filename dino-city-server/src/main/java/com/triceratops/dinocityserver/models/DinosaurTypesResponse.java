@@ -11,6 +11,10 @@ public class DinosaurTypesResponse {
         this.species = species;
     }
 
+    public DinoType[] getSpecies() {
+        return species;
+    }
+
 
     @Override
     public boolean equals(Object o) {
