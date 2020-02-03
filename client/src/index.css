@@ -50,3 +50,15 @@ div.col{
 .disabled-button {
   pointer-events: none;
 }
+
+.game-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 40px;
+  background-color: lightsteelblue;
+}
+
+.game-title {
+  width: 30%;
+  text-decoration: underline;
+}
