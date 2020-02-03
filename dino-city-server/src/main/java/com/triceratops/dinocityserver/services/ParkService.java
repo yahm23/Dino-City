@@ -5,6 +5,7 @@ import com.triceratops.dinocityserver.models.Park;
 import com.triceratops.dinocityserver.models.ParkStats;
 import com.triceratops.dinocityserver.models.enums.SecurityLevel;
 import com.triceratops.dinocityserver.models.enums.SizeType;
+import com.triceratops.dinocityserver.repositories.DinosaurRepository;
 import com.triceratops.dinocityserver.repositories.EnclosureRepository;
 import com.triceratops.dinocityserver.repositories.ParkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,14 @@ public class ParkService {
 
     private ParkRepository parkRepository;
     private EnclosureRepository enclosureRepository;
+    private DinosaurRepository dinosaurRepository;
 
     @Autowired
-    public ParkService(ParkRepository parkRepository, EnclosureRepository enclosureRepository) {
+    public ParkService(ParkRepository parkRepository, EnclosureRepository enclosureRepository,
+                       DinosaurRepository dinosaurRepository) {
         this.parkRepository = parkRepository;
         this.enclosureRepository = enclosureRepository;
+        this.dinosaurRepository = dinosaurRepository;
     }
 
     public boolean addPark(String name){
@@ -89,4 +93,6 @@ public class ParkService {
         }
         return null;//or null
     }
+
+//    public boolean addDinosaurToSpecificEnclosure(String name, int position ){}
 }

@@ -1,6 +1,8 @@
 package com.triceratops.dinocityserver.models.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum DinoType {
     TYRANNOSAURUS("Tyrannosaurus",20, DietType.CARNIVORE, 3000.0, ThreatLevel.HIGH),
     ALBERTOSAURUS("Albertosaurus", 15, DietType.CARNIVORE, 2500.0, ThreatLevel.HIGH),

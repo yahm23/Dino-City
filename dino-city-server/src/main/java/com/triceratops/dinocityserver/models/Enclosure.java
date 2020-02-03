@@ -70,10 +70,13 @@ public class Enclosure   {
 
     public boolean addDinosaur(Dinosaur dinosaur){
         if(dinosaur.getSpecies().getSize() <= this.getSize().getSize() && dinosaur.getSpecies().getThreatLevel().getThreatlevel() <= this.getSecurityLevel().getThreatLevel().getThreatlevel()){
+
+            dinosaur.setEnclosure(this);
             dinosaurs.add(dinosaur);
             return true;
         }
-        else{return false;}
+
+        return false;
     };
 
     public void setDinosaurs(List<Dinosaur> dinosaurs) {

@@ -28,6 +28,14 @@ public class Dinosaur {
     }
 
 
+    public Enclosure getEnclosure() {
+        return enclosure;
+    }
+
+    public void setEnclosure(Enclosure enclosure) {
+        this.enclosure = enclosure;
+    }
+
 
     public DinoType getSpecies() {
         return species;

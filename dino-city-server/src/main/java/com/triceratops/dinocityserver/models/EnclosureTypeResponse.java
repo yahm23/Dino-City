@@ -15,11 +15,21 @@ public class EnclosureTypeResponse {
         this.securityLevels = securityLevels;
     }
 
+    public SizeType[] getTypes() {
+        return types;
+    }
+
+    public SecurityLevel[] getSecurityLevels() {
+        return securityLevels;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         EnclosureTypeResponse that = (EnclosureTypeResponse) o;
+
         return Arrays.equals(types, that.types) &&
                 Arrays.equals(securityLevels, that.securityLevels);
     }
