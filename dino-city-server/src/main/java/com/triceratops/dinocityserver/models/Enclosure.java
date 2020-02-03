@@ -51,6 +51,7 @@ public class Enclosure   {
 
     public Enclosure(){}
 
+
     public Enclosure (SizeType size, SecurityLevel securityLevel, int positionId) {
         this.dinosaurs = new ArrayList<>();
         this.size = size;
@@ -90,4 +91,9 @@ public class Enclosure   {
     public void setSecurityLevel(SecurityLevel securityLevel) {
         this.securitylevel = securityLevel;
     }
+
+    public int getPositionId() {
+        return positionId;
+    }
+
 }

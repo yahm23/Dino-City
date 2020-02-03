@@ -4,6 +4,7 @@ import com.triceratops.dinocityserver.models.Dinosaur;
 import com.triceratops.dinocityserver.models.Enclosure;
 import com.triceratops.dinocityserver.models.Park;
 import com.triceratops.dinocityserver.models.ParkStats;
+import com.triceratops.dinocityserver.models.enums.SecurityLevel;
 import com.triceratops.dinocityserver.models.enums.SizeType;
 import com.triceratops.dinocityserver.repositories.EnclosureRepository;
 import com.triceratops.dinocityserver.repositories.ParkRepository;
@@ -61,6 +62,17 @@ public class ParkServiceTest {
         assertEquals(1,park.getEnclosures().size());
     }
 
+    @Test
+    public void findCorrectEnclosureWithPosId(){
+        park.setMoney(10000.00);
+        parkService.buyEnclosure("ANYNAME","LARGE","LOW",5);
+        Enclosure enclosure = parkService.getSpecificEnclosureInParkByPositionId("ANYNAME",5);
+        assertEquals(0,enclosure.getDinosaurs().size());
+        assertEquals(5,enclosure.getPositionId());
+        assertEquals(SecurityLevel.LOW,enclosure.getSecurityLevel());
+        assertEquals(SizeType.LARGE,enclosure.getSize());
+    }
+
     private Park buildPark() {
         Park park = new Park();
         park.setMoney(1000.0);
@@ -76,8 +88,5 @@ public class ParkServiceTest {
         return park;
     }
 
-    @Test
-    public void buyAttraction() {
 
-    }
 }
