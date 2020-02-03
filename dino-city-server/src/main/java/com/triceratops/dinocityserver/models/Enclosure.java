@@ -36,6 +36,11 @@ public class Enclosure   {
     @Column(name = "securityLevel")
     private SecurityLevel securitylevel;
 
+    @JsonIgnoreProperties("enclosures")
+    @ManyToOne
+    @JoinColumn(name="park_id",nullable = false)
+    private Park park;
+
     public Park getPark() {
         return park;
     }
@@ -43,11 +48,6 @@ public class Enclosure   {
     public void setPark(Park park) {
         this.park = park;
     }
-
-    @JsonIgnoreProperties("enclosures")
-    @ManyToOne
-    @JoinColumn(name="park_id",nullable = false)
-    private Park park;
 
     public Enclosure(){}
 
@@ -70,14 +70,6 @@ public class Enclosure   {
 
     public void setPositionId(int positionId) {
         this.positionId = positionId;
-    }
-
-    public SecurityLevel getSecuritylevel() {
-        return securitylevel;
-    }
-
-    public void setSecuritylevel(SecurityLevel securitylevel) {
-        this.securitylevel = securitylevel;
     }
 
     public void addDinosaur(Dinosaur dinosaur){

@@ -63,8 +63,7 @@ public class ParkService {
         double costOfEnclosure = enumSecurity.getPriceMultiplier() * enumSize.getPrice();
 
         if(moneyAvailable>= costOfEnclosure){
-            double newMoney = moneyAvailable - costOfEnclosure;
-            park.setMoney(newMoney);
+            park.reduceMoney(costOfEnclosure);
             Enclosure enclosure = new Enclosure(enumSize,enumSecurity,positionId);
             enclosure.setPark(park);
             enclosureRepository.save(enclosure);
@@ -93,10 +92,13 @@ public class ParkService {
        boolean moneyCheck = isEnoughMoney(park,newDino);
 
        if(spaceCheck && securityCheck && moneyCheck){
+
            newDino.setEnclosure(enclosure);
            dinosaurRepository.save(newDino);
+
            enclosure.addDinosaur(newDino);
            enclosureRepository.save(enclosure);
+
            park.reduceMoney(newDino.getSpecies().getPrice());
            parkRepository.save(park);
            return true;
