@@ -132,7 +132,7 @@ public class ParkServiceTest {
         park.setMoney(10000.0);
 
 
-        double result = parkService.calculateParkRating(park);
+        double result = parkService.calculateParkRating("ANYNAME");
         assertEquals(1.18, result, 0.01);
 
     }

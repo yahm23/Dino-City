@@ -50,4 +50,6 @@ public class ParkController {
     public boolean addDinosaurToSpecificEnclosure(@PathVariable String name, @PathVariable int positionId, @PathVariable String dinosaur){
         return parkService.addDinosaurToSpecificEnclosure(name,positionId,dinosaur);
     }
+
+//    @RequestMapping(value="/name/")
 }

@@ -84,6 +84,15 @@ public class ParkService {
         return null;//or null
     }
 
+    public double calculateParkRating(String name){
+        Park park =parkRepository.findParkByName(name);
+        double rating =1.0;
+        for(Enclosure enclosure: park.getEnclosures()){
+            rating += enclosureService.getRatingOfEnclosureFromDinosaur(enclosure);
+        }
+        return rating;
+    }
+
    public boolean addDinosaurToSpecificEnclosure(String name, int positionId, String dinosaur ){
        Park park =parkRepository.findParkByName(name);
        Enclosure enclosure = getSpecificEnclosureInParkByPositionId(park.getName(),positionId);
@@ -146,14 +155,6 @@ public class ParkService {
     private double calculateIncome(Park park) {
         double income = 10 * 1000 * 1;
         return income;
-    }
-
-    public double calculateParkRating(Park park){
-        double rating =1.0;
-        for(Enclosure enclosure: park.getEnclosures()){
-            rating += enclosureService.getRatingOfEnclosureFromDinosaur(enclosure);
-        }
-       return rating;
     }
 
     private int calculatePopulation(Park park) {
