@@ -13,6 +13,7 @@ import com.triceratops.dinocityserver.repositories.ParkRepository;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

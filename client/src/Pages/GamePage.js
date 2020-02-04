@@ -22,6 +22,7 @@ function GamePage({parkName}) {
     const [position, setPosition] = useState(null);
     const [enclosures, setEnclosures] = useState({});
     const [dinosaurs, setDinosaurs] = useState([]);
+    const [event, setEvent] = useState({})
 
 
     useEffect(() => {
@@ -32,7 +33,6 @@ function GamePage({parkName}) {
         fetchPark();
         fetchEnclosures();
         fetchDinosaurs();
-
     },[]);
 
     const fetchPark = () => {
@@ -63,6 +63,14 @@ function GamePage({parkName}) {
             fetch(`http://localhost:8080/dinosaur/species`)
                 .then(res => res.json())
                 .then(data => setDinosaurs(data.species))
+        }
+    }
+
+    function fetchEvent() {
+        if(parkName) {
+            fetch(`http://localhost:8080/park/name/${parkName}/event`)
+                .then(res => res.json())
+                .then(data => setEvent(data)) 
         }
     }
 
