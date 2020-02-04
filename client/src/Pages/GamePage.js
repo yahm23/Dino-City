@@ -115,8 +115,10 @@ function GamePage({parkName}) {
     };
 
     const sellDinosaur = (id) => {
-        //finish function once we have endpoint
-    }
+        fetch(`http://localhost:8080/park/name/${parkName}/dinosaur/delete/${id}`)
+            .then(() => fetchPark())
+            .then(() => fetchStats())
+    };
 
     function renderRedirect() {
         return <Redirect to="/" />

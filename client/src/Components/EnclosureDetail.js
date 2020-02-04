@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import DinosaursList from "./DinosaursList";
+import Button from "react-bootstrap/Button";
 
 export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosaur, sellDinosaur}) {
 
@@ -16,9 +17,9 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
     }
 
     const listOfDinosInEnclosure = enclosure.dinosaurs.map(dinosaur => {
-            return <div>
+            return <div key={dinosaur.id}>
                     <p>{dinosaur.species.name}</p>
-                    <button onClick={() => handleSellDino(dinosaurs.id)}>Sell</button>
+                    <Button onClick={() => handleSellDino(dinosaur.id)}>Sell</Button>
                 </div>
     })
 
