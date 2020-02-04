@@ -1,12 +1,11 @@
 package com.triceratops.dinocityserver.services;
 
-import com.triceratops.dinocityserver.models.Dinosaur;
-import com.triceratops.dinocityserver.models.Enclosure;
-import com.triceratops.dinocityserver.models.Park;
-import com.triceratops.dinocityserver.models.ParkStats;
+import com.triceratops.dinocityserver.models.*;
+import com.triceratops.dinocityserver.models.enums.BuildingType;
 import com.triceratops.dinocityserver.models.enums.DinoType;
 import com.triceratops.dinocityserver.models.enums.SecurityLevel;
 import com.triceratops.dinocityserver.models.enums.SizeType;
+import com.triceratops.dinocityserver.repositories.BuildingRepository;
 import com.triceratops.dinocityserver.repositories.DinosaurRepository;
 import com.triceratops.dinocityserver.repositories.EnclosureRepository;
 import com.triceratops.dinocityserver.repositories.ParkRepository;
@@ -21,13 +20,15 @@ public class ParkService {
     private ParkRepository parkRepository;
     private EnclosureRepository enclosureRepository;
     private DinosaurRepository dinosaurRepository;
+    private BuildingRepository buildingRepository;
 
     @Autowired
     public ParkService(ParkRepository parkRepository, EnclosureRepository enclosureRepository,
-                       DinosaurRepository dinosaurRepository) {
+                       DinosaurRepository dinosaurRepository, BuildingRepository buildingRepository) {
         this.parkRepository = parkRepository;
         this.enclosureRepository = enclosureRepository;
         this.dinosaurRepository = dinosaurRepository;
+        this.buildingRepository = buildingRepository;
     }
 
     public boolean addPark(String name){
@@ -131,5 +132,17 @@ public class ParkService {
             counter += enclosure.getDinosaurs().size();
         }
         return counter;
+    }
+
+    public void buyBuilding(String name, String type, int positionId) {
+        Park park = parkRepository.findParkByName(name);
+        BuildingType buildingType =  BuildingType.valueOf(type);
+        if(park.getMoney() >= buildingType.getCost()){
+            park.reduceMoney(buildingType.getCost());
+            Building building = new Building(buildingType, park, positionId);
+            buildingRepository.save(building);
+            park.addBulding(building);
+            parkRepository.save(park);
+        }
     }
 }

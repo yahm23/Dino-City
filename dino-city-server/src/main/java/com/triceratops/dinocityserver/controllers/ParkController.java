@@ -50,4 +50,9 @@ public class ParkController {
     public boolean findSpecificEnclosureInPark(@PathVariable String name, @PathVariable int positionId, @PathVariable String dinosaur){
         return parkService.addDinosaurToSpecificEnclosure(name,positionId,dinosaur);
     }
+
+    @RequestMapping(value="/name/{name}/building/{type}{positionId}", method = RequestMethod.GET )
+    public void addBuildingToPark(@PathVariable String name, @PathVariable String type, @PathVariable int positionId){
+        parkService.buyBuilding(name,type,positionId);
+    }
 }

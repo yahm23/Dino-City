@@ -7,6 +7,7 @@ import com.triceratops.dinocityserver.models.ParkStats;
 import com.triceratops.dinocityserver.models.enums.DinoType;
 import com.triceratops.dinocityserver.models.enums.SecurityLevel;
 import com.triceratops.dinocityserver.models.enums.SizeType;
+import com.triceratops.dinocityserver.repositories.BuildingRepository;
 import com.triceratops.dinocityserver.repositories.DinosaurRepository;
 import com.triceratops.dinocityserver.repositories.EnclosureRepository;
 import com.triceratops.dinocityserver.repositories.ParkRepository;
@@ -40,7 +41,7 @@ public class ParkServiceTest {
         enclosureRepository = mock(EnclosureRepository.class);
         dinosaurRepository = mock(DinosaurRepository.class);
 
-        parkService = new ParkService(parkRepository,enclosureRepository, dinosaurRepository);
+        parkService = new ParkService(parkRepository,enclosureRepository, dinosaurRepository, mock(BuildingRepository.class));
     }
 
     @Test
