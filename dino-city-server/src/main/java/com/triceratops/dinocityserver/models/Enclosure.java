@@ -59,10 +59,13 @@ public class Enclosure   {
         this.positionId = positionId;
     }
 
+    public void removeDinosaur(Dinosaur dinosaur) {
+        dinosaurs.remove(dinosaur);
+    }
+
     public Long getId() {
         return id;
     }
-
 
     public List<Dinosaur> getDinosaurs() {
         return dinosaurs;

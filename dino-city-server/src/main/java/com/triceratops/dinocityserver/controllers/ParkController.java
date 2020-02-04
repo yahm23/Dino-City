@@ -1,6 +1,7 @@
 package com.triceratops.dinocityserver.controllers;
 
 import com.triceratops.dinocityserver.models.Enclosure;
+import com.triceratops.dinocityserver.models.EventResponse;
 import com.triceratops.dinocityserver.models.Park;
 import com.triceratops.dinocityserver.models.ParkStats;
 import com.triceratops.dinocityserver.services.ParkService;
@@ -46,9 +47,14 @@ public class ParkController {
         return parkService.getSpecificEnclosureInParkByPositionId(name,positionId);
     }
 
-    @RequestMapping(value="/addDinosaurToSpecificEnclosure/{name}/{positionId}/{dinosaur}",method = RequestMethod.GET)
-    public boolean findSpecificEnclosureInPark(@PathVariable String name, @PathVariable int positionId, @PathVariable String dinosaur){
+    @RequestMapping(value="/name/{name}/enclosure/{positionId}/dinosaur/{dinosaur}",method = RequestMethod.GET)
+    public boolean addDinosaurToSpecificEnclosure(@PathVariable String name, @PathVariable int positionId, @PathVariable String dinosaur){
         return parkService.addDinosaurToSpecificEnclosure(name,positionId,dinosaur);
+    }
+
+    @RequestMapping(value="/name/{parkName}/event",method = RequestMethod.GET)
+    public EventResponse getRandomEvent(@PathVariable String parkName) {
+        return parkService.triggerEvent(parkName);
     }
 
     @RequestMapping(value="/name/{name}/building/{type}{positionId}", method = RequestMethod.GET )

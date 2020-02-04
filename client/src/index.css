@@ -21,6 +21,7 @@ code {
   background-color: #ffffff00;
   width: 30%;
   height: 30%;
+  border: 0px;
 }
 
 .map {
@@ -61,4 +62,28 @@ div.col{
 .game-title {
   width: 30%;
   text-decoration: underline;
+}
+
+.dinosaur-list {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.dinosaur-item {
+  width: 30%;
+  margin: 8px;
+}
+
+.dinosaur-item p {
+  margin: 0px;
+}
+
+.dinosaur-item-disabled {
+  width: 30%;
+  margin: 8px;
+}
+
+.dinosaur-item-disabled p {
+  margin: 0px;
 }

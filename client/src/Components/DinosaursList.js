@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import DinosaursListItem from "./DinosaursListItem";
 
-export default function DinosaursList({dinosaurs}) {
+export default function DinosaursList({dinosaurs, money, threatLevel, size, buyDinosaur, setSumOfDinos}) {
 
     const [herbivors, setHerbivors] = useState([]);
     const [carnivors, setCarnivors] = useState([]);
@@ -19,7 +19,15 @@ export default function DinosaursList({dinosaurs}) {
 
     const dinosaursList = (dinoList) => {
         return dinoList.map(dinosaur => {
-            return <DinosaursListItem dinosaur={dinosaur}/>
+            return <DinosaursListItem
+                dinosaur={dinosaur}
+                money={money}
+                threatLevel={threatLevel}
+                size={size}
+                onBuyClick={buyDinosaur}
+                key={dinosaur.name}
+                setSumOfDinos={setSumOfDinos}
+            />
         })
     };
 
@@ -27,11 +35,15 @@ export default function DinosaursList({dinosaurs}) {
         <div>
             <div>
                 <h3>Herbivore</h3>
-                {dinosaursList(herbivors)}
+                <div className="dinosaur-list">
+                    {dinosaursList(herbivors)}
+                </div>
             </div>
             <div>
                 <h3>Carnivores</h3>
-                {dinosaursList(carnivors)}
+                <div className="dinosaur-list">
+                    {dinosaursList(carnivors)}
+                </div>
             </div>
         </div>
     )

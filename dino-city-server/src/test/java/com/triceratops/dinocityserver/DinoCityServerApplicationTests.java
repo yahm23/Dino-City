@@ -5,15 +5,12 @@ import com.triceratops.dinocityserver.models.Enclosure;
 import com.triceratops.dinocityserver.models.enums.DinoType;
 import com.triceratops.dinocityserver.models.enums.SecurityLevel;
 import com.triceratops.dinocityserver.models.enums.SizeType;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 class DinoCityServerApplicationTests {
-
-//	@Autowired
-//	Dinos
 
     Dinosaur dino;
     Enclosure enclosure1;
