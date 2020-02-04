@@ -133,7 +133,7 @@ public class ParkService {
    }
 
    private boolean isEnoughSecurity(Enclosure enclosure, Dinosaur dinosaur){
-       return dinosaur.getSpecies().getThreatLevel().getThreatlevel() <= enclosure.getSecurityLevel().getThreatLevel().getThreatlevel();
+       return dinosaur.getSpecies().getThreatLevel().getThreatLevel() <= enclosure.getSecurityLevel().getThreatLevel().getThreatLevel();
    }
 
    private boolean isEnoughMoney(Park park, Dinosaur dinosaur){

@@ -17,7 +17,7 @@ public enum ThreatLevel {
         this.name =name;
     }
 
-    public int getThreatlevel() {
+    public int getThreatLevel() {
         return threatLevel;
     }
 
