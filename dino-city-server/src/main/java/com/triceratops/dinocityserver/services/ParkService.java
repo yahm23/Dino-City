@@ -265,6 +265,11 @@ public class ParkService {
         return false;
     }
 
+    public void deletePark(String name){
+        Park park = parkRepository.findParkByName(name);
+        parkRepository.delete(park);
+    }
+
     public boolean upgradeSecurity(String name, int positionId, String security){
         Park park = parkRepository.findParkByName(name);
         for(Enclosure enclosure: park.getEnclosures()){

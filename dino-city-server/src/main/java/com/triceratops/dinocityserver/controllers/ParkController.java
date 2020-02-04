@@ -27,6 +27,11 @@ public class ParkController {
         return parkService.getParkByName(name);
     }
 
+    @RequestMapping(value = "/delete/name/{name}", method = RequestMethod.GET)
+    public void deletePark(@PathVariable String name) {
+         parkService.deletePark(name);
+    }
+
     @RequestMapping(value = "/stats/name/{name}", method = RequestMethod.GET)
     public ParkStats getParkStats(@PathVariable String name) {
         return parkService.getParkStats(name);
