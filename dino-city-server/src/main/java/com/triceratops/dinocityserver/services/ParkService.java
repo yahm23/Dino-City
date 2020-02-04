@@ -254,6 +254,8 @@ public class ParkService {
                 double newSizeCost = sizeType.getPrice();
                 double upgradeCost = round((newSizeCost-initialCost)*1.1);
                 if(park.getMoney()>= upgradeCost){
+                    park.reduceMoney(upgradeCost);
+                    parkRepository.save(park);
                     enclosure.setSize(sizeType);
                     enclosureRepository.save(enclosure);
                     return true;
@@ -273,6 +275,8 @@ public class ParkService {
                 double newSizeCost = securityType.getPriceMultiplier();
                 double upgradeCost = round((newSizeCost-initialCost+1)*600);
                 if(park.getMoney()>= upgradeCost){
+                    park.reduceMoney(upgradeCost);
+                    parkRepository.save(park);
                     enclosure.setSecurityLevel(securityType);
                     enclosureRepository.save(enclosure);
                     return true;
