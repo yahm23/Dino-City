@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ParkService {
@@ -84,6 +85,35 @@ public class ParkService {
         return null;
     }
 
+    public double getMaintenanceCost(Park park) {
+
+        double amount = 0;
+
+            for (Enclosure enclosure : park.getEnclosures()) {
+                double securityCost = enclosure.getSecurityLevel().getThreatLevel().getThreatLevel() * 40;
+                double sizeCost = enclosure.getSize().getSize() * 20;
+
+                amount += securityCost + sizeCost;
+
+                for (Dinosaur dino : enclosure.getDinosaurs()) {
+                    double dinoFeedingCost = dino.getSpecies().getPrice() * 0.1;
+                    amount += dinoFeedingCost;
+                }
+            }
+
+        return amount;
+    }
+
+
+    public void maintenanceEnclosureAndDino(){
+
+        for (Park park: parkRepository.findAll()){
+            double cost = this.getMaintenanceCost(park);
+            park.reduceMoney(cost);
+            parkRepository.save(park);
+        }
+    }
+
     public double calculateParkRating(String name){
         Park park =parkRepository.findParkByName(name);
         double rating =1.0;
@@ -94,10 +124,11 @@ public class ParkService {
     }
 
     public void updateAllParks(){
-        for(Park park: parkRepository.findAllParks()){
+        for(Park park: parkRepository.findAll()){
             double income = this.calculateIncome(park);
             double before = park.getMoney();
             park.setMoney(income+before);
+
             double rating= calculateParkRating(park.getName());
             park.setRating(rating);
             parkRepository.save(park);
