@@ -8,17 +8,17 @@ public enum ThreatLevel {
     MEDIUM("MEDIUM",3),
     LOW("LOW",2);
 
-    private final int threatlevel;
+    private int threatLevel;
 
     private String name;
 
     ThreatLevel(String name, int threatLevel) {
-        this.threatlevel = threatLevel;
+        this.threatLevel = threatLevel;
         this.name =name;
     }
 
     public int getThreatlevel() {
-        return threatlevel;
+        return threatLevel;
     }
 
     public String getName() {
