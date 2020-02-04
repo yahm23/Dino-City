@@ -98,7 +98,6 @@ public class ParkService {
             for (Enclosure enclosure : park.getEnclosures()) {
                 double securityCost = enclosure.getSecurityLevel().getThreatLevel().getThreatLevel() * 40;
                 double sizeCost = enclosure.getSize().getSize() * 20;
-
                 amount += securityCost + sizeCost;
 
                 for (Dinosaur dino : enclosure.getDinosaurs()) {
@@ -147,6 +146,18 @@ public class ParkService {
             park.setRating(rating);
             parkRepository.save(park);
         }
+     }
+
+     public void sellDino(String name, Long dinoId){
+        Park park = parkRepository.findParkByName(name);
+        Dinosaur dino = dinosaurRepository.findById(dinoId).get();
+        double sellAmount = round(dino.getSpecies().getPrice()*0.85);
+        double before = park.getMoney();
+        park.setMoney(sellAmount+before);
+        parkRepository.save(park);
+
+        dinosaurRepository.delete(dino);
+
      }
 
    public boolean addDinosaurToSpecificEnclosure(String name, int positionId, String dinosaur ){
@@ -213,7 +224,7 @@ public class ParkService {
         return round(income);
     }
 
-    private int calculatePopulation(Park park) {
+    public int calculatePopulation(Park park) {
         int counter = 0;
         for(Enclosure enclosure: park.getEnclosures()){
             counter += enclosure.getDinosaurs().size();

@@ -13,7 +13,6 @@ public class ParkScheduler {
 
     @Scheduled(fixedRate = 60000)
     public void scheduleDailyUpdates() {
-//        System.out.println("Schedule activity");
         parkService.updateAllParks();
         parkService.maintenanceEnclosureAndDino();
     }
