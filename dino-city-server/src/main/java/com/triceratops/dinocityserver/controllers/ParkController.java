@@ -50,4 +50,9 @@ public class ParkController {
     public boolean addDinosaurToSpecificEnclosure(@PathVariable String name, @PathVariable int positionId, @PathVariable String dinosaur){
         return parkService.addDinosaurToSpecificEnclosure(name,positionId,dinosaur);
     }
+
+    @RequestMapping(value="/rating/{name}", method = RequestMethod.GET)
+    public double calculateParkRating(@PathVariable String name){
+        return parkService.calculateParkRating(name);
+    }
 }

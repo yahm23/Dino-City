@@ -2,16 +2,18 @@ import React from "react";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 
-export default function DinosaursListItem({dinosaur, money, threatLevel, size, onBuyClick}) {
+export default function DinosaursListItem({dinosaur, money, threatLevel, size, onBuyClick, setSumOfDinos}) {
     const handleOnClick = () => {
-        onBuyClick(dinosaur.name);
+        onBuyClick(dinosaur.name);  
     };
 
     const isDinosaurAvailable = () => {
         return dinosaur.price <= money &&
             dinosaur.threatLevel.threatLevel <= threatLevel &&
-            dinosaur.size <= size
+            dinosaur.size <= size &&
+            setSumOfDinos() + dinosaur.size <= size
     };
+
 
     return (
         <div className={isDinosaurAvailable() ? "dinosaur-item" : "dinosaur-item-disabled"}>

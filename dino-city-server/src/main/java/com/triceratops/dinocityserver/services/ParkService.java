@@ -21,13 +21,15 @@ public class ParkService {
     private ParkRepository parkRepository;
     private EnclosureRepository enclosureRepository;
     private DinosaurRepository dinosaurRepository;
+    private EnclosureService enclosureService;
 
     @Autowired
     public ParkService(ParkRepository parkRepository, EnclosureRepository enclosureRepository,
-                       DinosaurRepository dinosaurRepository) {
+                       DinosaurRepository dinosaurRepository, EnclosureService enclosureService) {
         this.parkRepository = parkRepository;
         this.enclosureRepository = enclosureRepository;
         this.dinosaurRepository = dinosaurRepository;
+        this.enclosureService =enclosureService;
     }
 
     public boolean addPark(String name){
@@ -80,6 +82,15 @@ public class ParkService {
            };
         }
         return null;//or null
+    }
+
+    public double calculateParkRating(String name){
+        Park park =parkRepository.findParkByName(name);
+        double rating =1.0;
+        for(Enclosure enclosure: park.getEnclosures()){
+            rating += enclosureService.getRatingOfEnclosureFromDinosaur(enclosure);
+        }
+        return rating;
     }
 
    public boolean addDinosaurToSpecificEnclosure(String name, int positionId, String dinosaur ){

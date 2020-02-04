@@ -11,10 +11,12 @@ import EnclosureDetail from '../Components/EnclosureDetail';
 import EmptyTile from "../Components/EmptyTile";
 import GameHeader from "../Components/GameHeader";
 import GameTitle from "../Components/GameTitle";
+import RandomEvent from '../Components/RandomEvent';
 
 function GamePage({parkName}) {
     const [showPopup, setShowPopup] = useState(false);
     const [showEnclosure, setShowEnclosure] = useState(false);
+    const [showEvent, setShowEvent] = useState(false)
     const [park, setPark] = useState({money: 12000, enclosures:[]});
     const [stats, setStats] = useState({money: 0, income:0, population: 0 });
     const [position, setPosition] = useState(null);
@@ -30,6 +32,7 @@ function GamePage({parkName}) {
         fetchPark();
         fetchEnclosures();
         fetchDinosaurs();
+
     },[]);
 
     const fetchPark = () => {
@@ -71,11 +74,16 @@ function GamePage({parkName}) {
     const handleOnClosePopup = () => {
         setShowPopup(false);
         setShowEnclosure(false);
+        setShowEvent(false);
     };
 
     function handleOnOpenPopEnclosure(position) {
         setShowEnclosure(true);
         setPosition(position)
+    }
+
+    function handleOnOpenPopupEvent() {
+        setShowEvent(true);
     }
 
     const buyEnclosure = (size, security) => {
@@ -88,11 +96,15 @@ function GamePage({parkName}) {
     };
 
     const buyDinosaur = (dinosaur) => {
-        setShowEnclosure(false);
+        // setShowEnclosure(false);
         fetch(`http://localhost:8080/park/name/${parkName}/enclosure/${position}/dinosaur/${dinosaur.toUpperCase()}`)
             .then(() => fetchPark())
             .then(() => fetchStats())
     };
+
+    const sellDinosaur = (id) => {
+        //finish function once we have endpoint
+    }
 
     function renderRedirect() {
         return <Redirect to="/" />
@@ -118,7 +130,11 @@ function GamePage({parkName}) {
                 money={park.money}
                 dinosaurs={dinosaurs}
                 enclosure={getEnclosure()}
-                buyDinosaur={buyDinosaur}/>
+                buyDinosaur={buyDinosaur}
+                sellDinosaur={sellDinosaur}/>
+        </DinoPopup>
+        <DinoPopup show={showEvent} handleClose={handleOnClosePopup}>
+            <RandomEvent />
         </DinoPopup>
       <MapBox>
         <MapTileRow>
