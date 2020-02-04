@@ -11,7 +11,11 @@ import com.triceratops.dinocityserver.repositories.ParkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 public class ParkService {
@@ -54,7 +58,10 @@ public class ParkService {
         double money = park.getMoney();
         double income = calculateIncome(park);
         int population = calculatePopulation(park);
-        return new ParkStats(money, income, population);
+        double cost = getMaintenanceCost(park);
+        double rating = calculateParkRating(park);
+
+        return new ParkStats(money, income, population, cost, rating);
     }
 
     public void buyEnclosure(String name, String size, String security, int positionId){
@@ -84,21 +91,59 @@ public class ParkService {
         return null;
     }
 
-    public double calculateParkRating(String name){
-        Park park =parkRepository.findParkByName(name);
+    public double getMaintenanceCost(Park park) {
+
+        double amount = 0;
+
+            for (Enclosure enclosure : park.getEnclosures()) {
+                double securityCost = enclosure.getSecurityLevel().getThreatLevel().getThreatLevel() * 40;
+                double sizeCost = enclosure.getSize().getSize() * 20;
+
+                amount += securityCost + sizeCost;
+
+                for (Dinosaur dino : enclosure.getDinosaurs()) {
+                    double dinoFeedingCost = dino.getSpecies().getPrice() * 0.1;
+                    amount += dinoFeedingCost;
+                }
+            }
+
+        return round(amount);
+    }
+
+
+    public void maintenanceEnclosureAndDino(){
+
+        for (Park park: parkRepository.findAll()){
+            double cost = this.getMaintenanceCost(park);
+            park.reduceMoney(cost);
+            parkRepository.save(park);
+        }
+    }
+
+    public double calculateParkRating(Park park){
         double rating =1.0;
         for(Enclosure enclosure: park.getEnclosures()){
             rating += enclosureService.getRatingOfEnclosureFromDinosaur(enclosure);
         }
-        return rating;
+
+        return round(rating);
     }
+
+    private double round(Double number){
+        BigDecimal bd = BigDecimal.valueOf(number);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+
+    }
+
 
     public void updateAllParks(){
         for(Park park: parkRepository.findAll()){
             double income = this.calculateIncome(park);
             double before = park.getMoney();
             park.setMoney(income+before);
-            double rating= calculateParkRating(park.getName());
+
+            double rating= calculateParkRating(park);
             park.setRating(rating);
             parkRepository.save(park);
         }
@@ -164,8 +209,8 @@ public class ParkService {
    }
 
     private double calculateIncome(Park park) {
-        double income = 100 * this.calculateParkRating(park.getName());
-        return income;
+        double income = 100 * this.calculateParkRating(park);
+        return round(income);
     }
 
     private int calculatePopulation(Park park) {
