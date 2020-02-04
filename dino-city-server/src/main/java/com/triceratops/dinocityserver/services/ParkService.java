@@ -181,7 +181,9 @@ public class ParkService {
         int randomEvent = (int)(Events.values().length * Math.random());
         Events event = Events.values()[randomEvent];
         if (Math.random() <= event.getEventChance()) {
-            return eventService.trigger(park, event);
+            EventResponse response = eventService.trigger(park, event);
+            parkRepository.save(park);
+            return response;
         }
         return new EventResponse("");
     }
