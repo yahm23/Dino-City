@@ -42,11 +42,6 @@ public class ParkController {
         parkService.buyEnclosure(name,size,security,positionId);
     }
 
-    @RequestMapping(value="/positionId/{name}/{positionId}",method = RequestMethod.GET)
-    public Enclosure findSpecificEnclosureInPark(@PathVariable String name, @PathVariable int positionId){
-        return parkService.getSpecificEnclosureInParkByPositionId(name,positionId);
-    }
-
     @RequestMapping(value="/name/{name}/enclosure/{positionId}/dinosaur/{dinosaur}",method = RequestMethod.GET)
     public boolean addDinosaurToSpecificEnclosure(@PathVariable String name, @PathVariable int positionId, @PathVariable String dinosaur){
         return parkService.addDinosaurToSpecificEnclosure(name,positionId,dinosaur);
@@ -55,5 +50,10 @@ public class ParkController {
     @RequestMapping(value="/name/{parkName}/event",method = RequestMethod.GET)
     public EventResponse getRandomEvent(@PathVariable String parkName) {
         return parkService.triggerEvent(parkName);
+    }
+
+    @RequestMapping(value="/name/{parkName}/dinosaur/delete/{id}",method = RequestMethod.GET)
+    public void sellDino(@PathVariable String parkName, @PathVariable int id){
+         parkService.sellDino(parkName, (long) id);
     }
 }

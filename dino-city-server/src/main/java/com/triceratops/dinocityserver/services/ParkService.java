@@ -148,7 +148,7 @@ public class ParkService {
         }
      }
 
-     public void sellDino(String name, Long dinoId){
+     public boolean sellDino(String name, Long dinoId){
         Park park = parkRepository.findParkByName(name);
         Dinosaur dino = dinosaurRepository.findById(dinoId).get();
         double sellAmount = round(dino.getSpecies().getPrice()*0.85);
@@ -157,6 +157,7 @@ public class ParkService {
         parkRepository.save(park);
 
         dinosaurRepository.delete(dino);
+        return true;
 
      }
 
