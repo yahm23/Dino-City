@@ -90,8 +90,8 @@ public class ParkService {
        boolean spaceCheck = isEnoughSpace(enclosure,newDino);
        boolean securityCheck = isEnoughSecurity(enclosure,newDino);
        boolean moneyCheck = isEnoughMoney(park,newDino);
-
-       if(spaceCheck && securityCheck && moneyCheck){
+       boolean dietCheck = isCorrectDinoTypes(enclosure,newDino);
+       if(spaceCheck && securityCheck && moneyCheck && dietCheck){
 
            newDino.setEnclosure(enclosure);
            dinosaurRepository.save(newDino);
@@ -109,6 +109,27 @@ public class ParkService {
    private boolean isEnoughSpace(Enclosure enclosure, Dinosaur dinosaur){
        return dinosaur.getSpecies().getSize() <= enclosure.getSize().getSize();
 
+   }
+
+   private boolean isCorrectDinoTypes(Enclosure enclosure,Dinosaur dinosaurToAdd ){
+       if(dinosaurToAdd.getSpecies().getDietType().getName() =="HERBIVORE"){
+            for(Dinosaur dinosaur: enclosure.getDinosaurs()){
+                String name = dinosaur.getSpecies().getDietType().getName();
+                if ( name == "OMNIVORE" || name =="CARNIVORE" ){
+                    return false;
+                }
+            }
+        }
+
+       if(dinosaurToAdd.getSpecies().getDietType().getName() =="CARNIVORE"||dinosaurToAdd.getSpecies().getDietType().getName() =="OMNIVORE"){
+            for(Dinosaur dinosaur: enclosure.getDinosaurs()){
+                String name = dinosaur.getSpecies().getDietType().getName();
+                if ( name == "HERBIVORE" ){
+                    return false;
+                }
+            }
+        }
+       return true;
    }
 
    private boolean isEnoughSecurity(Enclosure enclosure, Dinosaur dinosaur){

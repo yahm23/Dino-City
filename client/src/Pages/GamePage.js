@@ -63,9 +63,9 @@ function GamePage({parkName}) {
         }
     }
 
-    const handleOnOpenPopup = (positionN) => {
+    const handleOnOpenPopup = (position) => {
         setShowPopup(true);
-        setPosition(positionN);
+        setPosition(position);
     };
 
     const handleOnClosePopup = () => {
@@ -74,8 +74,9 @@ function GamePage({parkName}) {
         setPosition(null);
     };
 
-    function handleOnOpenPopEnclosure() {
+    function handleOnOpenPopEnclosure(position) {
         setShowEnclosure(true);
+        setPosition(position)
     }
 
     const buyEnclosure = (size, security) => {
@@ -87,16 +88,21 @@ function GamePage({parkName}) {
           .then(() => fetchStats())
     };
 
+    const buyDinosaur = (dinosaur) => {
+        setShowEnclosure(false);
+        fetch(`http://localhost:8080/park/name/${parkName}/enclosure/${position}/dinosaur/${dinosaur.toUpperCase()}`)
+            .then(() => fetchPark())
+            .then(() => fetchStats())
+    };
+
     function renderRedirect() {
         return <Redirect to="/" />
-    }   
-    
-    function getEnclosure() {
-        enclosures.filter(enclosure => {
-            return enclosure.positionId === position;
-        }) 
     }
-    
+
+    function getEnclosure() {
+        return park.enclosures.find(enclosure => enclosure.positionId === position);
+    }
+ 
 
   return (
     <>
@@ -109,7 +115,11 @@ function GamePage({parkName}) {
             <BuildEnclosure money={park.money} buyEnclosure={buyEnclosure} enclosures={enclosures}/>
         </DinoPopup>
         <DinoPopup show={showEnclosure} handleClose={handleOnClosePopup}>
-            <EnclosureDetail money={park.money} dinosaurs={dinosaurs} getEnclosure={getEnclosure}/>
+            <EnclosureDetail
+                money={park.money}
+                dinosaurs={dinosaurs}
+                enclosure={getEnclosure()}
+                buyDinosaur={buyDinosaur}/>
         </DinoPopup>
       <MapBox>
         <MapTileRow>

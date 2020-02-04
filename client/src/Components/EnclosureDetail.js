@@ -1,14 +1,11 @@
 import React from 'react';
 import DinosaursList from "./DinosaursList";
 
-export default function EnclosureDetail({dinosaurs, getEnclosure}) {
-    
-    const [enclosure, setEnclosure] = useState({});
-
-    setEnclosure(getEnclosure);
-
+export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosaur}) {
     return (
-           { enclosure.size.size}
-           <DinosaursList dinosaurs={dinosaurs} />
+            <div>
+                {enclosure.size.size}
+                <DinosaursList dinosaurs={dinosaurs} buyDinosaur={buyDinosaur}/>
+            </div>
         )
 }
