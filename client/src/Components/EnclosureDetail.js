@@ -32,8 +32,9 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
             if (money >= cost) {
                 return "UPGRADE SIZE " + nextSize.name + " £"  + cost;
             }
+            return "NOT ENOUGH MONEY";
         }
-        return "";
+        return "FULLY UPGRADED";
     };
 
     function handleUpgradeSize() {
