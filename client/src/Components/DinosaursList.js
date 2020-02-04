@@ -24,7 +24,9 @@ export default function DinosaursList({dinosaurs, money, threatLevel, size, buyD
                 money={money}
                 threatLevel={threatLevel}
                 size={size}
-                onBuyClick={buyDinosaur}/>
+                onBuyClick={buyDinosaur}
+                key={dinosaur.name}
+            />
         })
     };
 
