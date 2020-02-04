@@ -11,6 +11,7 @@ import EnclosureDetail from '../Components/EnclosureDetail';
 import EmptyTile from "../Components/EmptyTile";
 import GameHeader from "../Components/GameHeader";
 import GameTitle from "../Components/GameTitle";
+import RandomEvent from '../Components/RandomEvent';
 
 function GamePage({parkName}) {
     const [showPopup, setShowPopup] = useState(false);
@@ -88,11 +89,15 @@ function GamePage({parkName}) {
     };
 
     const buyDinosaur = (dinosaur) => {
-        setShowEnclosure(false);
+        // setShowEnclosure(false);
         fetch(`http://localhost:8080/park/name/${parkName}/enclosure/${position}/dinosaur/${dinosaur.toUpperCase()}`)
             .then(() => fetchPark())
             .then(() => fetchStats())
     };
+
+    const sellDinosaur = (id) => {
+        //finish function once we have endpoint
+    }
 
     function renderRedirect() {
         return <Redirect to="/" />
@@ -118,7 +123,11 @@ function GamePage({parkName}) {
                 money={park.money}
                 dinosaurs={dinosaurs}
                 enclosure={getEnclosure()}
-                buyDinosaur={buyDinosaur}/>
+                buyDinosaur={buyDinosaur}
+                sellDinosaur={sellDinosaur}/>
+        </DinoPopup>
+        <DinoPopup show={false}>
+            <RandomEvent />
         </DinoPopup>
       <MapBox>
         <MapTileRow>

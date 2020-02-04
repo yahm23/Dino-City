@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import DinosaursListItem from "./DinosaursListItem";
 
-export default function DinosaursList({dinosaurs, money, threatLevel, size, buyDinosaur}) {
+export default function DinosaursList({dinosaurs, money, threatLevel, size, buyDinosaur, setSumOfDinos}) {
 
     const [herbivors, setHerbivors] = useState([]);
     const [carnivors, setCarnivors] = useState([]);
@@ -26,6 +26,7 @@ export default function DinosaursList({dinosaurs, money, threatLevel, size, buyD
                 size={size}
                 onBuyClick={buyDinosaur}
                 key={dinosaur.name}
+                setSumOfDinos={setSumOfDinos}
             />
         })
     };
