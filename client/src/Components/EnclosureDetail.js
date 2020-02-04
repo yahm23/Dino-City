@@ -20,8 +20,15 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
                     <p>{dinosaur.species.name}</p>
                     <button onClick={() => handleSellDino(dinosaurs.id)}>Sell</button>
                 </div>
-        })
+    })
+
+    function handleUpgradeSize() {
+
+    }
+    
+    function handleUpgradeSecurity() {
         
+    }
 
     return (
         
@@ -29,6 +36,8 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
                 <p>Capacity: {setSumOfDinos()}/{enclosure.size.size}</p>
                 <p>Security Level: {enclosure.securityLevel.threatLevel.name}</p>
                 { enclosure.dinosaurs[0] && <p>This enclosure is for: {enclosure.dinosaurs[0].species.dietType.name}</p>}
+                <button onClick={handleUpgradeSize} >Upgrade Size</button>
+                <button onClick={handleUpgradeSecurity} >Upgrade Security</button>
                 
                 {listOfDinosInEnclosure}
 
