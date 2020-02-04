@@ -9,6 +9,6 @@ export default function EmptyTile({onClick, position}) {
     };
 
     return (
-        <Button onClick={handleOnClick} bsPrefix="building-btn"><Image src={"./buildings/empty-building.png"} fluid/></Button>
+        <Button onClick={handleOnClick} bsPrefix="building-btn"><Image src={"./buildings/buildable-enclosure.png"} fluid/></Button>
     )
 }

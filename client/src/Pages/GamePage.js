@@ -3,24 +3,29 @@ import MapBox from '../Components/MapBox';
 import MapTileRow from '../Components/MapTileRow';
 import MapTile from '../Components/MapTile';
 import BuildEnclosure from '../Components/BuildEnclosure';
+import BuildBuilding from '../Components/BuildBuilding';
+import BuildingDetails from '../Components/BuildingDetails';
 import DinoPopup from "../Components/DinoPopup";
 import {Redirect} from 'react-router-dom';
 import GameStats from '../Components/GameStats';
-import BuildingTile from '../Components/BuildingTile';
+import EnclosureTile from '../Components/EnclosureTile';
 import EnclosureDetail from '../Components/EnclosureDetail';
 import EmptyTile from "../Components/EmptyTile";
 import GameHeader from "../Components/GameHeader";
 import GameTitle from "../Components/GameTitle";
 import RandomEvent from '../Components/RandomEvent';
+import BuildingTile from '../Components/BuildingTile';
 
 function GamePage({parkName}) {
     const [showPopup, setShowPopup] = useState(false);
     const [showEnclosure, setShowEnclosure] = useState(false);
-    const [showEvent, setShowEvent] = useState(false)
-    const [park, setPark] = useState({money: 12000, enclosures:[]});
+    const [showBuyBuildingPopup, setShowBuyBuildingPopup] = useState(false);
+    const [showBuildingDetailsPopup, setShowBuildingDetailsPopup] = useState(false);
+    const [park, setPark] = useState({money: 12000, enclosures:[], buildings: []});
     const [stats, setStats] = useState({money: 0, income:0, population: 0 });
     const [position, setPosition] = useState(null);
     const [enclosures, setEnclosures] = useState({});
+    const [buildings, setBuildings] = useState({})
     const [dinosaurs, setDinosaurs] = useState([]);
     const [eventMessage, setEventMessage] = useState("")
 
@@ -36,7 +41,7 @@ function GamePage({parkName}) {
         fetchPark();
         fetchEnclosures();
         fetchDinosaurs();
-        
+        fetchBuildings();
     },[]);
 
     const fetchPark = () => {
@@ -62,6 +67,15 @@ function GamePage({parkName}) {
                 .then(data => setEnclosures(data))
         }
     }
+
+    function fetchBuildings() {
+        if(parkName) {
+            fetch(`http://localhost:8080/buildings/types`)
+            .then(res => res.json())
+            .then(data => setBuildings(data.types))
+        }
+    }
+
     function fetchDinosaurs() {
         if(parkName) {
             fetch(`http://localhost:8080/dinosaur/species`)
@@ -86,17 +100,26 @@ function GamePage({parkName}) {
     const handleOnClosePopup = () => {
         setShowPopup(false);
         setShowEnclosure(false);
-        setShowEvent(false);
+        setShowBuyBuildingPopup(false);
     };
 
     function handleOnOpenPopEnclosure(position) {
         setShowEnclosure(true);
-        setPosition(position)
+        setPosition(position);
     }
 
-    function handleOnOpenPopupEvent() {
-        setShowEvent(true);
+
+    function handleOnOpenPopBuildBuilding(position) {
+        setShowBuyBuildingPopup(true);
+        setPosition(position);
     }
+
+    function handleOnOpenPopBuildingDetails(position) {
+        setShowBuildingDetailsPopup(true);
+        setPosition(position);
+    }
+
+
 
     const buyEnclosure = (size, security) => {
       console.log(size);
@@ -113,6 +136,10 @@ function GamePage({parkName}) {
             .then(() => fetchPark())
             .then(() => fetchStats())
     };
+
+    const buyBuilding = () => {
+        console.log('as')
+    }
 
     const sellDinosaur = (id) => {
         //finish function once we have endpoint
@@ -135,10 +162,12 @@ function GamePage({parkName}) {
     <>
         {!parkName && renderRedirect()}
         {park.money<= 0 && initializeEndGame()}
+
         <GameHeader>
             <GameTitle parkName={parkName}/>
             <GameStats stats={stats}/>
         </GameHeader>
+
         <DinoPopup show={showPopup} handleClose={handleOnClosePopup}>
             <BuildEnclosure money={park.money} buyEnclosure={buyEnclosure} enclosures={enclosures}/>
         </DinoPopup>
@@ -153,14 +182,21 @@ function GamePage({parkName}) {
         <DinoPopup show={eventMessage != ""} handleClose={handleOnClosePopup}>
             <RandomEvent eventMessage={eventMessage}/>
         </DinoPopup>
+        <DinoPopup show={showBuyBuildingPopup} handleClose={handleOnClosePopup}>
+            <BuildBuilding money={park.money} buildings={buildings} buyBuilding={buyBuilding} />
+        </DinoPopup>
+        <DinoPopup show={showBuildingDetailsPopup} handleClose={handleOnClosePopup}>
+            <BuildingDetails />
+        </DinoPopup>
+
       <MapBox>
         <MapTileRow>
             <MapTile img={"grass_01"}></MapTile>
             <MapTile img={"grass_02"}>
-                <PrepareBuildingTile 
+                <PrepareEnclosureTile 
                     park={park} 
                     position={1} 
-                    onEmptyBuildingClick={handleOnOpenPopup}
+                    onEmptyEnclosureClick={handleOnOpenPopup}
                     onEnclosureClick={handleOnOpenPopEnclosure}
                     />
                 </MapTile>
@@ -169,26 +205,41 @@ function GamePage({parkName}) {
         <MapTileRow>
             <MapTile img={"grass_04"}></MapTile>
             <MapTile img={"grass_05"}>
-                <PrepareBuildingTile 
+                <PrepareEnclosureTile 
                         park={park} 
                         position={2} 
-                        onEmptyBuildingClick={handleOnOpenPopup}
+                        onEmptyEnclosureClick={handleOnOpenPopup}
                         onEnclosureClick={handleOnOpenPopEnclosure}
                         />
             </MapTile>
-            <MapTile img={"grass_06"}></MapTile>
+            <MapTile img={"grass_06"}>
+            <PrepareBuildingTile 
+                        park={park} 
+                        position={3} 
+                        onEmptyBuildingClick={handleOnOpenPopBuildBuilding}
+                        onBuildingClick={handleOnOpenPopBuildingDetails}
+                        />
+            </MapTile>
         </MapTileRow>
       </MapBox>
     </>
   );
 }
 
-const PrepareBuildingTile = ({park, position, onEmptyBuildingClick, onEnclosureClick}) => {
+const PrepareEnclosureTile = ({park, position, onEmptyEnclosureClick, onEnclosureClick}) => {
     const foundEnclosure = park.enclosures.find(enclosure => enclosure.positionId === position)
     if (foundEnclosure){
-        return <BuildingTile enclosure={foundEnclosure} onClick={onEnclosureClick} position={position}/>
+        return <EnclosureTile enclosure={foundEnclosure} onClick={onEnclosureClick} position={position}/>
     }
-    return <EmptyTile onClick={onEmptyBuildingClick} position={position}/>
+    return <EmptyTile onClick={onEmptyEnclosureClick} position={position}/>
 };
 
-export default GamePage;
+const PrepareBuildingTile = ({park, position, onEmptyBuildingClick,  onBuildingClick}) => {
+    const foundBuilding = park.buildings.find(building => building.positionId === position)
+    if(foundBuilding) {
+        return <BuildingTile building={foundBuilding} onClick={onBuildingClick}  position={position}  />
+    }
+    return <EmptyTile onClick={onEmptyBuildingClick} position={position} />
+}
+
+export default GamePage

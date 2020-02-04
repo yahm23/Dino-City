@@ -17,10 +17,10 @@ function BuildEnclosure({money, buyEnclosure, enclosures}) {
     const handleSecurityChange = (e) => {
         setSecurity({security: e.target.id, price: parseFloat(e.target.value)});   
     }
-
+    
     function totalCost() {
         return (securitySelected.price * sizeSelected.price);
-    }
+    }   
 
     function handleBuy() {
         buyEnclosure(sizeSelected, securitySelected);
