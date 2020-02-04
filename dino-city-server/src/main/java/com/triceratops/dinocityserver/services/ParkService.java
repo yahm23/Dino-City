@@ -262,4 +262,23 @@ public class ParkService {
         }
         return false;
     }
+
+    public boolean upgradeSecurity(String name, int positionId, String security){
+        Park park = parkRepository.findParkByName(name);
+        for(Enclosure enclosure: park.getEnclosures()){
+            if(enclosure.getPositionId()==positionId){
+                SecurityLevel securityType = SecurityLevel.valueOf(security);
+
+                double initialCost = enclosure.getSecurityLevel().getPriceMultiplier();
+                double newSizeCost = securityType.getPriceMultiplier();
+                double upgradeCost = round((newSizeCost-initialCost+1)*600);
+                if(park.getMoney()>= upgradeCost){
+                    enclosure.setSecurityLevel(securityType);
+                    enclosureRepository.save(enclosure);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
