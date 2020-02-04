@@ -51,5 +51,8 @@ public class ParkController {
         return parkService.addDinosaurToSpecificEnclosure(name,positionId,dinosaur);
     }
 
-//    @RequestMapping(value="/name/")
+    @RequestMapping(value="/rating/{name}", method = RequestMethod.GET)
+    public double calculateParkRating(@PathVariable String name){
+        return parkService.calculateParkRating(name);
+    }
 }
