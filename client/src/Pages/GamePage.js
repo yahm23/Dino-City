@@ -16,6 +16,7 @@ import RandomEvent from '../Components/RandomEvent';
 function GamePage({parkName}) {
     const [showPopup, setShowPopup] = useState(false);
     const [showEnclosure, setShowEnclosure] = useState(false);
+    const [showEvent, setShowEvent] = useState(false)
     const [park, setPark] = useState({money: 12000, enclosures:[]});
     const [stats, setStats] = useState({money: 0, income:0, population: 0 });
     const [position, setPosition] = useState(null);
@@ -31,6 +32,7 @@ function GamePage({parkName}) {
         fetchPark();
         fetchEnclosures();
         fetchDinosaurs();
+
     },[]);
 
     const fetchPark = () => {
@@ -72,11 +74,16 @@ function GamePage({parkName}) {
     const handleOnClosePopup = () => {
         setShowPopup(false);
         setShowEnclosure(false);
+        setShowEvent(false);
     };
 
     function handleOnOpenPopEnclosure(position) {
         setShowEnclosure(true);
         setPosition(position)
+    }
+
+    function handleOnOpenPopupEvent() {
+        setShowEvent(true);
     }
 
     const buyEnclosure = (size, security) => {
@@ -126,7 +133,7 @@ function GamePage({parkName}) {
                 buyDinosaur={buyDinosaur}
                 sellDinosaur={sellDinosaur}/>
         </DinoPopup>
-        <DinoPopup show={false}>
+        <DinoPopup show={showEvent} handleClose={handleOnClosePopup}>
             <RandomEvent />
         </DinoPopup>
       <MapBox>
