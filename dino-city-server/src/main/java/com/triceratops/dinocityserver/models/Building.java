@@ -34,6 +34,9 @@ public class Building {
         this.positionId = positionId;
     }
 
+    public Building() {
+    }
+
     public Long getId() {
         return id;
     }

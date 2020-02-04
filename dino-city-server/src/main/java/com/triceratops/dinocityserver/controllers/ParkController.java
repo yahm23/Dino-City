@@ -57,7 +57,7 @@ public class ParkController {
         return parkService.triggerEvent(parkName);
     }
 
-    @RequestMapping(value="/name/{name}/building/{type}{positionId}", method = RequestMethod.GET )
+    @RequestMapping(value="/name/{name}/building/{type}/{positionId}", method = RequestMethod.GET )
     public void addBuildingToPark(@PathVariable String name, @PathVariable String type, @PathVariable int positionId){
         parkService.buyBuilding(name,type,positionId);
     }

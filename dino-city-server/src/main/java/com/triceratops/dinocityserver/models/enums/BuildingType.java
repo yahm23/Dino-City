@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum BuildingType {
-    TOILETS("Toilets",1000, 0.01, 20),
-    MERCHANDISE_SHOP("Merchandise Shop",3000, 0.10, 200),
-    BAR("Bar",1000, 0.05, 100),
-    RESTAURANT("Restaurant",2000, 0.8, 150);
+    TOILETS("TOILETS",1000, 0.01, 20),
+    MERCHANDISE_SHOP("MERCHANDISING SHOP",3000, 0.10, 200),
+    BAR("BAR",1000, 0.05, 100),
+    RESTAURANT("RESTAURANT",2000, 0.8, 150);
 
     private String name;
     private double price;

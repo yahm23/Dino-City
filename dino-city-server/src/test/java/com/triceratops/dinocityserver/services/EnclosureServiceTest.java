@@ -3,14 +3,12 @@ package com.triceratops.dinocityserver.services;
 import com.triceratops.dinocityserver.models.Dinosaur;
 import com.triceratops.dinocityserver.models.Enclosure;
 import com.triceratops.dinocityserver.models.EnclosureTypeResponse;
-import com.triceratops.dinocityserver.models.Park;
 import com.triceratops.dinocityserver.models.enums.DinoType;
 import com.triceratops.dinocityserver.models.enums.SecurityLevel;
 import com.triceratops.dinocityserver.models.enums.SizeType;
 import com.triceratops.dinocityserver.repositories.EnclosureRepository;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -39,7 +37,7 @@ public class EnclosureServiceTest {
         enclosure.addDinosaur(dino1);
         enclosure.addDinosaur(dino2);
 
-        assertEquals(0.73,enclosureService.getRatingOfEnclosureFromDinosaur(enclosure),0.01);
+        assertEquals(0.73,enclosureService.getRating(enclosure),0.01);
 
     }
 }

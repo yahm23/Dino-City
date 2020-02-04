@@ -73,6 +73,8 @@ public class Park {
         this.money = money;
     }
 
+    public void addMoney(double amount) {this.money += amount;}
+
     public void reduceMoney(double amount){
         this.money-=amount;
     }
