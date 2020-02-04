@@ -81,7 +81,7 @@ public class ParkService {
                return enclosure;
            };
         }
-        return null;//or null
+        return null;
     }
 
     public double calculateParkRating(String name){
@@ -92,6 +92,17 @@ public class ParkService {
         }
         return rating;
     }
+
+    public void updateAllParks(){
+        for(Park park: parkRepository.findAll()){
+            double income = this.calculateIncome(park);
+            double before = park.getMoney();
+            park.setMoney(income+before);
+            double rating= calculateParkRating(park.getName());
+            park.setRating(rating);
+            parkRepository.save(park);
+        }
+     }
 
    public boolean addDinosaurToSpecificEnclosure(String name, int positionId, String dinosaur ){
        Park park =parkRepository.findParkByName(name);
@@ -153,7 +164,7 @@ public class ParkService {
    }
 
     private double calculateIncome(Park park) {
-        double income = 10 * 1000 * 1;
+        double income = 100 * this.calculateParkRating(park.getName());
         return income;
     }
 
@@ -170,7 +181,10 @@ public class ParkService {
         int randomEvent = (int)(Events.values().length * Math.random());
         Events event = Events.values()[randomEvent];
         if (Math.random() <= event.getEventChance()) {
-            return eventService.trigger(park, event);
+            EventResponse response = eventService.trigger(park, event);
+            parkRepository.save(park);
+            System.out.println(park.getMoney());
+            return response;
         }
         return new EventResponse("");
     }
