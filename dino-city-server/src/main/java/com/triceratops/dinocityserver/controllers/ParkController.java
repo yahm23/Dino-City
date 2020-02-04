@@ -1,6 +1,7 @@
 package com.triceratops.dinocityserver.controllers;
 
 import com.triceratops.dinocityserver.models.Enclosure;
+import com.triceratops.dinocityserver.models.EventResponse;
 import com.triceratops.dinocityserver.models.Park;
 import com.triceratops.dinocityserver.models.ParkStats;
 import com.triceratops.dinocityserver.services.ParkService;
@@ -51,8 +52,8 @@ public class ParkController {
         return parkService.addDinosaurToSpecificEnclosure(name,positionId,dinosaur);
     }
 
-    @RequestMapping(value="/rating/{name}", method = RequestMethod.GET)
-    public double calculateParkRating(@PathVariable String name){
-        return parkService.calculateParkRating(name);
+    @RequestMapping(value="/name/{parkName}/event",method = RequestMethod.GET)
+    public EventResponse getRandomEvent(@PathVariable String parkName) {
+        return parkService.triggerEvent(parkName);
     }
 }

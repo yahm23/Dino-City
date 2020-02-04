@@ -27,6 +27,9 @@ public class Dinosaur {
         this.species = species;
     }
 
+    public Long getId() {
+        return id;
+    }
 
     public Enclosure getEnclosure() {
         return enclosure;

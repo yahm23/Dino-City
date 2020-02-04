@@ -1,9 +1,7 @@
 package com.triceratops.dinocityserver.services;
 
-import com.triceratops.dinocityserver.models.Dinosaur;
-import com.triceratops.dinocityserver.models.Enclosure;
-import com.triceratops.dinocityserver.models.Park;
-import com.triceratops.dinocityserver.models.ParkStats;
+import com.triceratops.dinocityserver.events.Events;
+import com.triceratops.dinocityserver.models.*;
 import com.triceratops.dinocityserver.models.enums.DinoType;
 import com.triceratops.dinocityserver.models.enums.SecurityLevel;
 import com.triceratops.dinocityserver.models.enums.SizeType;
@@ -21,14 +19,16 @@ public class ParkService {
     private ParkRepository parkRepository;
     private EnclosureRepository enclosureRepository;
     private DinosaurRepository dinosaurRepository;
+    private EventService eventService;
     private EnclosureService enclosureService;
 
     @Autowired
     public ParkService(ParkRepository parkRepository, EnclosureRepository enclosureRepository,
-                       DinosaurRepository dinosaurRepository, EnclosureService enclosureService) {
+                       DinosaurRepository dinosaurRepository, EventService eventService, EnclosureService enclosureService) {
         this.parkRepository = parkRepository;
         this.enclosureRepository = enclosureRepository;
         this.dinosaurRepository = dinosaurRepository;
+        this.eventService = eventService;
         this.enclosureService =enclosureService;
     }
 
@@ -163,5 +163,15 @@ public class ParkService {
             counter += enclosure.getDinosaurs().size();
         }
         return counter;
+    }
+
+    public EventResponse triggerEvent(String parkName) {
+        Park park = parkRepository.findParkByName(parkName);
+        int randomEvent = (int)(Events.values().length * Math.random());
+        Events event = Events.values()[randomEvent];
+        if (Math.random() <= event.getEventChance()) {
+            return eventService.trigger(park, event);
+        }
+        return new EventResponse("");
     }
 }

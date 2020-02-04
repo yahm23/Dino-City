@@ -36,6 +36,10 @@ public class EnclosureService {
         }
         return rating;
     }
+
+    public void updateEnclosure(Enclosure enclosure) {
+        enclosureRepository.save(enclosure);
+    }
 }
 //    public void addEnclosure(SizeType sizeType, SecurityLevel securityLevel, int positionId ){
 //        Enclosure enclosure = new Enclosure(sizeType,securityLevel,positionId);
