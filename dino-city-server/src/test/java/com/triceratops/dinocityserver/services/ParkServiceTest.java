@@ -30,6 +30,8 @@ public class ParkServiceTest {
     private EnclosureRepository enclosureRepository;
     private ParkRepository parkRepository;
     private DinosaurRepository dinosaurRepository;
+    private EventService eventService;
+
 
 
 
@@ -40,10 +42,13 @@ public class ParkServiceTest {
         when(parkRepository.findParkByName(anyString())).thenReturn(park);
         enclosureRepository = mock(EnclosureRepository.class);
         dinosaurRepository = mock(DinosaurRepository.class);
+        eventService =mock(EventService.class);
         enclosureService =mock(EnclosureService.class);
         when(enclosureService.getRatingOfEnclosureFromDinosaur(any(Enclosure.class))).thenReturn(0.18);
 
-        parkService = new ParkService(parkRepository,enclosureRepository, dinosaurRepository, mock(EventService.class),enclosureService);
+
+        parkService = new ParkService(parkRepository,enclosureRepository, dinosaurRepository,
+                eventService, enclosureService );
     }
 
     @Test

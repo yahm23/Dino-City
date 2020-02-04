@@ -20,6 +20,9 @@ public class Park {
     @Column(name="money")
     private double money;
 
+    @Column(name="rating")
+    private double rating;
+
     @JsonIgnoreProperties("park")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     @OneToMany(mappedBy = "park",fetch = FetchType.LAZY)
@@ -34,9 +37,18 @@ public class Park {
         this.money = money;
         this.enclosures = enclosures;
         this.name = name;
+        this.rating = 1;
     }
 
     public Park() {
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
     public String getName() {
