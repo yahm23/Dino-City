@@ -12,8 +12,8 @@ public class ParkStats {
         this.money = money;
         this.income = income;
         this.population = population;
-        this.cost =cost;
-        this.rating=cost;
+        this.cost = cost;
+        this.rating= rating;
     }
 
     public double getMoney() {

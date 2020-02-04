@@ -124,7 +124,6 @@ public class ParkService {
         for(Enclosure enclosure: park.getEnclosures()){
             rating += enclosureService.getRatingOfEnclosureFromDinosaur(enclosure);
         }
-
         return round(rating);
     }
 
