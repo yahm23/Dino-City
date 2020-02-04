@@ -16,6 +16,5 @@ public class ParkScheduler {
 //        System.out.println("Schedule activity");
         parkService.updateAllParks();
         parkService.maintenanceEnclosureAndDino();
-
     }
 }

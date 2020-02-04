@@ -53,7 +53,7 @@ public class ParkServiceTest {
 
     @Test
     public void shouldBuildTheCorrectPopulation() {
-        ParkStats expectedStats = new ParkStats(1000.0, 10000, 1);
+        ParkStats expectedStats = new ParkStats(1000.0, 10000, 1,40.00,1.30);
 
         ParkStats actualStats = parkService.getParkStats("ANYNAME");
 //        assertEquals(expectedStats.getMoney(), actualStats.getMoney(), 0.1);
@@ -137,7 +137,7 @@ public class ParkServiceTest {
         park.setMoney(10000.0);
 
 
-        double result = parkService.calculateParkRating("ANYNAME");
+        double result = parkService.calculateParkRating(park);
         assertEquals(1.18, result, 0.01);
 
     }
