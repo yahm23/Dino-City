@@ -71,7 +71,6 @@ function GamePage({parkName}) {
     const handleOnClosePopup = () => {
         setShowPopup(false);
         setShowEnclosure(false);
-        setPosition(null);
     };
 
     function handleOnOpenPopEnclosure(position) {

@@ -77,3 +77,12 @@ div.col{
 .dinosaur-item p {
   margin: 0px;
 }
+
+.dinosaur-item-disabled {
+  width: 30%;
+  margin: 8px;
+}
+
+.dinosaur-item-disabled p {
+  margin: 0px;
+}
