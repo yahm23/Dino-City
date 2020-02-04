@@ -30,7 +30,7 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
             const nextSize = enclosureTypes.types[nextIndex];
             const cost = Math.round((nextSize.price-enclosure.size.price)*1.1);
             if (money >= cost) {
-                return nextSize.name + " £"  + cost;
+                return "UPGRADE SIZE " + nextSize.name + " £"  + cost;
             }
         }
         return "";
@@ -46,14 +46,19 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
             const nextSecurityLevel = enclosureTypes.securityLevels[nextIndex];
             const cost = Math.round((nextSecurityLevel.priceMultiplier - enclosure.securityLevel.priceMultiplier + 1)*600);
             if (money >= cost) {
-                return nextSecurityLevel.name + " £"  + cost;
+                return "UPGRADE SECURITY " + nextSecurityLevel.name + " £"  + cost;
             }
+            return "NOT ENOUGH MONEY";
         }
-        return "";
+        return "FULLY UPGRADED";
     };
     
     function handleUpgradeSecurity() {
         updateEnclosureSecurity(enclosureTypes.securityLevels[getCurrentSecurityIndex() + 1].name)
+    }
+
+    function canUpgrade(displayFunction) {
+        return displayFunction === "FULLY UPGRADED" || displayFunction === "NOT ENOUGH MONEY";
     }
 
     function getCurrentSizeIndex() {
@@ -74,13 +79,13 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
                 { enclosure.dinosaurs[0] && <p>This enclosure is for: {enclosure.dinosaurs[0].species.dietType.name}</p>}
                 <Button
                     onClick={handleUpgradeSize}
-                    disabled={!displayUpgradeSize()}>
-                    Upgrade Size {displayUpgradeSize()}
+                    disabled={canUpgrade(displayUpgradeSize())}>
+                    {displayUpgradeSize()}
                 </Button>
                 <Button
                     onClick={handleUpgradeSecurity}
-                    disabled={!displayUpgradeSecurity()}>
-                    Upgrade Security {displayUpgradeSecurity()}
+                    disabled={canUpgrade(displayUpgradeSecurity())}>
+                    {displayUpgradeSecurity()}
                 </Button>
                 
                 {listOfDinosInEnclosure}
