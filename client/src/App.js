@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import GamePage from "./Pages/GamePage";
 import IntroPage from "./Pages/IntroPage";
+import GameOver from "./Components/GameOver";
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Switch>
           <Route exact path="/" render={ () => <IntroPage parkName={parkName} handleChooseName={handleChooseName} />} />
           <Route path="/game" render={ () => <GamePage parkName={parkName} /> }/>
+          <Route path="/game-over" render={ () => <GameOver parkName={parkName} /> } /> 
         </Switch>
       </React.Fragment>
     </Router>

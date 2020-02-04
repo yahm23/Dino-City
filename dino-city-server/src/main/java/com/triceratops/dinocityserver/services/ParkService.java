@@ -183,7 +183,6 @@ public class ParkService {
         if (Math.random() <= event.getEventChance()) {
             EventResponse response = eventService.trigger(park, event);
             parkRepository.save(park);
-            System.out.println(park.getMoney());
             return response;
         }
         return new EventResponse("");

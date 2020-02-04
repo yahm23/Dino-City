@@ -22,7 +22,7 @@ function GamePage({parkName}) {
     const [position, setPosition] = useState(null);
     const [enclosures, setEnclosures] = useState({});
     const [dinosaurs, setDinosaurs] = useState([]);
-    const [event, setEvent] = useState({})
+    const [eventMessage, setEventMessage] = useState("")
 
 
     useEffect(() => {
@@ -30,9 +30,13 @@ function GamePage({parkName}) {
         setInterval(() => {
             fetchStats()
         }, 5000)
+        setInterval(() => {
+            fetchEvent()
+        },60000)
         fetchPark();
         fetchEnclosures();
         fetchDinosaurs();
+        
     },[]);
 
     const fetchPark = () => {
@@ -70,7 +74,7 @@ function GamePage({parkName}) {
         if(parkName) {
             fetch(`http://localhost:8080/park/name/${parkName}/event`)
                 .then(res => res.json())
-                .then(data => setEvent(data)) 
+                .then(data => setEventMessage(data.message)) 
         }
     }
 
@@ -118,6 +122,10 @@ function GamePage({parkName}) {
         return <Redirect to="/" />
     }
 
+    function initializeEndGame() {
+        return <Redirect to="/game-over"/>
+    }
+
     function getEnclosure() {
         return park.enclosures.find(enclosure => enclosure.positionId === position);
     }
@@ -126,6 +134,7 @@ function GamePage({parkName}) {
   return (
     <>
         {!parkName && renderRedirect()}
+        {park.money<= 0 && initializeEndGame()}
         <GameHeader>
             <GameTitle parkName={parkName}/>
             <GameStats stats={stats}/>
@@ -141,8 +150,8 @@ function GamePage({parkName}) {
                 buyDinosaur={buyDinosaur}
                 sellDinosaur={sellDinosaur}/>
         </DinoPopup>
-        <DinoPopup show={showEvent} handleClose={handleOnClosePopup}>
-            <RandomEvent />
+        <DinoPopup show={eventMessage != ""} handleClose={handleOnClosePopup}>
+            <RandomEvent eventMessage={eventMessage}/>
         </DinoPopup>
       <MapBox>
         <MapTileRow>

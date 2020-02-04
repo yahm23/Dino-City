@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function RandomEvent() {
+export default function RandomEvent({eventMessage}) {
     return (
-        <p>Event</p>
+        <p>{eventMessage}</p>
     )
 }
