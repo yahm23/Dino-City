@@ -10,13 +10,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EventService {
-    private ParkService parkService;
     private EnclosureService enclosureService;
     private DinoService dinosaurService;
 
     @Autowired
-    public EventService(ParkService parkService, EnclosureService enclosureService, DinoService dinosaurService) {
-        this.parkService = parkService;
+    public EventService(EnclosureService enclosureService, DinoService dinosaurService) {
         this.enclosureService = enclosureService;
         this.dinosaurService = dinosaurService;
     }

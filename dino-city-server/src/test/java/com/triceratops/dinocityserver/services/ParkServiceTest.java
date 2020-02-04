@@ -43,7 +43,7 @@ public class ParkServiceTest {
         enclosureService =mock(EnclosureService.class);
         when(enclosureService.getRatingOfEnclosureFromDinosaur(any(Enclosure.class))).thenReturn(0.18);
 
-        parkService = new ParkService(parkRepository,enclosureRepository, dinosaurRepository, enclosureService);
+        parkService = new ParkService(parkRepository,enclosureRepository, dinosaurRepository, mock(EventService.class),enclosureService);
     }
 
     @Test
