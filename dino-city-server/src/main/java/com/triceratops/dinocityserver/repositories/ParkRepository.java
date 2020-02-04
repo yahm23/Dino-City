@@ -10,5 +10,4 @@ import java.util.List;
 public interface ParkRepository extends JpaRepository<Park, Long> {
 
     Park findParkByName(String name);
-    List<Park> findAllParks();
 }

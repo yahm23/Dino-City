@@ -94,7 +94,7 @@ public class ParkService {
     }
 
     public void updateAllParks(){
-        for(Park park: parkRepository.findAllParks()){
+        for(Park park: parkRepository.findAll()){
             double income = this.calculateIncome(park);
             double before = park.getMoney();
             park.setMoney(income+before);
@@ -183,6 +183,7 @@ public class ParkService {
         if (Math.random() <= event.getEventChance()) {
             EventResponse response = eventService.trigger(park, event);
             parkRepository.save(park);
+            System.out.println(park.getMoney());
             return response;
         }
         return new EventResponse("");
