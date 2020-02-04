@@ -94,13 +94,7 @@ function GamePage({parkName}) {
         setPosition(position)
     }
 
-    function handleOnOpenPopupEvent() {
-        setShowEvent(true);
-    }
-
     const buyEnclosure = (size, security) => {
-      console.log(size);
-      console.log(security);     
       setShowPopup(false);
       fetch(`http://localhost:8080/park/enclosure/${parkName}/${size.size}/${security.security}/${position}`)
           .then(() => fetchPark())
@@ -119,6 +113,22 @@ function GamePage({parkName}) {
             .then(() => fetchPark())
             .then(() => fetchStats())
     };
+
+    function updateEnclosureSecurity(security) {
+        if(parkName) {
+            fetch(`http://localhost:8080/park/name/${parkName}/enclosure/${position}/upgrade/security/${security}`)
+                .then(() => fetchPark())
+                .then(() => fetchStats())
+        }
+    }
+
+    function updateEnclosureSize(size) {
+        if(parkName) {
+            fetch(`http://localhost:8080/park/name/${parkName}/enclosure/${position}/upgrade/size/${size}`)
+                .then(() => fetchPark())
+                .then(() => fetchStats())
+        }
+    }
 
     function renderRedirect() {
         return <Redirect to="/" />
@@ -149,8 +159,12 @@ function GamePage({parkName}) {
                 money={park.money}
                 dinosaurs={dinosaurs}
                 enclosure={getEnclosure()}
+                enclosureTypes={enclosures}
                 buyDinosaur={buyDinosaur}
-                sellDinosaur={sellDinosaur}/>
+                sellDinosaur={sellDinosaur}
+                updateEnclosureSize={updateEnclosureSize}
+                updateEnclosureSecurity={updateEnclosureSecurity}
+            />
         </DinoPopup>
         <DinoPopup show={eventMessage != ""} handleClose={handleOnClosePopup}>
             <RandomEvent eventMessage={eventMessage}/>
