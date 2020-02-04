@@ -56,4 +56,10 @@ public class ParkController {
     public void sellDino(@PathVariable String parkName, @PathVariable int id){
          parkService.sellDino(parkName, (long) id);
     }
+    @RequestMapping(value="/name/{parkName}/enclosure/{positionId}/upgrade/{size}", method=RequestMethod.GET)
+        public boolean upgradeSize(@PathVariable String parkName, @PathVariable int positionId,@PathVariable String size){
+            return parkService.upgradeSize(parkName,positionId,size);
+        }
+
+
 }

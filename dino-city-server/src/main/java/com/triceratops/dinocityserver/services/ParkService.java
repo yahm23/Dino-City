@@ -244,4 +244,22 @@ public class ParkService {
         }
         return new EventResponse("");
     }
+
+    public boolean upgradeSize(String name, int positionId, String size){
+        Park park = parkRepository.findParkByName(name);
+        for(Enclosure enclosure: park.getEnclosures()){
+            if(enclosure.getPositionId()==positionId){
+                SizeType sizeType = SizeType.valueOf(size);
+                double initialCost = enclosure.getSize().getPrice();
+                double newSizeCost = sizeType.getPrice();
+                double upgradeCost = round((newSizeCost-initialCost)*1.1);
+                if(park.getMoney()>= upgradeCost){
+                    enclosure.setSize(sizeType);
+                    enclosureRepository.save(enclosure);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
