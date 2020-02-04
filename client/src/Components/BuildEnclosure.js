@@ -46,9 +46,6 @@ function BuildEnclosure({money, buyEnclosure, enclosures}) {
         return(
             <Container className="show-grid">
                 <Row>
-                    <h1>Build Enclosure</h1>
-                </Row>
-                <Row>
                     <Col>
                         <div className="size-panel">
                             {enclosureSizeTypes}

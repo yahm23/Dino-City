@@ -151,10 +151,10 @@ function GamePage({parkName}) {
             <GameTitle parkName={parkName}/>
             <GameStats stats={stats}/>
         </GameHeader>
-        <DinoPopup show={showPopup} handleClose={handleOnClosePopup}>
+        <DinoPopup show={showPopup} title="Build Enclosure" handleClose={handleOnClosePopup}>
             <BuildEnclosure money={park.money} buyEnclosure={buyEnclosure} enclosures={enclosures}/>
         </DinoPopup>
-        <DinoPopup show={showEnclosure} handleClose={handleOnClosePopup}>
+        <DinoPopup show={showEnclosure} title="Enclosure details" handleClose={handleOnClosePopup}>
             <EnclosureDetail
                 money={park.money}
                 dinosaurs={dinosaurs}
@@ -166,7 +166,7 @@ function GamePage({parkName}) {
                 updateEnclosureSecurity={updateEnclosureSecurity}
             />
         </DinoPopup>
-        <DinoPopup show={eventMessage != ""} handleClose={handleOnClosePopup}>
+        <DinoPopup show={eventMessage != ""} title="A new event!" handleClose={handleOnClosePopup}>
             <RandomEvent eventMessage={eventMessage}/>
         </DinoPopup>
       <MapBox>
