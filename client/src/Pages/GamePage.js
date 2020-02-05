@@ -137,11 +137,10 @@ function GamePage({parkName}) {
 
     const buyBuilding = (buildingType) => {
         setShowBuyBuildingPopup(false);
-        console.log(buildingType)
-        fetch(`http://localhost:8080/park/name/${parkName}/building/${buildingType}/${position}`, {method: "POST"})
+        fetch(`http://localhost:8080/park/name/${parkName}/building/buy/${buildingType}/${position}`, {method: "POST"})
             .then(() => fetchPark())
             .then(() => fetchStats())
-    }
+    };
 
     const sellDinosaur = (id) => {
         fetch(`http://localhost:8080/park/name/${parkName}/dinosaur/delete/${id}`, {method: 'DELETE'})
@@ -166,11 +165,11 @@ function GamePage({parkName}) {
     }
 
     const sellBuilding = (position) => {
-        setShowBuyBuildingPopup(false);
-        fetch(`http://localhost:8080/park/name/${parkName}/building/${buildingType}/${position}`, {method: "DELETE"})
-        .then(() => fetchPark())
-        .then(() => fetchStats())
-    }
+        setShowBuildingDetailsPopup(false);
+        fetch(`http://localhost:8080/park/name/${parkName}/building/sell/${position}`, {method: "DELETE"})
+            .then(() => fetchPark())
+            .then(() => fetchStats())
+    };
 
     function renderRedirect() {
         return <Redirect to="/" />
@@ -216,10 +215,10 @@ function GamePage({parkName}) {
         <DinoPopup show={eventMessage != ""} title="A NEW EVENT!" handleClose={handleOnClosePopup}>
             <RandomEvent eventMessage={eventMessage}/>
         </DinoPopup>
-        <DinoPopup show={showBuyBuildingPopup} handleClose={handleOnClosePopup}>
+        <DinoPopup show={showBuyBuildingPopup} title="BUY BUILDING" handleClose={handleOnClosePopup}>
             <BuildBuilding money={park.money} buildings={buildings} buyBuilding={buyBuilding} />
         </DinoPopup>
-        <DinoPopup show={showBuildingDetailsPopup} handleClose={handleOnClosePopup}>
+        <DinoPopup show={showBuildingDetailsPopup} title="BUILDING DETAILS" handleClose={handleOnClosePopup}>
             <BuildingDetails building={getBuilding()} sellBuilding={sellBuilding}/>
         </DinoPopup>
 

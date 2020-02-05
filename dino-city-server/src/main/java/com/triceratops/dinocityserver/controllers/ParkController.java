@@ -73,13 +73,13 @@ public class ParkController {
             return parkService.upgradeSecurity(parkName,positionId,security);
      }
 
-    @RequestMapping(value="/name/{name}/building/{type}/{positionId}", method = RequestMethod.GET )
+    @RequestMapping(value="/name/{name}/building/buy/{type}/{positionId}", method = RequestMethod.POST )
     public void addBuildingToPark(@PathVariable String name, @PathVariable String type, @PathVariable int positionId){
         parkService.buyBuilding(name,type,positionId);
     }
 
-    @RequestMapping(value="/name/{name}/building/{type}/{positionId}", method = RequestMethod.DELETE )
-    public void sellBuildingFromPark(@PathVariable String name, @PathVariable String type, @PathVariable int positionId){
-        parkService.sellBuilding(name,type,positionId);
+    @RequestMapping(value="/name/{name}/building/sell/{positionId}", method = RequestMethod.DELETE )
+    public void sellBuildingFromPark(@PathVariable String name, @PathVariable int positionId){
+        parkService.sellBuilding(name,positionId);
     }
 }

@@ -127,6 +127,19 @@ public class ParkService {
         return round(rating);
     }
 
+    public boolean sellDino(String name, Long dinoId){
+        Park park = parkRepository.findParkByName(name);
+        Dinosaur dino = dinosaurRepository.findById(dinoId).get();
+        double sellAmount = round(dino.getSpecies().getPrice()*0.85);
+        double before = park.getMoney();
+        park.setMoney(sellAmount+before);
+        parkRepository.save(park);
+
+        dinosaurRepository.delete(dino);
+        return true;
+
+    }
+
    public boolean addDinosaurToSpecificEnclosure(String name, int positionId, String dinosaur ){
        Park park =parkRepository.findParkByName(name);
        Enclosure enclosure = getSpecificEnclosureInParkByPositionId(park.getName(),positionId);

@@ -37,7 +37,7 @@ public class EnclosureServiceTest {
         enclosure.addDinosaur(dino1);
         enclosure.addDinosaur(dino2);
 
-        assertEquals(0.73,enclosureService.getRating(enclosure),0.01);
+        assertEquals(3.46,enclosureService.getRating(enclosure),0.01);
 
     }
 }
