@@ -254,9 +254,9 @@ public class ParkService {
         for(Enclosure enclosure: park.getEnclosures()){
             if(enclosure.getPositionId()==positionId){
                 SecurityLevel securityType = SecurityLevel.valueOf(security);
-
                 double initialCost = enclosure.getSecurityLevel().getPriceMultiplier();
                 double newSizeCost = securityType.getPriceMultiplier();
+
                 double upgradeCost = round((newSizeCost-initialCost+1)*600);
                 if(park.getMoney()>= upgradeCost){
                     park.reduceMoney(upgradeCost);

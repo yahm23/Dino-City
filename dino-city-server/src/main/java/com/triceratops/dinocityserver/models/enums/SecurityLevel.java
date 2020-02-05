@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum SecurityLevel {
     LOW("LOW",1.0,ThreatLevel.LOW),
     MEDIUM("MEDIUM",1.3, ThreatLevel.MEDIUM),
-    HIGH("HIGH",1.6, ThreatLevel.HIGH);
+    HIGH("HIGH",1.7, ThreatLevel.HIGH);
 
     private final double priceMultiplier;
     private ThreatLevel threatLevel = null;
