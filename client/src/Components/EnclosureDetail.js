@@ -21,8 +21,8 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
     }
 
     const listOfDinosInEnclosure = enclosure.dinosaurs.map(dinosaur => {
-            return <div key={dinosaur.id}>
-                    <p>{dinosaur.species.name}</p>
+            return <div key={dinosaur.id} className="present-dinosaur">
+                <div className="present-dinosaur-item">•  {dinosaur.species.name}</div>
                     <Button variant="dark-jurassik" onClick={() => handleSellDino(dinosaur.id)}>Sell</Button>
                 </div>
     });
@@ -83,55 +83,54 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
         
         <div className="enclosure-details">
             <Row>
-                <div className="enclosure-details-content">
-                    <div className="enclosure-details-informations">
-                        <h5 className="bold">INFORMATIONS</h5>
-                        <p>Capacity: {setSumOfDinos()}/{enclosure.size.size}</p>
-                        <p>Size: {enclosure.size.name}</p>
-                        <p>Security Level: {enclosure.securityLevel.threatLevel.name}</p>
-                        { enclosure.dinosaurs[0] && <p>This enclosure is for: {enclosure.dinosaurs[0].species.dietType.name}</p>}
-                        <p className="bold">Upgrades:</p>
-                        <Button
-                            onClick={handleUpgradeSize}
-                            disabled={canUpgrade(displayUpgradeSize())}
-                            variant="dark-jurassik"
-                        >
-                            <img src="./buildings/size-upgrade.png" className="icon-button"/>
-                            {displayUpgradeSize()}
-                        </Button>
-                        <Button
-                            onClick={handleUpgradeSecurity}
-                            disabled={canUpgrade(displayUpgradeSecurity())}
-                            variant="dark-jurassik"
-                        >
-                            <img src="./buildings/security-upgrade.png" className="icon-button"/>
-                            {displayUpgradeSecurity()}
-                        </Button>
+                <Col>
+                    <div className="enclosure-details-content">
+                        <div className="enclosure-details-informations">
+                            <h5 className="bold">INFORMATIONS</h5>
+                            <p>Capacity: {setSumOfDinos()}/{enclosure.size.size}</p>
+                            <p>Size: {enclosure.size.name}</p>
+                            <p>Security Level: {enclosure.securityLevel.threatLevel.name}</p>
+                            { enclosure.dinosaurs[0] && <p>This enclosure is for: {enclosure.dinosaurs[0].species.dietType.name}</p>}
+                            <p className="bold">Upgrades:</p>
+                            <Button
+                                onClick={handleUpgradeSize}
+                                disabled={canUpgrade(displayUpgradeSize())}
+                                variant="dark-jurassik"
+                            >
+                                <img src="./buildings/size-upgrade.png" className="icon-button"/>
+                                {displayUpgradeSize()}
+                            </Button>
+                            <Button
+                                onClick={handleUpgradeSecurity}
+                                disabled={canUpgrade(displayUpgradeSecurity())}
+                                variant="dark-jurassik"
+                            >
+                                <img src="./buildings/security-upgrade.png" className="icon-button"/>
+                                {displayUpgradeSecurity()}
+                            </Button>
+                        </div>
+
+                        <div className="actual-dinosaur-list">
+                            <h5 className="bold">PRESENT DINOSAURS</h5>
+                            {listOfDinosInEnclosure}
+                        </div>
                     </div>
-                    
-                    <div className="actual-dinosaur-list">
-                        <h5 className="bold">PRESENT DINOSAURS</h5>
-                        {listOfDinosInEnclosure}
+                </Col>
+                <Col>
+                    <div className="add-dinosaur-list">
+                        <h5 className="bold">BUY DINOSAURS</h5>
+                        <DinosaursList
+                            dinosaurs={dinosaurs}
+                            money={money}
+                            threatLevel={enclosure.securityLevel.threatLevel.threatLevel}
+                            size={enclosure.size.size}
+                            buyDinosaur={buyDinosaur}
+                            setSumOfDinos={setSumOfDinos}
+                            enclosureDiet={getCurrentEnclosureDiet()}
+                        />
                     </div>
-                </div>
+                </Col>
                 </Row>
-
-                <Row>
-                <div className="add-dinosaur-list">
-                    <h5 className="bold">BUY DINOSAURS</h5>
-                    <DinosaursList
-                        dinosaurs={dinosaurs}
-                        money={money}
-                        threatLevel={enclosure.securityLevel.threatLevel.threatLevel}
-                        size={enclosure.size.size}
-                        buyDinosaur={buyDinosaur}
-                        setSumOfDinos={setSumOfDinos}
-                        enclosureDiet={getCurrentEnclosureDiet()}
-                    />
-                </div>
-
-                </Row>
-
             </div>
         )
 }
