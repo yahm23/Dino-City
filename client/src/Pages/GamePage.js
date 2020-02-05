@@ -86,7 +86,7 @@ function GamePage({parkName}) {
     const handleOnClosePopup = () => {
         setShowPopup(false);
         setShowEnclosure(false);
-        setShowEvent(false);
+        setEventMessage("");
     };
 
     function handleOnOpenPopEnclosure(position) {
@@ -151,10 +151,10 @@ function GamePage({parkName}) {
             <GameTitle parkName={parkName}/>
             <GameStats stats={stats}/>
         </GameHeader>
-        <DinoPopup show={showPopup} title="Build Enclosure" handleClose={handleOnClosePopup}>
+        <DinoPopup show={showPopup} title="BUILD ENCLOSURE" handleClose={handleOnClosePopup}>
             <BuildEnclosure money={park.money} buyEnclosure={buyEnclosure} enclosures={enclosures}/>
         </DinoPopup>
-        <DinoPopup show={showEnclosure} title="Enclosure details" handleClose={handleOnClosePopup}>
+        <DinoPopup show={showEnclosure} title="ENCLOSURE DETAILS" handleClose={handleOnClosePopup}>
             <EnclosureDetail
                 money={park.money}
                 dinosaurs={dinosaurs}
@@ -166,7 +166,7 @@ function GamePage({parkName}) {
                 updateEnclosureSecurity={updateEnclosureSecurity}
             />
         </DinoPopup>
-        <DinoPopup show={eventMessage != ""} title="A new event!" handleClose={handleOnClosePopup}>
+        <DinoPopup show={eventMessage != ""} title="A NEW EVENT!" handleClose={handleOnClosePopup}>
             <RandomEvent eventMessage={eventMessage}/>
         </DinoPopup>
       <MapBox>
@@ -181,6 +181,7 @@ function GamePage({parkName}) {
                     />
                 </MapTile>
             <MapTile img={"grass_03"}></MapTile>
+            <MapTile img={"grass_03"}></MapTile>
         </MapTileRow>
         <MapTileRow>
             <MapTile img={"grass_04"}></MapTile>
@@ -193,7 +194,21 @@ function GamePage({parkName}) {
                         />
             </MapTile>
             <MapTile img={"grass_06"}></MapTile>
+            <MapTile img={"grass_06"}></MapTile>
         </MapTileRow>
+          <MapTileRow>
+          <MapTile img={"grass_04"}></MapTile>
+          <MapTile img={"grass_05"}>
+              <PrepareBuildingTile
+                  park={park}
+                  position={2}
+                  onEmptyBuildingClick={handleOnOpenPopup}
+                  onEnclosureClick={handleOnOpenPopEnclosure}
+              />
+          </MapTile>
+          <MapTile img={"grass_06"}></MapTile>
+          <MapTile img={"grass_06"}></MapTile>
+      </MapTileRow>
       </MapBox>
     </>
   );

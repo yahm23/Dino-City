@@ -1,15 +1,42 @@
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Josefin Sans Regular'), local('JosefinSans-Regular'), url(https://fonts.gstatic.com/s/josefinsans/v14/Qw3aZQNVED7rKGKxtqIqX5EUDXx4Vn8sig.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Josefin Sans SemiBold'), local('JosefinSans-SemiBold'), url(https://fonts.gstatic.com/s/josefinsans/v14/Qw3FZQNVED7rKGKxtqIqX5Ec0lhte10hoJky_A.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Josefin Sans Bold'), local('JosefinSans-Bold'), url(https://fonts.gstatic.com/s/josefinsans/v14/Qw3FZQNVED7rKGKxtqIqX5Ectllte10hoJky_A.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Josefin Sans', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: 'Josefin Sans', 'Courier New',
     monospace;
+}
+
+h1, h2 {
+  margin: 0px !important;
 }
 
 
@@ -47,6 +74,48 @@ div.col{
   padding: 0px;
 }
 
+.btn-jurassik {
+  background-color: #E1A003 !important;
+  color: white !important;
+}
+
+.btn-dark-jurassik {
+  background-color: #12331a !important;
+  color: white !important;
+}
+
+.intro-title {
+  width: 100%;
+  color: #E1A003;
+  font-weight: 700;
+}
+
+.intro-page {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  background-color: #080808;
+  height: 100vh;
+}
+
+.intro-page-content {
+  width: 40%;
+  height: 46%;
+  margin: 60px;
+  padding: 20px;
+  border: 10px solid #920005;
+  background-color: #12331a;
+  color: white;
+}
+
+.intro-page-content button.btn.btn-jurassik {
+  margin: 10px;
+}
+
+#intro-input {
+  text-align: center;
+}
 
 .disabled-button {
   pointer-events: none;
@@ -55,13 +124,22 @@ div.col{
 .game-header {
   display: flex;
   align-items: center;
-  padding: 10px 40px;
-  background-color: lightsteelblue;
+  padding: 10px 20px;
+  background-color: #12331a;
 }
 
 .game-title {
-  width: 30%;
   text-decoration: underline;
+  color: #E2A404;
+  border: 6px solid #95030A;
+  text-align: center;
+  padding: 4px 8px;
+}
+
+.game-stats.container {
+  color: white;
+  text-align: center;
+  font-weight: 700;
 }
 
 .dinosaur-list {
@@ -71,7 +149,7 @@ div.col{
 }
 
 .dinosaur-item {
-  width: 30%;
+  width: 26%;
   margin: 8px;
 }
 
@@ -86,4 +164,71 @@ div.col{
 
 .dinosaur-item-disabled p {
   margin: 0px;
+}
+
+.game-box {
+  margin: 0px 0px;
+  max-width: 100%;
+}
+
+.row {
+  width: 100%;
+  margin: 0px !important;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: center;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.modal-footer {
+  justify-content: center !important;
+}
+
+.modal-header {
+  background-color: #12331a;
+  color: #E2A404;
+}
+
+.modal-title {
+  text-align: center;
+  width: 100%;
+}
+
+.modal-title .h4 {
+  font-weight: 700;
+}
+
+.modal-dialog {
+  max-width: 80% !important;
+}
+
+.enclosure-details {
+  width: 100%;
+  display: flex;
+}
+
+.add-dinosaur-list {
+  width: 60%;
+}
+
+.enclosure-details-content {
+  width: 40%;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.actual-dinosaur-list {
+  padding-top: 20px;
+}
+
+.icon-button {
+  width: 10% !important;
+  margin: 0px 3px !important;
 }

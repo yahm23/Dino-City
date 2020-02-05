@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import DinosaursList from "./DinosaursList";
 import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
 
 export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosaur, sellDinosaur,
                                             enclosureTypes, updateEnclosureSize, updateEnclosureSecurity}) {
@@ -30,7 +31,7 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
             const nextSize = enclosureTypes.types[nextIndex];
             const cost = Math.round((nextSize.price-enclosure.size.price)*1.1);
             if (money >= cost) {
-                return "UPGRADE SIZE " + nextSize.name + " £"  + cost;
+                return "£"  + cost;
             }
             return "NOT ENOUGH MONEY";
         }
@@ -47,7 +48,7 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
             const nextSecurityLevel = enclosureTypes.securityLevels[nextIndex];
             const cost = Math.round((nextSecurityLevel.priceMultiplier - enclosure.securityLevel.priceMultiplier + 1)*600);
             if (money >= cost) {
-                return "UPGRADE SECURITY " + nextSecurityLevel.name + " £"  + cost;
+                return "£"  + cost;
             }
             return "NOT ENOUGH MONEY";
         }
@@ -74,31 +75,48 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
 
     return (
         
-            <div>
-                <p>Capacity: {setSumOfDinos()}/{enclosure.size.size}</p>
-                <p>Security Level: {enclosure.securityLevel.threatLevel.name}</p>
-                { enclosure.dinosaurs[0] && <p>This enclosure is for: {enclosure.dinosaurs[0].species.dietType.name}</p>}
-                <Button
-                    onClick={handleUpgradeSize}
-                    disabled={canUpgrade(displayUpgradeSize())}>
-                    {displayUpgradeSize()}
-                </Button>
-                <Button
-                    onClick={handleUpgradeSecurity}
-                    disabled={canUpgrade(displayUpgradeSecurity())}>
-                    {displayUpgradeSecurity()}
-                </Button>
-                
-                {listOfDinosInEnclosure}
-
-                <DinosaursList
-                    dinosaurs={dinosaurs}
-                    money={money}
-                    threatLevel={enclosure.securityLevel.threatLevel.threatLevel}
-                    size={enclosure.size.size}
-                    buyDinosaur={buyDinosaur}
-                    setSumOfDinos={setSumOfDinos}
+            <div className="enclosure-details">
+                <div className="enclosure-details-content">
+                    <div className="enclosure-details-informations">
+                        <h5 className="bold">INFORMATIONS</h5>
+                        <p>Capacity: {setSumOfDinos()}/{enclosure.size.size}</p>
+                        <p>Size: {enclosure.size.name}</p>
+                        <p>Security Level: {enclosure.securityLevel.threatLevel.name}</p>
+                        { enclosure.dinosaurs[0] && <p>This enclosure is for: {enclosure.dinosaurs[0].species.dietType.name}</p>}
+                        <p className="bold">Upgrades:</p>
+                        <Button
+                            onClick={handleUpgradeSize}
+                            disabled={canUpgrade(displayUpgradeSize())}
+                            variant="dark-jurassik"
+                        >
+                            <img src="./buildings/upgrade.png" className="icon-button"/>
+                            {displayUpgradeSize()}
+                        </Button>
+                        <Button
+                            onClick={handleUpgradeSecurity}
+                            disabled={canUpgrade(displayUpgradeSecurity())}
+                            variant="dark-jurassik"
+                        >
+                            <img src="./buildings/security.png" className="icon-button"/>
+                            {displayUpgradeSecurity()}
+                        </Button>
+                    </div>
+                    <div className="actual-dinosaur-list">
+                        <h5 className="bold">PRESENT DINOSAURS</h5>
+                        {listOfDinosInEnclosure}
+                    </div>
+                </div>
+                <div className="add-dinosaur-list">
+                    <h5 className="bold">BUY DINOSAURS</h5>
+                    <DinosaursList
+                        dinosaurs={dinosaurs}
+                        money={money}
+                        threatLevel={enclosure.securityLevel.threatLevel.threatLevel}
+                        size={enclosure.size.size}
+                        buyDinosaur={buyDinosaur}
+                        setSumOfDinos={setSumOfDinos}
                     />
+                </div>
             </div>
         )
 }

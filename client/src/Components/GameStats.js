@@ -8,11 +8,11 @@ export default function GameStats({stats}) {
     return(
        <Container className="game-stats">
            <Row>
-               <Col md={2}>Money: {stats.money}</Col>
-               <Col md={2}>Income: {stats.income}</Col>
-               <Col md={2}>Costs: {stats.cost}</Col>
-               <Col md={2}>Rating: {stats.rating}</Col>
-               <Col md={2}>Population: {stats.population}</Col>
+               <Col>MONEY: £{stats.money}</Col>
+               <Col>INCOME: £{stats.income}</Col>
+               <Col>COSTS: £{stats.cost}</Col>
+               <Col>RATING: {stats.rating}</Col>
+               <Col>POPULATION: {stats.population}</Col>
            </Row>
        </Container>
     )

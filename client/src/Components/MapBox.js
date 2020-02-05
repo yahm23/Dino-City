@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 
 export default function MapBox({children}) {
         return(
-            <Container>
+            <Container bsPrefix="game-box">
                 {children}
             </Container>
         )

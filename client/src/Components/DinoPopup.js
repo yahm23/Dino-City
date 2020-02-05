@@ -15,7 +15,7 @@ export default function DinoPopup({show = false, title, handleClose, children}) 
                 {children}
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={handleClose}>Close</Button>
+                <Button variant="jurassik" onClick={handleClose}>Close</Button>
             </Modal.Footer>
         </Modal>
     )

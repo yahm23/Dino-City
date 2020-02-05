@@ -62,7 +62,7 @@ function BuildEnclosure({money, buyEnclosure, enclosures}) {
                 </Row>
                 <Row>
                     <Button 
-                    variant={money >= totalCost() ? "success" : "secondary"} 
+                    variant={money >= totalCost() ? "dark-jurassik" : "secondary"}
                     disabled={totalCost() > money} 
                     onClick={handleBuy} >
                         Buy

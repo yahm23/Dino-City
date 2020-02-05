@@ -23,12 +23,14 @@ export default function IntroPage({parkName, handleChooseName}) {
     }
 
     return (
-       <>
+       <div className="intro-page">
             {renderRedirect()}
-            <h1>Welcome to dino business</h1>
-            <Form.Label>Choose name of your park: </Form.Label>
-            <Form.Control onChange={handleNameChange} placeholder="Type your name"/>
-            <Button onClick={handleStartGame} disabled={!parkName} >Start game</Button>
-       </>
+            <div className="intro-page-content">
+                <h1 className="intro-title">Welcome to dino business</h1>
+                <Form.Label>Choose name of your park: </Form.Label>
+                <Form.Control onChange={handleNameChange} placeholder="Type your name" id="intro-input"/>
+                <Button variant="jurassik" onClick={handleStartGame} disabled={!parkName} >Start game</Button>
+            </div>
+       </div>
     )
 }

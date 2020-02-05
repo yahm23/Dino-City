@@ -24,6 +24,7 @@ export default function DinosaursListItem({dinosaur, money, threatLevel, size, o
             <p>PRICE: £{dinosaur.price}</p>
             <Button
                 onClick={handleOnClick}
+                variant="dark-jurassik"
                 disabled={!isDinosaurAvailable()}>
                     Buy
             </Button>
