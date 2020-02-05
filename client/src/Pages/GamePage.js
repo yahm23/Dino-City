@@ -140,7 +140,7 @@ function GamePage({parkName}) {
     const buyBuilding = (buildingType) => {
         setShowBuyBuildingPopup(false);
         console.log(buildingType)
-        fetch(`http://localhost:8080/park/name/${parkName}/building/${buildingType}/${position}`)
+        fetch(`http://localhost:8080/park/name/${parkName}/building/${buildingType}/${position}`, {method: "POST"})
             .then(() => fetchPark())
             .then(() => fetchStats())
     }
@@ -151,7 +151,9 @@ function GamePage({parkName}) {
     
     const sellBuilding = (position) => {
         setShowBuyBuildingPopup(false);
-        //////////////
+        fetch(`http://localhost:8080/park/name/${parkName}/building/${buildingType}/${position}`, {method: "DELETE"})
+        .then(() => fetchPark())
+        .then(() => fetchStats())
     }
 
     function renderRedirect() {
