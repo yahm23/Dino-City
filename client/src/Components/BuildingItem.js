@@ -18,7 +18,7 @@ export default function BuildingItem({money, building, buyBuilding}) {
         <Col>
             <div className="building-item">
                 <Image src={`./buildings/${building.name}-building.png`.toLowerCase()} fluid/>
-                <p><b>{building.name}</b></p>
+                <p className="bold">{building.name}</p>
                 <p>£{building.price}</p>
                 <p>Reputation Increase: {building.reputationMultiplier}</p>
                 <p>Daily Expense: £{building.cost}</p>

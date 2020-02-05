@@ -11,16 +11,12 @@ export default function BuildBuilding({money, buildings, buyBuilding}) {
     const buildingTypes = buildings.map((building) => {
         return <BuildingItem money={money} building={building} buyBuilding={buyBuilding} key={building.name}/>
         
-    })
+    });
 
     return (
         <Container className="show-grid">
-
             <Row>
-
                 {buildingTypes}
-
-
             </Row>
         </Container>
     )

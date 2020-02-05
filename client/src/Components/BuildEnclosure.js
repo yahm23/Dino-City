@@ -28,39 +28,33 @@ function BuildEnclosure({money, buyEnclosure, enclosures}) {
 
     const enclosureSizeTypes = enclosures.types.map(size => {
         return <Col  key={size.name}>
-                
                 <img width="20%" src={`./sizeIcons/${size.name}.png`.toLowerCase()} ></img>
-
+                <div className="enclosure-type">{size.name + ` - £${size.price}`}</div>
                 <Form.Check type="radio" name="size"  id={size.name} value={size.price}
                     checked={sizeSelected.price === size.price }
                     onChange={handleSizeChange}
-                    label={size.name + ` - £${size.price}`}
                  /></Col>
-    })
+    });
 
     const enclosureSecurityTypes = enclosures.securityLevels.map(security => {
         return <Col  key={security.name} >
-
-
             <img width="20%" src={`./securityIcons/${security.name}.png`.toLowerCase()} ></img>
+            <div className="enclosure-type">{security.name + ` +${parseInt((security.priceMultiplier - 1.0) * 100)}%`}</div>
             <Form.Check type="radio" name="security"  id={security.name} value={security.priceMultiplier}
                       checked={securitySelected.price === security.priceMultiplier }
-                      onChange={handleSecurityChange}
-                      label={security.name + ` +${parseInt((security.priceMultiplier - 1.0) * 100)}%`}/>
+                      onChange={handleSecurityChange}/>
           </Col>
     })
 
 
         return(
             <Container className="show-grid">
-
                     <Row padding="20px">
                     <h4 className="bold">SIZE</h4> 
                     </Row>
                     <Row>
                          {enclosureSizeTypes}
                     </Row>
-
                     <div className="line-breaker"> </div>
                     <Row>
                     <h4 className="bold">SECURITY</h4> 
@@ -68,11 +62,8 @@ function BuildEnclosure({money, buyEnclosure, enclosures}) {
                     <Row>
                       {enclosureSecurityTypes}
                     </Row>
-
-               
-
                 <Row>
-                    <p>Total: £{totalCost()}</p>
+                    <h5 className="bold margin-top">Total: £{totalCost()}</h5>
                 </Row>
                 <Row>
                     <Button
@@ -84,7 +75,6 @@ function BuildEnclosure({money, buyEnclosure, enclosures}) {
                 </Row>
             </Container>
         )
-
 }
 
 export default BuildEnclosure;

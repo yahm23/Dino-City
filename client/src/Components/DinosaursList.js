@@ -40,6 +40,7 @@ export default function DinosaursList({dinosaurs, money, threatLevel, size, buyD
                     {dinosaursList(herbivors)}
                 </div>
             </div>
+            <div className="line-breaker"> </div>
             <div>
                 <h4>Carnivores</h4>
                 <div className="dinosaur-list">

@@ -23,7 +23,7 @@ export default function DinosaursListItem({dinosaur, money, threatLevel, size, o
     return (
         <div className={isDinosaurAvailable() ? "dinosaur-item" : "dinosaur-item-disabled"}>
             <Image src={`./dinosaurs/${dinosaur.name}.png`} fluid/>
-            <p>NAME: {dinosaur.name}</p>
+            <p className="bold">{dinosaur.name}</p>
             <p>SIZE: {dinosaur.size}</p>
             <p>THREAT: {dinosaur.threatLevel.name}</p>
             <p>PRICE: £{dinosaur.price}</p>
