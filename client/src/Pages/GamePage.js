@@ -234,7 +234,7 @@ function GamePage({parkName}) {
             <GameTitle parkName={parkName}/>
             <GameStats stats={stats}/>
         </GameHeader>
-        <DinoPopup show={showPopup} title="BUILD ENCLOSURE" handleClose={handleOnClosePopup}>
+        <DinoPopup show={showPopup} title="BUY ENCLOSURE" handleClose={handleOnClosePopup}>
             <BuildEnclosure money={park.money} buyEnclosure={buyEnclosure} enclosures={enclosures}/>
         </DinoPopup>
         <DinoPopup show={showEnclosure} title="ENCLOSURE DETAILS" handleClose={handleOnClosePopup}>
