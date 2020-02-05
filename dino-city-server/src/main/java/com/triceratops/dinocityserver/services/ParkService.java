@@ -184,11 +184,14 @@ public class ParkService {
    }
 
     private double calculateIncome(Park park) {
-        double income = 100 * this.calculateParkRating(park);
+        double income = 300 * this.calculateParkRating(park);
+        if(income==300){
+            return 0.0;
+        }
         return round(income);
     }
 
-    private int calculatePopulation(Park park) {
+    public int calculatePopulation(Park park) {
         int counter = 0;
         for(Enclosure enclosure: park.getEnclosures()){
             counter += enclosure.getDinosaurs().size();
@@ -206,6 +209,52 @@ public class ParkService {
             return response;
         }
         return new EventResponse("");
+    }
+
+    public boolean upgradeSize(String name, int positionId, String size){
+        Park park = parkRepository.findParkByName(name);
+        for(Enclosure enclosure: park.getEnclosures()){
+            if(enclosure.getPositionId()==positionId){
+                SizeType sizeType = SizeType.valueOf(size);
+                double initialCost = enclosure.getSize().getPrice();
+                double newSizeCost = sizeType.getPrice();
+                double upgradeCost = round((newSizeCost-initialCost)*1.1);
+                if(park.getMoney()>= upgradeCost){
+                    park.reduceMoney(upgradeCost);
+                    parkRepository.save(park);
+                    enclosure.setSize(sizeType);
+                    enclosureRepository.save(enclosure);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void deletePark(String name){
+        Park park = parkRepository.findParkByName(name);
+        parkRepository.delete(park);
+    }
+
+    public boolean upgradeSecurity(String name, int positionId, String security){
+        Park park = parkRepository.findParkByName(name);
+        for(Enclosure enclosure: park.getEnclosures()){
+            if(enclosure.getPositionId()==positionId){
+                SecurityLevel securityType = SecurityLevel.valueOf(security);
+
+                double initialCost = enclosure.getSecurityLevel().getPriceMultiplier();
+                double newSizeCost = securityType.getPriceMultiplier();
+                double upgradeCost = round((newSizeCost-initialCost+1)*600);
+                if(park.getMoney()>= upgradeCost){
+                    park.reduceMoney(upgradeCost);
+                    parkRepository.save(park);
+                    enclosure.setSecurityLevel(securityType);
+                    enclosureRepository.save(enclosure);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public void buyBuilding(String name, String type, int positionId) {

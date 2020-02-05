@@ -40,8 +40,8 @@ public class EnclosureService {
     public double getRating(Enclosure enclosure){
         double rating = 0.0;
         for(Dinosaur dino: enclosure.getDinosaurs()){
-            double sizeRating = dino.getSpecies().getSize()*0.01;
-            double threatRating = dino.getSpecies().getThreatLevel().getThreatLevel()*0.06;
+            double sizeRating = dino.getSpecies().getSize()*0.10;
+            double threatRating = dino.getSpecies().getThreatLevel().getThreatLevel()*0.12;
             rating += sizeRating+threatRating;
         }
         return rating;

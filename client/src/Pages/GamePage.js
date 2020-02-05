@@ -101,6 +101,7 @@ function GamePage({parkName}) {
     const handleOnClosePopup = () => {
         setShowPopup(false);
         setShowEnclosure(false);
+        setEventMessage("");
         setShowBuyBuildingPopup(false);
         setShowBuildingDetailsPopup(false);
     };
@@ -109,7 +110,6 @@ function GamePage({parkName}) {
         setShowEnclosure(true);
         setPosition(position);
     }
-
 
     function handleOnOpenPopBuildBuilding(position) {
         setShowBuyBuildingPopup(true);
@@ -121,18 +121,16 @@ function GamePage({parkName}) {
         setPosition(position);
     }
 
-
-
-    const buyEnclosure = (size, security) => {    
+    const buyEnclosure = (size, security) => {
       setShowPopup(false);
-      fetch(`http://localhost:8080/park/enclosure/${parkName}/${size.size}/${security.security}/${position}`)
+      fetch(`http://localhost:8080/park/enclosure/${parkName}/${size.size}/${security.security}/${position}`, {method: 'POST'})
           .then(() => fetchPark())
           .then(() => fetchStats())
     };
 
     const buyDinosaur = (dinosaur) => {
         // setShowEnclosure(false);
-        fetch(`http://localhost:8080/park/name/${parkName}/enclosure/${position}/dinosaur/${dinosaur.toUpperCase()}`)
+        fetch(`http://localhost:8080/park/name/${parkName}/enclosure/${position}/dinosaur/${dinosaur.toUpperCase()}`, {method: 'POST'})
             .then(() => fetchPark())
             .then(() => fetchStats())
     };
@@ -146,9 +144,27 @@ function GamePage({parkName}) {
     }
 
     const sellDinosaur = (id) => {
-        //finish function once we have endpoint
+        fetch(`http://localhost:8080/park/name/${parkName}/dinosaur/delete/${id}`, {method: 'DELETE'})
+            .then(() => fetchPark())
+            .then(() => fetchStats())
+    };
+
+    function updateEnclosureSecurity(security) {
+        if(parkName) {
+            fetch(`http://localhost:8080/park/name/${parkName}/enclosure/${position}/upgrade/security/${security}`, {method: 'PUT'})
+                .then(() => fetchPark())
+                .then(() => fetchStats())
+        }
     }
-    
+
+    function updateEnclosureSize(size) {
+        if(parkName) {
+            fetch(`http://localhost:8080/park/name/${parkName}/enclosure/${position}/upgrade/size/${size}`, {method: 'PUT'})
+                .then(() => fetchPark())
+                .then(() => fetchStats())
+        }
+    }
+
     const sellBuilding = (position) => {
         setShowBuyBuildingPopup(false);
         fetch(`http://localhost:8080/park/name/${parkName}/building/${buildingType}/${position}`, {method: "DELETE"})
@@ -171,7 +187,7 @@ function GamePage({parkName}) {
     function getBuilding() {
         return  park.buildings.find(building => building.positionId === position);
     }
- 
+
 
   return (
     <>
@@ -182,19 +198,22 @@ function GamePage({parkName}) {
             <GameTitle parkName={parkName}/>
             <GameStats stats={stats}/>
         </GameHeader>
-
-        <DinoPopup show={showPopup} handleClose={handleOnClosePopup}>
+        <DinoPopup show={showPopup} title="BUILD ENCLOSURE" handleClose={handleOnClosePopup}>
             <BuildEnclosure money={park.money} buyEnclosure={buyEnclosure} enclosures={enclosures}/>
         </DinoPopup>
-        <DinoPopup show={showEnclosure} handleClose={handleOnClosePopup}>
+        <DinoPopup show={showEnclosure} title="ENCLOSURE DETAILS" handleClose={handleOnClosePopup}>
             <EnclosureDetail
                 money={park.money}
                 dinosaurs={dinosaurs}
                 enclosure={getEnclosure()}
+                enclosureTypes={enclosures}
                 buyDinosaur={buyDinosaur}
-                sellDinosaur={sellDinosaur}/>
+                sellDinosaur={sellDinosaur}
+                updateEnclosureSize={updateEnclosureSize}
+                updateEnclosureSecurity={updateEnclosureSecurity}
+            />
         </DinoPopup>
-        <DinoPopup show={eventMessage != ""} handleClose={handleOnClosePopup}>
+        <DinoPopup show={eventMessage != ""} title="A NEW EVENT!" handleClose={handleOnClosePopup}>
             <RandomEvent eventMessage={eventMessage}/>
         </DinoPopup>
         <DinoPopup show={showBuyBuildingPopup} handleClose={handleOnClosePopup}>
@@ -208,7 +227,7 @@ function GamePage({parkName}) {
         <MapTileRow>
             <MapTile img={"grass_01"}></MapTile>
             <MapTile img={"grass_02"}>
-                <PrepareEnclosureTile 
+                <PrepareEnclosureTile
                     park={park} 
                     position={1} 
                     onEmptyEnclosureClick={handleOnOpenPopup}
@@ -216,26 +235,41 @@ function GamePage({parkName}) {
                     />
                 </MapTile>
             <MapTile img={"grass_03"}></MapTile>
+            <MapTile img={"grass_03"}></MapTile>
         </MapTileRow>
         <MapTileRow>
             <MapTile img={"grass_04"}></MapTile>
             <MapTile img={"grass_05"}>
-                <PrepareEnclosureTile 
-                    park={park} 
-                    position={2} 
+                <PrepareEnclosureTile
+                    park={park}
+                    position={2}
                     onEmptyEnclosureClick={handleOnOpenPopup}
                     onEnclosureClick={handleOnOpenPopEnclosure}
                     />
             </MapTile>
             <MapTile img={"grass_06"}>
-                <PrepareBuildingTile 
-                    park={park} 
-                    position={3} 
+                <PrepareBuildingTile
+                    park={park}
+                    position={3}
                     onEmptyBuildingClick={handleOnOpenPopBuildBuilding}
                     onBuildingClick={handleOnOpenPopBuildingDetails}
-                    />
+                />
             </MapTile>
+            <MapTile img={"grass_06"}></MapTile>
         </MapTileRow>
+          <MapTileRow>
+          <MapTile img={"grass_04"}></MapTile>
+          <MapTile img={"grass_05"}>
+              <PrepareBuildingTile
+                  park={park}
+                  position={2}
+                  onEmptyBuildingClick={handleOnOpenPopup}
+                  onEnclosureClick={handleOnOpenPopEnclosure}
+              />
+          </MapTile>
+          <MapTile img={"grass_06"}></MapTile>
+          <MapTile img={"grass_06"}></MapTile>
+      </MapTileRow>
       </MapBox>
     </>
   );

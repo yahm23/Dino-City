@@ -38,10 +38,17 @@ public class ParkServiceTest {
     @Before
     public void init() {
         park = buildPark();
+
         parkRepository = mock(ParkRepository.class);
         when(parkRepository.findParkByName(anyString())).thenReturn(park);
+
         enclosureRepository = mock(EnclosureRepository.class);
         dinosaurRepository = mock(DinosaurRepository.class);
+
+        Dinosaur dino = new Dinosaur(DinoType.VELOCIRAPTOR);
+
+
+        when(dinosaurRepository.findById(any())).thenReturn(java.util.Optional.of(dino));
         eventService =mock(EventService.class);
         enclosureService =mock(EnclosureService.class);
         when(enclosureService.getRating(any(Enclosure.class))).thenReturn(0.18);
@@ -133,6 +140,14 @@ public class ParkServiceTest {
     }
 
     @Test
+    public void sellDinoTest() {
+        park.setMoney(1000);
+        parkService.sellDino("ANYNAME",1L);
+        assertEquals(1850.0,park.getMoney(),0.01);
+
+    }
+
+    @Test
     public void canGetParkRating(){
         park.setMoney(10000.0);
 
@@ -154,6 +169,8 @@ public class ParkServiceTest {
         enclosure.setSize(SizeType.LARGE);
 
         Dinosaur dino = new Dinosaur(DinoType.VELOCIRAPTOR);
+        dino.setId(1L);
+
         List<Dinosaur> dinos = new ArrayList<>();
         dinos.add(dino);
         enclosure.setDinosaurs(dinos);
@@ -164,5 +181,4 @@ public class ParkServiceTest {
         return park;
 
     }
-
 }

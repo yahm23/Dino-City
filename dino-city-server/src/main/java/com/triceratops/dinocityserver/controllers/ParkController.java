@@ -27,27 +27,27 @@ public class ParkController {
         return parkService.getParkByName(name);
     }
 
+    @RequestMapping(value = "/delete/name/{name}", method = RequestMethod.DELETE)
+    public void deletePark(@PathVariable String name) {
+         parkService.deletePark(name);
+    }
+
     @RequestMapping(value = "/stats/name/{name}", method = RequestMethod.GET)
     public ParkStats getParkStats(@PathVariable String name) {
         return parkService.getParkStats(name);
     }
 
-    @RequestMapping(value="/new/{name}",method = RequestMethod.GET)
+    @RequestMapping(value="/new/{name}",method = RequestMethod.POST)
     public boolean addPark(@PathVariable String name){
         return parkService.addPark(name);
     }
 
-    @RequestMapping(value="/enclosure/{name}/{size}/{security}/{positionId}", method = RequestMethod.GET )
+    @RequestMapping(value="/enclosure/{name}/{size}/{security}/{positionId}", method = RequestMethod.POST )
     public void addEnclosureToPark(@PathVariable String name, @PathVariable String size, @PathVariable String security, @PathVariable int positionId){
         parkService.buyEnclosure(name,size,security,positionId);
     }
 
-    @RequestMapping(value="/positionId/{name}/{positionId}",method = RequestMethod.GET)
-    public Enclosure findSpecificEnclosureInPark(@PathVariable String name, @PathVariable int positionId){
-        return parkService.getSpecificEnclosureInParkByPositionId(name,positionId);
-    }
-
-    @RequestMapping(value="/name/{name}/enclosure/{positionId}/dinosaur/{dinosaur}",method = RequestMethod.GET)
+    @RequestMapping(value="/name/{name}/enclosure/{positionId}/dinosaur/{dinosaur}",method = RequestMethod.POST)
     public boolean addDinosaurToSpecificEnclosure(@PathVariable String name, @PathVariable int positionId, @PathVariable String dinosaur){
         return parkService.addDinosaurToSpecificEnclosure(name,positionId,dinosaur);
     }
@@ -56,6 +56,22 @@ public class ParkController {
     public EventResponse getRandomEvent(@PathVariable String parkName) {
         return parkService.triggerEvent(parkName);
     }
+
+    @RequestMapping(value="/name/{parkName}/dinosaur/delete/{id}",method = RequestMethod.DELETE)
+    public void sellDino(@PathVariable String parkName, @PathVariable int id){
+         parkService.sellDino(parkName, (long) id);
+    }
+
+    @RequestMapping(value="/name/{parkName}/enclosure/{positionId}/upgrade/size/{size}", method=RequestMethod.PUT)
+    public boolean upgradeSize(@PathVariable String parkName, @PathVariable int positionId,@PathVariable String size){
+            return parkService.upgradeSize(parkName,positionId,size);
+     }
+
+    @RequestMapping(value="/name/{parkName}/enclosure/{positionId}/upgrade/security/{security}", method=
+            RequestMethod.PUT)
+    public boolean upgradeSecurity(@PathVariable String parkName, @PathVariable int positionId, @PathVariable String security){
+            return parkService.upgradeSecurity(parkName,positionId,security);
+     }
 
     @RequestMapping(value="/name/{name}/building/{type}/{positionId}", method = RequestMethod.GET )
     public void addBuildingToPark(@PathVariable String name, @PathVariable String type, @PathVariable int positionId){
