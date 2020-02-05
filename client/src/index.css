@@ -246,6 +246,9 @@ div.col{
   font-weight: 700;
   padding-left: 50%;
 }
+.vl {
+  height: 400px;
+  }
 
 .modal-dialog {
   max-width: 80% !important;

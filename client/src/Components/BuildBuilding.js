@@ -15,8 +15,12 @@ export default function BuildBuilding({money, buildings, buyBuilding}) {
 
     return (
         <Container className="show-grid">
+
             <Row>
-                        {buildingTypes}
+
+                {buildingTypes}
+
+
             </Row>
         </Container>
     )
