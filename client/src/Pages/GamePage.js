@@ -187,6 +187,43 @@ function GamePage({parkName}) {
         return  park.buildings.find(building => building.positionId === position);
     }
 
+    function createMap(rows, columns) {
+        const assetPlacement = [0,0,1,1,0,0,0,2,0,2,0,0,0,2,0,1,2,0,0,0,2,0,0,0];
+        let placementIteration = 0;
+        const map = [];
+        for (let rowN = 0; rowN < rows; rowN++) {
+            let row = [];
+            for (let colN = 0; colN < columns; colN++) {
+                let asset = null;
+                if(assetPlacement[placementIteration] === 1) {
+                   asset = <PrepareBuildingTile
+                        park={park}
+                        position={placementIteration}
+                        onEmptyBuildingClick={handleOnOpenPopBuildBuilding}
+                        onBuildingClick={handleOnOpenPopBuildingDetails}
+                    />
+                } else if(assetPlacement[placementIteration] === 2) {
+                   asset =  <PrepareEnclosureTile
+                    park={park}
+                    position={placementIteration}
+                    onEmptyEnclosureClick={handleOnOpenPopup}
+                    onEnclosureClick={handleOnOpenPopEnclosure}
+                    />
+                }
+
+
+                let tile = <MapTile img={`./island/island_${rowN + 1}_${colN + 1}.png`}>
+                             {asset}
+                            </MapTile>
+                row.push(tile);
+                placementIteration ++;
+            }
+            map.push(<MapTileRow>{row}</MapTileRow>);
+        }
+        return map;
+    }
+ 
+
 
   return (
     <>
@@ -223,7 +260,7 @@ function GamePage({parkName}) {
         </DinoPopup>
 
       <MapBox>
-        <MapTileRow>
+        {/* <MapTileRow>
             <MapTile img={"grass_01"}></MapTile>
             <MapTile img={"grass_02"}>
                 <PrepareEnclosureTile
@@ -268,7 +305,8 @@ function GamePage({parkName}) {
           </MapTile>
           <MapTile img={"grass_06"}></MapTile>
           <MapTile img={"grass_06"}></MapTile>
-      </MapTileRow>
+      </MapTileRow> */}
+      {createMap(4,6)}
       </MapBox>
     </>
   );
