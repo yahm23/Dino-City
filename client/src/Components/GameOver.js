@@ -18,9 +18,14 @@ export default function GameOver({parkName}) {
     
     return(
        <>
-            <h1>Gave over</h1>
-            <h2>Your {parkName} business went bankrupt..</h2>
-            <p>You've finished the game having {stats.population} dinosaurs.</p>
+       <div className="intro-page">
+        <div className="intro-page-content">
+                <h1 className="intro-title">Game Over!</h1>
+                    
+                <h2>Your {parkName} business went bankrupt.</h2>
+                <p>You've finished the game having {stats.population} dinosaurs.</p>
+            </div>
+        </div>
        </>
     )
 }
