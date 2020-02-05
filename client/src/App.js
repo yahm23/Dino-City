@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import GamePage from "./Pages/GamePage";
 import IntroPage from "./Pages/IntroPage";
-import GameOver from "./Components/GameOver";
+import GameOver from "./Pages/GameOver";
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 
 function App() {
