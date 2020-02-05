@@ -62,15 +62,13 @@ function BuildEnclosure({money, buyEnclosure, enclosures}) {
                     <Row>
                       {enclosureSecurityTypes}
                     </Row>
-                <Row>
-                    <h5 className="bold margin-top">Total: £{totalCost()}</h5>
-                </Row>
-                <Row>
+                
+                <Row className="margin-top">
                     <Button
                     variant={money >= totalCost() ? "dark-jurassik" : "secondary"}
                     disabled={totalCost() > money}
                     onClick={handleBuy} >
-                        Buy
+                      Buy  £{totalCost()}
                     </Button>
                 </Row>
             </Container>
