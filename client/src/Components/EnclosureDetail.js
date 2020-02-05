@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import DinosaursList from "./DinosaursList";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosaur, sellDinosaur,
                                             enclosureTypes, updateEnclosureSize, updateEnclosureSecurity}) {
@@ -79,7 +81,8 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
 
     return (
         
-            <div className="enclosure-details">
+        <div className="enclosure-details">
+            <Row>
                 <div className="enclosure-details-content">
                     <div className="enclosure-details-informations">
                         <h5 className="bold">INFORMATIONS</h5>
@@ -105,11 +108,15 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
                             {displayUpgradeSecurity()}
                         </Button>
                     </div>
+                    
                     <div className="actual-dinosaur-list">
                         <h5 className="bold">PRESENT DINOSAURS</h5>
                         {listOfDinosInEnclosure}
                     </div>
                 </div>
+                </Row>
+
+                <Row>
                 <div className="add-dinosaur-list">
                     <h5 className="bold">BUY DINOSAURS</h5>
                     <DinosaursList
@@ -122,6 +129,9 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
                         enclosureDiet={getCurrentEnclosureDiet()}
                     />
                 </div>
+
+                </Row>
+
             </div>
         )
 }
