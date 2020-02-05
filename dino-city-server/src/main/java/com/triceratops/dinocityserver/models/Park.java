@@ -28,15 +28,21 @@ public class Park {
     @OneToMany(mappedBy = "park",fetch = FetchType.LAZY)
     private List<Enclosure> enclosures;
 
+    @JsonIgnoreProperties("park")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    @OneToMany(mappedBy = "park",fetch = FetchType.LAZY)
+    private List<Building> buildings;
+
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public Park(double money, String name, List<Enclosure> enclosures) {
+    public Park(String name, double money, List<Enclosure> enclosures, List<Building> buildings) {
+        this.name = name;
         this.money = money;
         this.enclosures = enclosures;
-        this.name = name;
+        this.buildings = buildings;
         this.rating = 1;
     }
 
@@ -67,6 +73,8 @@ public class Park {
         this.money = money;
     }
 
+    public void addMoney(double amount) {this.money += amount;}
+
     public void reduceMoney(double amount){
         this.money-=amount;
     }
@@ -79,4 +87,19 @@ public class Park {
         this.enclosures.add(enclosure);
     }
 
+    public void addBulding(Building building) {
+        this.buildings.add(building);
+    }
+
+    public List<Building> getBuildings() {
+        return buildings;
+    }
+
+    public void setBuildings(List<Building> buildings) {
+        this.buildings = buildings;
+    }
+
+    public void removeBuilding(Building foundBuilding) {
+        this.buildings.remove(foundBuilding);
+    }
 }

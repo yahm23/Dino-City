@@ -23,7 +23,6 @@ public class DinoService {
         return new DinosaurTypesResponse(DinoType.values());
     }
 
-
     public void removeDinosaur(Dinosaur dinosaur) {
         dinosaurRepository.delete(dinosaur);
     }

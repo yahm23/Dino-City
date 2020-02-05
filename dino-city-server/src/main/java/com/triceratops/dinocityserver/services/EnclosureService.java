@@ -26,8 +26,18 @@ public class EnclosureService {
         return new EnclosureTypeResponse(SizeType.values(), SecurityLevel.values());
     }
 
+    public double calculateCosts(Enclosure enclosure) {
+        double securityCost = enclosure.getSecurityLevel().getThreatLevel().getThreatLevel() * 40;
+        double sizeCost = enclosure.getSize().getSize() * 20;
+        double amount = securityCost + sizeCost;
+        for (Dinosaur dino : enclosure.getDinosaurs()) {
+            double dinoFeedingCost = dino.getSpecies().getPrice() * 0.1;
+            amount += dinoFeedingCost;
+        }
+        return amount;
+    }
 
-    public double getRatingOfEnclosureFromDinosaur(Enclosure enclosure){
+    public double getRating(Enclosure enclosure){
         double rating = 0.0;
         for(Dinosaur dino: enclosure.getDinosaurs()){
             double sizeRating = dino.getSpecies().getSize()*0.10;
@@ -41,9 +51,3 @@ public class EnclosureService {
         enclosureRepository.save(enclosure);
     }
 }
-//    public void addEnclosure(SizeType sizeType, SecurityLevel securityLevel, int positionId ){
-//        Enclosure enclosure = new Enclosure(sizeType,securityLevel,positionId);
-//        enclosureRepository.save(enclosure);
-//    }
-
-//    public void addDinoToEnclosure(int positionId, String dinosaur ){};

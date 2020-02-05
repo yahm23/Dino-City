@@ -13,7 +13,6 @@ import com.triceratops.dinocityserver.repositories.ParkRepository;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,11 +51,11 @@ public class ParkServiceTest {
         when(dinosaurRepository.findById(any())).thenReturn(java.util.Optional.of(dino));
         eventService =mock(EventService.class);
         enclosureService =mock(EnclosureService.class);
-        when(enclosureService.getRatingOfEnclosureFromDinosaur(any(Enclosure.class))).thenReturn(0.18);
+        when(enclosureService.getRating(any(Enclosure.class))).thenReturn(0.18);
 
 
         parkService = new ParkService(parkRepository,enclosureRepository, dinosaurRepository,
-                eventService, enclosureService );
+                mock(BuildingService.class), eventService, enclosureService );
     }
 
     @Test
@@ -161,6 +160,7 @@ public class ParkServiceTest {
     private Park buildPark() {
         Park park = new Park();
         park.setMoney(1000.0);
+        park.setBuildings(new ArrayList<>());
 
         Enclosure enclosure = new Enclosure(SizeType.LARGE,SecurityLevel.HIGH,5);
         enclosure.setPositionId(5);

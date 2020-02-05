@@ -14,6 +14,5 @@ public class ParkScheduler {
     @Scheduled(fixedRate = 60000)
     public void scheduleDailyUpdates() {
         parkService.updateAllParks();
-        parkService.maintenanceEnclosureAndDino();
     }
 }
