@@ -10,7 +10,8 @@ import {Redirect} from 'react-router-dom';
 import GameStats from '../Components/GameStats';
 import EnclosureTile from '../Components/EnclosureTile';
 import EnclosureDetail from '../Components/EnclosureDetail';
-import EmptyTile from "../Components/EmptyTile";
+import EmptyTileForEnclosure from "../Components/EmptyTileForEnclosure";
+import EmptyTileForBuilding from "../Components/EmptyTileForBuilding"
 import GameHeader from "../Components/GameHeader";
 import GameTitle from "../Components/GameTitle";
 import RandomEvent from '../Components/RandomEvent';
@@ -101,6 +102,7 @@ function GamePage({parkName}) {
         setShowPopup(false);
         setShowEnclosure(false);
         setShowBuyBuildingPopup(false);
+        setShowBuildingDetailsPopup(false);
     };
 
     function handleOnOpenPopEnclosure(position) {
@@ -121,9 +123,7 @@ function GamePage({parkName}) {
 
 
 
-    const buyEnclosure = (size, security) => {
-      console.log(size);
-      console.log(security);     
+    const buyEnclosure = (size, security) => {    
       setShowPopup(false);
       fetch(`http://localhost:8080/park/enclosure/${parkName}/${size.size}/${security.security}/${position}`)
           .then(() => fetchPark())
@@ -137,12 +137,21 @@ function GamePage({parkName}) {
             .then(() => fetchStats())
     };
 
-    const buyBuilding = () => {
-        console.log('as')
+    const buyBuilding = (buildingType) => {
+        setShowBuyBuildingPopup(false);
+        console.log(buildingType)
+        fetch(`http://localhost:8080/park/name/${parkName}/building/${buildingType}/${position}`)
+            .then(() => fetchPark())
+            .then(() => fetchStats())
     }
 
     const sellDinosaur = (id) => {
         //finish function once we have endpoint
+    }
+    
+    const sellBuilding = (position) => {
+        setShowBuyBuildingPopup(false);
+        //////////////
     }
 
     function renderRedirect() {
@@ -155,6 +164,10 @@ function GamePage({parkName}) {
 
     function getEnclosure() {
         return park.enclosures.find(enclosure => enclosure.positionId === position);
+    }
+
+    function getBuilding() {
+        return  park.buildings.find(building => building.positionId === position);
     }
  
 
@@ -186,7 +199,7 @@ function GamePage({parkName}) {
             <BuildBuilding money={park.money} buildings={buildings} buyBuilding={buyBuilding} />
         </DinoPopup>
         <DinoPopup show={showBuildingDetailsPopup} handleClose={handleOnClosePopup}>
-            <BuildingDetails />
+            <BuildingDetails building={getBuilding()} sellBuilding={sellBuilding}/>
         </DinoPopup>
 
       <MapBox>
@@ -206,19 +219,19 @@ function GamePage({parkName}) {
             <MapTile img={"grass_04"}></MapTile>
             <MapTile img={"grass_05"}>
                 <PrepareEnclosureTile 
-                        park={park} 
-                        position={2} 
-                        onEmptyEnclosureClick={handleOnOpenPopup}
-                        onEnclosureClick={handleOnOpenPopEnclosure}
-                        />
+                    park={park} 
+                    position={2} 
+                    onEmptyEnclosureClick={handleOnOpenPopup}
+                    onEnclosureClick={handleOnOpenPopEnclosure}
+                    />
             </MapTile>
             <MapTile img={"grass_06"}>
-            <PrepareBuildingTile 
-                        park={park} 
-                        position={3} 
-                        onEmptyBuildingClick={handleOnOpenPopBuildBuilding}
-                        onBuildingClick={handleOnOpenPopBuildingDetails}
-                        />
+                <PrepareBuildingTile 
+                    park={park} 
+                    position={3} 
+                    onEmptyBuildingClick={handleOnOpenPopBuildBuilding}
+                    onBuildingClick={handleOnOpenPopBuildingDetails}
+                    />
             </MapTile>
         </MapTileRow>
       </MapBox>
@@ -231,7 +244,7 @@ const PrepareEnclosureTile = ({park, position, onEmptyEnclosureClick, onEnclosur
     if (foundEnclosure){
         return <EnclosureTile enclosure={foundEnclosure} onClick={onEnclosureClick} position={position}/>
     }
-    return <EmptyTile onClick={onEmptyEnclosureClick} position={position}/>
+    return <EmptyTileForEnclosure onClick={onEmptyEnclosureClick} position={position}/>
 };
 
 const PrepareBuildingTile = ({park, position, onEmptyBuildingClick,  onBuildingClick}) => {
@@ -239,7 +252,7 @@ const PrepareBuildingTile = ({park, position, onEmptyBuildingClick,  onBuildingC
     if(foundBuilding) {
         return <BuildingTile building={foundBuilding} onClick={onBuildingClick}  position={position}  />
     }
-    return <EmptyTile onClick={onEmptyBuildingClick} position={position} />
+    return <EmptyTileForBuilding onClick={onEmptyBuildingClick} position={position} />
 }
 
 export default GamePage

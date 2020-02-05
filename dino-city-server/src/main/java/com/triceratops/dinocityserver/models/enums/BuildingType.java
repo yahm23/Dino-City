@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum BuildingType {
     TOILETS("TOILETS",1000, 0.01, 20),
-    MERCHANDISE_SHOP("MERCHANDISING SHOP",3000, 0.10, 200),
+    SHOP("SHOP",3000, 0.10, 200),
     BAR("BAR",1000, 0.05, 100),
     RESTAURANT("RESTAURANT",2000, 0.8, 150);
 

@@ -1,7 +1,8 @@
 import React from 'react'
 
-export default function BuildingDetails() {
+export default function BuildingDetails({building, sellBuilding}) {
+
     return (
-        <p>building is here</p>
+        <p>{building.buildingType.name}</p>
     )
 }

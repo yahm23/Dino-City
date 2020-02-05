@@ -8,13 +8,8 @@ import BuildingItem from '../Components/BuildingItem';
 
 export default function BuildBuilding({money, buildings, buyBuilding}) {
 
-
-    function handleBuy() {
-        buyBuilding()
-    }
-
     const buildingTypes = buildings.map((building) => {
-        return <BuildingItem money={money} building={building} buyBuilding={buyBuilding} />
+        return <BuildingItem money={money} building={building} buyBuilding={buyBuilding} key={building.name}/>
         
     })
 
