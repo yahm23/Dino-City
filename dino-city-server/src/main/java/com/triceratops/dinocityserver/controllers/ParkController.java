@@ -61,4 +61,9 @@ public class ParkController {
     public void addBuildingToPark(@PathVariable String name, @PathVariable String type, @PathVariable int positionId){
         parkService.buyBuilding(name,type,positionId);
     }
+
+    @RequestMapping(value="/name/{name}/building/{type}/{positionId}", method = RequestMethod.DELETE )
+    public void sellBuildingFromPark(@PathVariable String name, @PathVariable String type, @PathVariable int positionId){
+        parkService.sellBuilding(name,type,positionId);
+    }
 }

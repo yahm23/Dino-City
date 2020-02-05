@@ -219,4 +219,18 @@ public class ParkService {
             parkRepository.save(park);
         }
     }
+
+    public void sellBuilding(String name, int positionId) {
+        Park park = parkRepository.findParkByName(name);
+        Building foundBuilding = null;
+        for (Building building : park.getBuildings()) {
+            if (building.getPositionId() == positionId) {
+                foundBuilding = building;
+            }
+        }
+        buildingService.remove(foundBuilding);
+        park.removeBuilding(foundBuilding);
+        park.addMoney(foundBuilding.getBuildingType().getCost() * 0.7);
+        parkRepository.save(park);
+    }
 }
