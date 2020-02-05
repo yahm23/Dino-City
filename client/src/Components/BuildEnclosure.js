@@ -15,62 +15,67 @@ function BuildEnclosure({money, buyEnclosure, enclosures}) {
     }
 
     const handleSecurityChange = (e) => {
-        setSecurity({security: e.target.id, price: parseFloat(e.target.value)});   
+        setSecurity({security: e.target.id, price: parseFloat(e.target.value)});
     }
-    
+
     function totalCost() {
         return (securitySelected.price * sizeSelected.price);
-    }   
+    }
 
     function handleBuy() {
         buyEnclosure(sizeSelected, securitySelected);
     }
 
     const enclosureSizeTypes = enclosures.types.map(size => {
-        return <Form.Check type="radio" name="size" key={size.name} id={size.name} value={size.price} 
-                    checked={sizeSelected.price === size.price } 
-                    onChange={handleSizeChange} 
+        return <Col>
+                <img width="20%" src={`./sizeIcons/${size.name}.png`.toLowerCase()} ></img>
+
+                <Form.Check type="radio" name="size" key={size.name} id={size.name} value={size.price}
+                    checked={sizeSelected.price === size.price }
+                    onChange={handleSizeChange}
                     label={size.name + ` - £${size.price}`}
-                 />
+                 /></Col>
     })
 
     const enclosureSecurityTypes = enclosures.securityLevels.map(security => {
-        return <Form.Check type="radio" name="security" key={security.name} id={security.name} value={security.priceMultiplier} 
-                    checked={securitySelected.price === security.priceMultiplier } 
-                    onChange={handleSecurityChange} 
-                    label={security.name + ` +${parseInt((security.priceMultiplier - 1.0) * 100)}%`}
-                />
+        return <Col  >
+
+            <img width="20%" src={`./securityIcons/${security.name}.png`.toLowerCase()} ></img>
+            <Form.Check type="radio" name="security" key={security.name} id={security.name} value={security.priceMultiplier}
+                      checked={securitySelected.price === security.priceMultiplier }
+                      onChange={handleSecurityChange}
+                      label={security.name + ` +${parseInt((security.priceMultiplier - 1.0) * 100)}%`}/>
+          </Col>
     })
 
-   
+
         return(
             <Container className="show-grid">
-                <Row>
-                    <Col>
-                        <div className="size-panel">
-                            {enclosureSizeTypes}
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="security-panel">
-                            {enclosureSecurityTypes}
-                        </div>
-                    </Col>
-                </Row>
+               
+                    <Row>
+                         {enclosureSizeTypes}
+                    </Row>
+                        <br></br>
+                    <Row>
+                      {enclosureSecurityTypes}
+                    </Row>
+
+               
+
                 <Row>
                     <p>Total: £{totalCost()}</p>
                 </Row>
                 <Row>
-                    <Button 
+                    <Button
                     variant={money >= totalCost() ? "dark-jurassik" : "secondary"}
-                    disabled={totalCost() > money} 
+                    disabled={totalCost() > money}
                     onClick={handleBuy} >
                         Buy
                     </Button>
                 </Row>
             </Container>
         )
-    
+
 }
 
 export default BuildEnclosure;
