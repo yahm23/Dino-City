@@ -21,7 +21,7 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
     const listOfDinosInEnclosure = enclosure.dinosaurs.map(dinosaur => {
             return <div key={dinosaur.id}>
                     <p>{dinosaur.species.name}</p>
-                    <Button onClick={() => handleSellDino(dinosaur.id)}>Sell</Button>
+                    <Button variant="dark-jurassik" onClick={() => handleSellDino(dinosaur.id)}>Sell</Button>
                 </div>
     });
 
@@ -89,7 +89,7 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
                             disabled={canUpgrade(displayUpgradeSize())}
                             variant="dark-jurassik"
                         >
-                            <img src="./buildings/upgrade.png" className="icon-button"/>
+                            <img src="./buildings/size-upgrade.png" className="icon-button"/>
                             {displayUpgradeSize()}
                         </Button>
                         <Button
@@ -97,7 +97,7 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
                             disabled={canUpgrade(displayUpgradeSecurity())}
                             variant="dark-jurassik"
                         >
-                            <img src="./buildings/security.png" className="icon-button"/>
+                            <img src="./buildings/security-upgrade.png" className="icon-button"/>
                             {displayUpgradeSecurity()}
                         </Button>
                     </div>
