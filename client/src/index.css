@@ -39,7 +39,7 @@ h1, h2 {
   margin: 0px !important;
 }
 .line-breaker{
-  background-color: #797980;
+  background-color:  #7979809e;
   height: 1.3px;
   width: 90%;
   margin: 30px auto 20px;
@@ -253,8 +253,13 @@ div.col{
 
 .enclosure-details {
   width: 100%;
-  display: flex;
+  /*display: flex;*/
 }
+
+.enclosure-details-informations {
+
+}
+
 
 .add-dinosaur-list {
   /*width: 60%;*/
@@ -269,7 +274,7 @@ div.col{
 }
 
 .actual-dinosaur-list {
-  padding-top: 20px;
+  /*padding-top: 20px;*/
 }
 
 .icon-button {
@@ -310,4 +315,14 @@ div.col{
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
   background-color: #272727;
+}
+
+.vertical-breaker {
+  width: 2px;
+  background-color: #7979809e;
+  border-radius: 4px;
+}
+
+.enclosure-details-informations p{
+  margin-bottom: 0px;
 }

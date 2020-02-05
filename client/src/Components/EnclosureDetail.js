@@ -35,9 +35,9 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
             if (money >= cost) {
                 return "£"  + cost;
             }
-            return "NOT ENOUGH MONEY";
+            return " £"  + cost;
         }
-        return "FULLY UPGRADED";
+        return "£0";
     };
 
     function handleUpgradeSize() {
@@ -52,9 +52,9 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
             if (money >= cost) {
                 return "£"  + cost;
             }
-            return "NOT ENOUGH MONEY";
+            return " £"  + cost;
         }
-        return "FULLY UPGRADED";
+        return "£0";
     };
     
     function handleUpgradeSecurity() {
@@ -62,7 +62,7 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
     }
 
     function canUpgrade(displayFunction) {
-        return displayFunction === "FULLY UPGRADED" || displayFunction === "NOT ENOUGH MONEY";
+        return displayFunction === "£0" || displayFunction.startsWith(" ");
     }
 
     function getCurrentSizeIndex() {
@@ -83,10 +83,10 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
         
         <div className="enclosure-details">
             <Row>
-                <Col>
+                <Col md={5}>
                     <div className="enclosure-details-content">
                         <div className="enclosure-details-informations">
-                            <h5 className="bold">INFORMATIONS</h5>
+                            <h5 className="bold">DETAILS</h5>
                             <p>Capacity: {setSumOfDinos()}/{enclosure.size.size}</p>
                             <p>Size: {enclosure.size.name}</p>
                             <p>Security Level: {enclosure.securityLevel.threatLevel.name}</p>
@@ -109,14 +109,15 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
                                 {displayUpgradeSecurity()}
                             </Button>
                         </div>
-
+                        <div className="line-breaker"> </div>
                         <div className="actual-dinosaur-list">
                             <h5 className="bold">PRESENT DINOSAURS</h5>
                             {listOfDinosInEnclosure}
                         </div>
+
                     </div>
                 </Col>
-                <Col>
+                <Col md={7}>
                     <div className="add-dinosaur-list">
                         <h5 className="bold">BUY DINOSAURS</h5>
                         <DinosaursList
