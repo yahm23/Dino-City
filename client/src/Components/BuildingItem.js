@@ -16,7 +16,7 @@ export default function BuildingItem({money, building, buyBuilding}) {
 
     return(
         <Col>
-            <div class="vl">
+            <div className="building-item">
                 <Image src={`./buildings/${building.name}-building.png`.toLowerCase()} fluid/>
                 <p><b>{building.name}</b></p>
                 <p>£{building.price}</p>
@@ -28,7 +28,6 @@ export default function BuildingItem({money, building, buyBuilding}) {
                         disabled={!isBuildingAvailable()}>
                             Buy
                 </Button> 
-                
             </div>
         </Col>
     )

@@ -33,7 +33,7 @@ export default function DinosaursList({dinosaurs, money, threatLevel, size, buyD
     };
 
     return (
-        <div>
+        <div className="buy-dinosaurs-list">
             <div>
                 <h4>Herbivore</h4>
                 <div className="dinosaur-list">

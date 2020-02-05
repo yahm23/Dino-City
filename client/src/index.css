@@ -39,7 +39,7 @@ h1, h2 {
   margin: 0px !important;
 }
 .line-breaker{
-  background-color: #797980;
+  background-color:  #7979809e;
   height: 1.3px;
   width: 90%;
   margin: 30px auto 20px;
@@ -196,6 +196,7 @@ div.col{
 
 .dinosaur-item p {
   margin: 0px;
+  font-size: 0.8em;
 }
 
 .dinosaur-item-disabled {
@@ -205,6 +206,7 @@ div.col{
 
 .dinosaur-item-disabled p {
   margin: 0px;
+  font-size: 0.8em;
 }
 
 .game-box {
@@ -254,15 +256,20 @@ div.col{
 
 .enclosure-details {
   width: 100%;
-  display: flex;
+  /*display: flex;*/
 }
 
+.enclosure-details-informations {
+
+}
+
+
 .add-dinosaur-list {
-  width: 60%;
+  /*width: 60%;*/
 }
 
 .enclosure-details-content {
-  width: 40%;
+  /*width: 40%;*/
 }
 
 .bold {
@@ -270,10 +277,55 @@ div.col{
 }
 
 .actual-dinosaur-list {
-  padding-top: 20px;
+  /*padding-top: 20px;*/
 }
 
 .icon-button {
   width: 26% !important;
   margin: 0px 6px !important;
+}
+
+.present-dinosaur {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.present-dinosaur-item {
+  padding-right: 10px;
+}
+
+.buy-dinosaurs-list {
+  height: 60vh;
+  overflow-y: scroll;
+}
+
+.buy-dinosaurs-list::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+.buy-dinosaurs-list::-webkit-scrollbar
+{
+  width: 12px;
+  background-color: #F5F5F5;
+}
+
+.buy-dinosaurs-list::-webkit-scrollbar-thumb
+{
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #272727;
+}
+
+.vertical-breaker {
+  width: 2px;
+  background-color: #7979809e;
+  border-radius: 4px;
+}
+
+.enclosure-details-informations p{
+  margin-bottom: 0px;
 }
