@@ -27,7 +27,7 @@ function BuildEnclosure({money, buyEnclosure, enclosures}) {
     }
 
     const enclosureSizeTypes = enclosures.types.map(size => {
-        return <Col className="radio-toolbar" key={size.name}>
+        return <Col  key={size.name}>
                 <img width="20%" src={`./sizeIcons/${size.name}.png`.toLowerCase()} ></img>
 
                 <Form.Check type="radio" name="size"  id={size.name} value={size.price}
@@ -38,7 +38,7 @@ function BuildEnclosure({money, buyEnclosure, enclosures}) {
     })
 
     const enclosureSecurityTypes = enclosures.securityLevels.map(security => {
-        return <Col className="radio-toolbar" key={security.name} >
+        return <Col  key={security.name} >
 
             <img width="20%" src={`./securityIcons/${security.name}.png`.toLowerCase()} ></img>
             <Form.Check type="radio" name="security"  id={security.name} value={security.priceMultiplier}
