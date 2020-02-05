@@ -28,6 +28,7 @@ function BuildEnclosure({money, buyEnclosure, enclosures}) {
 
     const enclosureSizeTypes = enclosures.types.map(size => {
         return <Col  key={size.name}>
+                
                 <img width="20%" src={`./sizeIcons/${size.name}.png`.toLowerCase()} ></img>
 
                 <Form.Check type="radio" name="size"  id={size.name} value={size.price}
@@ -40,6 +41,7 @@ function BuildEnclosure({money, buyEnclosure, enclosures}) {
     const enclosureSecurityTypes = enclosures.securityLevels.map(security => {
         return <Col  key={security.name} >
 
+
             <img width="20%" src={`./securityIcons/${security.name}.png`.toLowerCase()} ></img>
             <Form.Check type="radio" name="security"  id={security.name} value={security.priceMultiplier}
                       checked={securitySelected.price === security.priceMultiplier }
@@ -51,11 +53,18 @@ function BuildEnclosure({money, buyEnclosure, enclosures}) {
 
         return(
             <Container className="show-grid">
-               
+
+                    <Row padding="20px">
+                    <h4 className="bold">SIZE</h4> 
+                    </Row>
                     <Row>
                          {enclosureSizeTypes}
                     </Row>
-                        <br></br>
+
+                    <div className="line-breaker"> </div>
+                    <Row>
+                    <h4 className="bold">SECURITY</h4> 
+                    </Row>
                     <Row>
                       {enclosureSecurityTypes}
                     </Row>

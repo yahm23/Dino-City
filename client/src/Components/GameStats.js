@@ -12,6 +12,7 @@ export default function GameStats({stats}) {
                <Col>INCOME: £{stats.income}</Col>
                <Col>EXPENSES: £{stats.cost}</Col>
                <Col>RATING: {stats.rating}</Col>
+               <Col>VISITORS: {Math.floor(stats.rating*100)}</Col>
                <Col>DINOSAURS: {stats.population}</Col>
            </Row>
        </Container>
