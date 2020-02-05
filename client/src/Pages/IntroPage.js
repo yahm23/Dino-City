@@ -12,7 +12,7 @@ export default function IntroPage({parkName, handleChooseName}) {
     }
 
     function handleStartGame() {
-        fetch(`http://localhost:8080/park/new/${parkName}`)
+        fetch(`http://localhost:8080/park/new/${parkName}`, {method: 'POST'})
         .then(() => setRedirect(true));
     }
 

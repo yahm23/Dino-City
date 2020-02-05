@@ -96,27 +96,27 @@ function GamePage({parkName}) {
 
     const buyEnclosure = (size, security) => {
       setShowPopup(false);
-      fetch(`http://localhost:8080/park/enclosure/${parkName}/${size.size}/${security.security}/${position}`)
+      fetch(`http://localhost:8080/park/enclosure/${parkName}/${size.size}/${security.security}/${position}`, {method: 'POST'})
           .then(() => fetchPark())
           .then(() => fetchStats())
     };
 
     const buyDinosaur = (dinosaur) => {
         // setShowEnclosure(false);
-        fetch(`http://localhost:8080/park/name/${parkName}/enclosure/${position}/dinosaur/${dinosaur.toUpperCase()}`)
+        fetch(`http://localhost:8080/park/name/${parkName}/enclosure/${position}/dinosaur/${dinosaur.toUpperCase()}`, {method: 'POST'})
             .then(() => fetchPark())
             .then(() => fetchStats())
     };
 
     const sellDinosaur = (id) => {
-        fetch(`http://localhost:8080/park/name/${parkName}/dinosaur/delete/${id}`)
+        fetch(`http://localhost:8080/park/name/${parkName}/dinosaur/delete/${id}`, {method: 'DELETE'})
             .then(() => fetchPark())
             .then(() => fetchStats())
     };
 
     function updateEnclosureSecurity(security) {
         if(parkName) {
-            fetch(`http://localhost:8080/park/name/${parkName}/enclosure/${position}/upgrade/security/${security}`)
+            fetch(`http://localhost:8080/park/name/${parkName}/enclosure/${position}/upgrade/security/${security}`, {method: 'PUT'})
                 .then(() => fetchPark())
                 .then(() => fetchStats())
         }
@@ -124,7 +124,7 @@ function GamePage({parkName}) {
 
     function updateEnclosureSize(size) {
         if(parkName) {
-            fetch(`http://localhost:8080/park/name/${parkName}/enclosure/${position}/upgrade/size/${size}`)
+            fetch(`http://localhost:8080/park/name/${parkName}/enclosure/${position}/upgrade/size/${size}`, {method: 'PUT'})
                 .then(() => fetchPark())
                 .then(() => fetchStats())
         }
