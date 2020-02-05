@@ -218,7 +218,7 @@ function GamePage({parkName}) {
                 row.push(tile);
                 placementIteration ++;
             }
-            map.push(<MapTileRow>{row}</MapTileRow>);
+            map.push(<MapTileRow key={placementIteration} >{row}</MapTileRow>);
         }
         return map;
     }
