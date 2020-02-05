@@ -98,4 +98,8 @@ public class Park {
     public void setBuildings(List<Building> buildings) {
         this.buildings = buildings;
     }
+
+    public void removeBuilding(Building foundBuilding) {
+        this.buildings.remove(foundBuilding);
+    }
 }

@@ -32,4 +32,8 @@ public class BuildingService {
     public double calculateCosts(Building building) {
         return building.getBuildingType().getCost();
     }
+
+    public void remove(Building foundBuilding) {
+        buildingRepository.delete(foundBuilding);
+    }
 }
