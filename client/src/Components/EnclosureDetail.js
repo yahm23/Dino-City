@@ -73,6 +73,10 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
         return enclosureTypes.securityLevels.indexOf(security);
     }
 
+    function getCurrentEnclosureDiet() {
+        return enclosure.dinosaurs[0] ? enclosure.dinosaurs[0].species.dietType.name : "";
+    }
+
     return (
         
             <div className="enclosure-details">
@@ -115,6 +119,7 @@ export default function EnclosureDetail({dinosaurs, enclosure, money, buyDinosau
                         size={enclosure.size.size}
                         buyDinosaur={buyDinosaur}
                         setSumOfDinos={setSumOfDinos}
+                        enclosureDiet={getCurrentEnclosureDiet()}
                     />
                 </div>
             </div>
