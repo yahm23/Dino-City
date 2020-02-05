@@ -220,7 +220,10 @@ public class ParkService {
    }
 
     private double calculateIncome(Park park) {
-        double income = 1000 * this.calculateParkRating(park);
+        double income = 300 * this.calculateParkRating(park);
+        if(income==300){
+            return 0.0;
+        }
         return round(income);
     }
 
