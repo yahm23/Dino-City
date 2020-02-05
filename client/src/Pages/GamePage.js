@@ -212,13 +212,13 @@ function GamePage({parkName}) {
                 }
 
 
-                let tile = <MapTile img={`./island/island_${rowN + 1}_${colN + 1}.png`}>
+                let tile = <MapTile key={rowN + colN} img={`./island/island_${rowN + 1}_${colN + 1}.png`}>
                              {asset}
                             </MapTile>
                 row.push(tile);
                 placementIteration ++;
             }
-            map.push(<MapTileRow>{row}</MapTileRow>);
+            map.push(<MapTileRow key={placementIteration} >{row}</MapTileRow>);
         }
         return map;
     }
